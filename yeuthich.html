@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yêu thích - MiniShop</title>
+    <link rel="stylesheet" href="css/minishop.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html">Đăng nhập</a>
+          <a href="dangky.html">Đăng ký</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="account-wrap">
+        <aside class="account-aside">
+          <div class="aside-card">
+            <nav>
+              <a href="taikhoan.html" data-panel="profile">Hồ sơ</a>
+              <a href="hoadon.html" data-panel="orders">Đơn hàng</a>
+              <a href="diachi.html" data-panel="addresses">Địa chỉ</a>
+              <a href="phuongthucthanhtoان.html" data-panel="payments"
+                >Phương thức thanh toán</a
+              >
+              <a href="yeuthich.html" class="active" data-panel="favorites"
+                >Yêu thích</a
+              >
+              <a href="caidat.html" data-panel="settings">Cài đặt</a>
+              <a href="dangnhap.html">Đăng xuất</a>
+            </nav>
+          </div>
+        </aside>
+
+        <section class="account-main">
+          <div class="account-panel">
+            <h2>Yêu thích</h2>
+            <div id="favoritesList" class="favorites-grid"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© 2026 MiniShop. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="lienhe.html">Hỗ trợ</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="thanhtoan.html">Thanh toán</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+      var allProducts = [
+        {
+          id: 1,
+          title: "Áo thun basic",
+          price: 199000,
+          img: "https://picsum.photos/seed/aothun1/300/300",
+        },
+        {
+          id: 2,
+          title: "Quần jean",
+          price: 299000,
+          img: "https://picsum.photos/seed/quanjean/300/300",
+        },
+        {
+          id: 3,
+          title: "Váy nữ",
+          price: 349000,
+          img: "https://picsum.photos/seed/vaynu/300/300",
+        },
+        {
+          id: 4,
+          title: "Áo sơ mi",
+          price: 249000,
+          img: "https://picsum.photos/seed/aosomi/300/300",
+        },
+        {
+          id: 5,
+          title: "Mũ thời trang",
+          price: 89000,
+          img: "https://picsum.photos/seed/muthoitrang/300/300",
+        },
+        {
+          id: 6,
+          title: "Áo khoác",
+          price: 499000,
+          img: "https://picsum.photos/seed/aokhoac/300/300",
+        },
+        {
+          id: 7,
+          title: "Giày thể thao",
+          price: 599000,
+          img: "https://picsum.photos/seed/giaythethao/300/300",
+        },
+        {
+          id: 8,
+          title: "Túi xách",
+          price: 259000,
+          img: "https://picsum.photos/seed/tuixach/300/300",
+        },
+        {
+          id: 9,
+          title: "Đồng hồ",
+          price: 1290000,
+          img: "https://picsum.photos/seed/dongho/300/300",
+        },
+        {
+          id: 10,
+          title: "Áo hoodie",
+          price: 399000,
+          img: "https://picsum.photos/seed/aohoodie/300/300",
+        },
+        {
+          id: 11,
+          title: "Sandal nữ",
+          price: 189000,
+          img: "https://picsum.photos/seed/sandalnu/300/300",
+        },
+        {
+          id: 12,
+          title: "Ví da nam",
+          price: 229000,
+          img: "https://picsum.photos/seed/vida/300/300",
+        },
+      ];
+
+      function formatVND(n) {
+        return "₫" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function renderFavorites() {
+        var favorites = JSON.parse(
+          localStorage.getItem("mini_favorites") || "[]",
+        );
+        var container = document.getElementById("favoritesList");
+
+        if (!favorites.length) {
+          container.innerHTML =
+            '<p style="text-align:center;padding:20px;color:#666">Chưa có sản phẩm yêu thích.</p>';
+          return;
+        }
+
+        container.innerHTML = "";
+        favorites.forEach(function (name) {
+          var p = allProducts.find(function (x) {
+            return x.title === name;
+          });
+          if (!p) return;
+
+          var article = document.createElement("article");
+          article.className = "product";
+          article.innerHTML =
+            '<img src="' +
+            p.img +
+            '" alt="' +
+            p.title +
+            '" loading="lazy" style="height:200px;object-fit:cover"/>' +
+            "<h3>" +
+            p.title +
+            "</h3>" +
+            '<p class="price">' +
+            formatVND(p.price) +
+            "</p>" +
+            '<div class="actions">' +
+            '<button class="btn add-to-cart" data-title="' +
+            p.title +
+            '">Thêm vào giỏ</button>' +
+            '<button class="btn btn-remove" data-title="' +
+            p.title +
+            '">Bỏ yêu thích</button>' +
+            "</div>";
+
+          container.appendChild(article);
+        });
+
+        // Attach event listeners
+        container.querySelectorAll(".add-to-cart").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var title = this.getAttribute("data-title");
+            var p = allProducts.find(function (x) {
+              return x.title === title;
+            });
+            if (!p) return;
+
+            var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+            var exist = cart.find(function (i) {
+              return i.id === p.id;
+            });
+            if (exist) exist.qty += 1;
+            else
+              cart.push({ id: p.id, title: p.title, price: p.price, qty: 1 });
+            localStorage.setItem("mini_cart", JSON.stringify(cart));
+            showToast('Đã thêm "' + p.title + '" vào giỏ', "success");
+            pulseCart();
+          });
+        });
+
+        container.querySelectorAll(".btn-remove").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var title = this.getAttribute("data-title");
+            var favorites = JSON.parse(
+              localStorage.getItem("mini_favorites") || "[]",
+            );
+            favorites = favorites.filter(function (x) {
+              return x !== title;
+            });
+            localStorage.setItem("mini_favorites", JSON.stringify(favorites));
+            renderFavorites();
+          });
+        });
+      }
+
+      function updateCartCount() {
+        var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+        var count = cart.reduce(function (s, i) {
+          return s + (i.qty || 0);
+        }, 0);
+        var btn = document.querySelector(".cart-btn");
+        if (btn) btn.textContent = "Giỏ (" + count + ")";
+      }
+
+      updateCartCount();
+      renderFavorites();
+    </script>
+  </body>
+</html>

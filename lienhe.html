@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liên hệ - MiniShop</title>
+    <link rel="stylesheet" href="css/minishop.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html">Đăng nhập</a>
+          <a href="dangky.html">Đăng ký</a>
+          <a class="active" href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div>
+          <h1>Liên hệ MiniShop</h1>
+          <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7.</p>
+        </div>
+      </section>
+
+      <section class="products">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px">
+          <div class="form-card" style="margin: 0">
+            <h2>Gửi tin nhắn</h2>
+            <form id="contactForm">
+              <div class="form-field">
+                <label for="name">Họ và tên</label>
+                <input id="name" name="name" type="text" required />
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+              <div class="form-field">
+                <label for="message">Nội dung</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  style="
+                    width: 100%;
+                    padding: 12px;
+                    border-radius: 10px;
+                    border: 2px solid var(--border);
+                    resize: vertical;
+                    font-family: inherit;
+                  "
+                ></textarea>
+              </div>
+              <button class="btn primary" type="submit">Gửi liên hệ</button>
+            </form>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 18px">
+            <div
+              class="page-transition"
+              style="
+                background: #fff;
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: var(--shadow-sm);
+              "
+            >
+              <h2>Thông tin cửa hàng</h2>
+              <p>
+                <strong>Địa chỉ:</strong> 123 Đường Thời Trang, Quận 1, TP.HCM
+              </p>
+              <p><strong>Hotline:</strong> 1900 1234</p>
+              <p><strong>Email:</strong> support@minishop.vn</p>
+            </div>
+            <div
+              class="page-transition"
+              style="
+                background: #fff;
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: var(--shadow-sm);
+              "
+            >
+              <h2>Giờ mở cửa</h2>
+              <p>Thứ 2 - Thứ 7: 08:00 - 20:00</p>
+              <p>Chủ nhật: 09:00 - 18:00</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/common.js"></script>
+    <script>
+      function updateCartCount() {
+        var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+        var count = cart.reduce(function (sum, item) {
+          return sum + (item.qty || 0);
+        }, 0);
+        var btn = document.querySelector(".cart-btn");
+        if (btn) btn.textContent = "Giỏ (" + count + ")";
+      }
+
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          showToast(
+            "Tin nhắn của bạn đã được gửi. Chúng tôi sẽ phản hồi sớm nhất có thể.",
+            "success",
+          );
+          this.reset();
+        });
+
+      updateCartCount();
+    </script>
+  </body>
+</html>
