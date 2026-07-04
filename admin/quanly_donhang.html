@@ -1,11 +1,23 @@
 <!doctype html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý đơn hàng</title>
-    <link rel="stylesheet" href="../css/minishop.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../dangnhap.html");
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -20,10 +32,30 @@
     <main class="container">
       <h1>Quản lý đơn hàng</h1>
       <table class="admin-table">
-        <thead><tr><th>Mã</th><th>Khách</th><th>Trạng thái</th><th>Ngày</th><th>Tổng</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Mã</th>
+            <th>Khách</th>
+            <th>Trạng thái</th>
+            <th>Ngày</th>
+            <th>Tổng</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td>DH001</td><td>Nguyễn A</td><td>Đang xử lý</td><td>2026-06-01</td><td>₫500,000</td></tr>
-          <tr><td>DH002</td><td>Trần B</td><td>Đã giao</td><td>2026-06-05</td><td>₫320,000</td></tr>
+          <tr>
+            <td>DH001</td>
+            <td>Nguyễn A</td>
+            <td>Đang xử lý</td>
+            <td>2026-06-01</td>
+            <td>₫500,000</td>
+          </tr>
+          <tr>
+            <td>DH002</td>
+            <td>Trần B</td>
+            <td>Đã giao</td>
+            <td>2026-06-05</td>
+            <td>₫320,000</td>
+          </tr>
         </tbody>
       </table>
     </main>

@@ -17,7 +17,6 @@
           <a href="dangnhap.html">Đăng nhập</a>
           <a href="dangky.html">Đăng ký</a>
           <a href="taikhoan.html">Tài khoản</a>
-          <a href="admin/quanly.html">Quản lý</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
         <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
@@ -39,7 +38,8 @@
               >
               <a href="yeuthich.html" data-panel="favorites">Yêu thích</a>
               <a href="caidat.html" data-panel="settings">Cài đặt</a>
-              <a href="dangnhap.html">Đăng xuất</a>
+              <a id="manageLink" href="admin/quanly.html" style="display:none;">Quản lý</a>
+              <a id="logoutLink" href="dangnhap.html">Đăng xuất</a>
             </nav>
           </div>
         </aside>
@@ -355,6 +355,25 @@
         var form = document.getElementById("profileEditForm");
         if (summary) summary.classList.toggle("is-hidden", showForm);
         if (form) form.classList.toggle("is-visible", showForm);
+      }
+
+      var currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+      if (!currentUser) {
+        window.location.href = "dangnhap.html";
+      }
+
+      var manageLink = document.getElementById("manageLink");
+      if (manageLink) {
+        manageLink.style.display = currentUser && currentUser.role === "admin" ? "block" : "none";
+      }
+
+      var logoutLink = document.getElementById("logoutLink");
+      if (logoutLink) {
+        logoutLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          localStorage.removeItem("currentUser");
+          window.location.href = "dangnhap.html";
+        });
       }
 
       updateCartCount();

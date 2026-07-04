@@ -58,7 +58,7 @@
 
     <script src="js/common.js"></script>
     <script>
-      var products = [
+      var baseProducts = [
         {
           id: 1,
           title: "Áo thun basic",
@@ -132,6 +132,40 @@
           img: "images/products/quanaobongchuyen.jpg",
         },
       ];
+
+      function getAdminProducts() {
+        try {
+          var stored = JSON.parse(
+            localStorage.getItem("admin_products_v1") || "[]",
+          );
+          return Array.isArray(stored) ? stored : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function getCatalogProducts() {
+        var adminProducts = getAdminProducts();
+        var normalizedAdminProducts = adminProducts.map(function (item) {
+          var numericId = Number(String(item.id || "").replace(/\D/g, ""));
+          return {
+            id: numericId || Date.now() + Math.floor(Math.random() * 1000),
+            title: item.name || "Sản phẩm",
+            price: Number(item.price) || 0,
+            img: item.image || "images/products/images.jpg",
+            category: item.category || "Khác",
+          };
+        });
+
+        return baseProducts.concat(normalizedAdminProducts);
+      }
+
+      var products = [];
+
+      function refreshProducts() {
+        products = getCatalogProducts();
+        applyFilters();
+      }
 
       function formatVND(n) {
         return "₫" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -320,8 +354,12 @@
         if (btn) btn.textContent = "Giỏ (" + count + ")";
       }
 
-      render();
+      refreshProducts();
       updateCartCount();
+
+      window.addEventListener("storage", function () {
+        refreshProducts();
+      });
     </script>
   </body>
 </html>

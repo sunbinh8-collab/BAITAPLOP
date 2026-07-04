@@ -1,11 +1,23 @@
 <!doctype html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý nhân viên</title>
-    <link rel="stylesheet" href="../css/minishop.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../dangnhap.html");
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -23,13 +35,21 @@
         <a class="btn" href="./quanly.html">Quay về Dashboard</a>
       </div>
       <form id="staffForm" class="admin-form">
-        <input id="staffName" placeholder="Tên nhân viên" required>
-        <input id="staffRole" placeholder="Chức vụ" required>
-        <input id="staffEmail" placeholder="Email" type="email" required>
+        <input id="staffName" placeholder="Tên nhân viên" required />
+        <input id="staffRole" placeholder="Chức vụ" required />
+        <input id="staffEmail" placeholder="Email" type="email" required />
         <button class="btn" type="submit">Thêm nhân viên</button>
       </form>
       <table id="staffTable" class="admin-table">
-        <thead><tr><th>ID</th><th>Tên</th><th>Chức vụ</th><th>Email</th><th>Hành động</th></tr></thead>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Chức vụ</th>
+            <th>Email</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
         <tbody></tbody>
       </table>
     </main>

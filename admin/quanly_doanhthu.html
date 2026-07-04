@@ -1,11 +1,23 @@
 <!doctype html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý doanh thu</title>
-    <link rel="stylesheet" href="../css/minishop.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../dangnhap.html");
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -22,18 +34,21 @@
       <p>Trang doanh thu với số liệu thống kê doanh thu và số đơn hàng.</p>
       <section id="revenue">
         <div class="revenue-controls">
-          <label>Trạng thái:
+          <label
+            >Trạng thái:
             <select id="statusFilter">
               <option value="all">Tất cả</option>
               <option value="processing">Đang xử lý</option>
               <option value="delivered">Đã giao</option>
             </select>
           </label>
-          <label>Từ:
-            <input type="date" id="fromDate">
+          <label
+            >Từ:
+            <input type="date" id="fromDate" />
           </label>
-          <label>Đến:
-            <input type="date" id="toDate">
+          <label
+            >Đến:
+            <input type="date" id="toDate" />
           </label>
           <button id="filterBtn" class="btn">Lọc</button>
           <button id="resetBtn" class="btn">Đặt lại</button>
@@ -47,12 +62,48 @@
 
         <table id="ordersTable" class="admin-table">
           <thead>
-            <tr><th>Mã</th><th>Khách hàng</th><th>Trạng thái</th><th>Ngày</th><th>Tổng</th></tr>
+            <tr>
+              <th>Mã</th>
+              <th>Khách hàng</th>
+              <th>Trạng thái</th>
+              <th>Ngày</th>
+              <th>Tổng</th>
+            </tr>
           </thead>
           <tbody>
-            <tr data-amount="500000" data-date="2026-06-01" data-status="processing"><td>DH001</td><td>Nguyễn A</td><td>Đang xử lý</td><td>2026-06-01</td><td>₫500,000</td></tr>
-            <tr data-amount="320000" data-date="2026-06-05" data-status="delivered"><td>DH002</td><td>Trần B</td><td>Đã giao</td><td>2026-06-05</td><td>₫320,000</td></tr>
-            <tr data-amount="150000" data-date="2026-06-10" data-status="delivered"><td>DH003</td><td>Phạm C</td><td>Đã giao</td><td>2026-06-10</td><td>₫150,000</td></tr>
+            <tr
+              data-amount="500000"
+              data-date="2026-06-01"
+              data-status="processing"
+            >
+              <td>DH001</td>
+              <td>Nguyễn A</td>
+              <td>Đang xử lý</td>
+              <td>2026-06-01</td>
+              <td>₫500,000</td>
+            </tr>
+            <tr
+              data-amount="320000"
+              data-date="2026-06-05"
+              data-status="delivered"
+            >
+              <td>DH002</td>
+              <td>Trần B</td>
+              <td>Đã giao</td>
+              <td>2026-06-05</td>
+              <td>₫320,000</td>
+            </tr>
+            <tr
+              data-amount="150000"
+              data-date="2026-06-10"
+              data-status="delivered"
+            >
+              <td>DH003</td>
+              <td>Phạm C</td>
+              <td>Đã giao</td>
+              <td>2026-06-10</td>
+              <td>₫150,000</td>
+            </tr>
           </tbody>
         </table>
       </section>

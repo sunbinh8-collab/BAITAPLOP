@@ -49,8 +49,18 @@
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
           e.preventDefault();
+          var email = document.getElementById("email").value.trim();
+          var password = document.getElementById("password").value;
+          var isAdmin =
+            email === "admin@minishop.com" && password === "admin123";
+          var user = {
+            name: isAdmin ? "Quản trị viên" : "Người dùng",
+            email: email,
+            role: isAdmin ? "admin" : "user",
+          };
+          localStorage.setItem("currentUser", JSON.stringify(user));
           showToast(
-            "Đăng nhập giả lập: " + document.getElementById("email").value,
+            isAdmin ? "Đăng nhập admin thành công" : "Đăng nhập thành công",
             "success",
           );
           window.location.href = "taikhoan.html";

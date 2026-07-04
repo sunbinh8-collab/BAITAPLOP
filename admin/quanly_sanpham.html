@@ -1,11 +1,23 @@
 <!doctype html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý sản phẩm</title>
-    <link rel="stylesheet" href="../css/minishop.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../dangnhap.html");
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -20,33 +32,42 @@
 
     <main class="container">
       <h1>Quản lý sản phẩm</h1>
-      
+
       <div class="filter-section">
         <label>Lọc theo danh mục:</label>
         <select id="categoryFilter" onchange="filterByCategory()">
           <option value="">Tất cả</option>
           <option value="Thời trang" selected>Thời trang</option>
-        
+
           <option value="Khác">Khác</option>
         </select>
       </div>
 
       <h3>Thêm sản phẩm mới</h3>
       <form id="productForm" class="admin-form">
-        <input id="pName" placeholder="Tên sản phẩm" required>
-        <input id="pPrice" placeholder="Giá (số)" type="number" required>
+        <input id="pName" placeholder="Tên sản phẩm" required />
+        <input id="pPrice" placeholder="Giá (số)" type="number" required />
         <select id="pCategory" required>
           <option value="">-- Chọn danh mục --</option>
           <option value="Thời trang" selected>Thời trang</option>
           <option value="Khác">Khác</option>
         </select>
-        <input id="pImage" placeholder="Đường dẫn ảnh (tùy chọn)">
+        <input id="pImage" placeholder="Đường dẫn ảnh (tùy chọn)" />
         <button class="btn" type="submit">Thêm</button>
       </form>
 
       <h3>Danh sách sản phẩm</h3>
       <table id="productsTable" class="admin-table">
-        <thead><tr><th>ID</th><th>Tên</th><th>Giá</th><th>Danh mục</th><th>Ảnh</th><th>Hành động</th></tr></thead>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+            <th>Ảnh</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
         <tbody></tbody>
       </table>
 
@@ -74,7 +95,8 @@
           gap: 10px;
           margin-bottom: 20px;
         }
-        .admin-form input, .admin-form select {
+        .admin-form input,
+        .admin-form select {
           padding: 10px;
           border: 1px solid #ddd;
           border-radius: 4px;
