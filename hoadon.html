@@ -17,6 +17,7 @@
           <a href="dangnhap.html">Đăng nhập</a>
           <a href="dangky.html">Đăng ký</a>
           <a href="taikhoan.html">Tài khoản</a>
+          <a href="admin/quanly.html">Quản lý</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
         <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
@@ -46,7 +47,7 @@
         <section class="account-main">
           <div class="account-panel">
             <h2>Đơn hàng</h2>
-            <p>Chưa có đơn hàng.</p>
+            <div id="ordersList" style="display: grid; gap: 12px"></div>
           </div>
         </section>
       </div>
@@ -65,6 +66,10 @@
 
     <script src="js/common.js"></script>
     <script>
+      function formatVND(n) {
+        return "₫" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
       function updateCartCount() {
         var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
         var count = cart.reduce(function (s, i) {
@@ -73,7 +78,91 @@
         var btn = document.querySelector(".cart-btn");
         if (btn) btn.textContent = "Giỏ (" + count + ")";
       }
+
+      function getOrders() {
+        return JSON.parse(localStorage.getItem("mini_orders") || "[]");
+      }
+
+      function renderOrders() {
+        var container = document.getElementById("ordersList");
+        var orders = getOrders();
+
+        if (!orders.length) {
+          container.innerHTML =
+            '<div style="padding:16px;border:1px dashed #d9ecff;border-radius:12px;color:var(--muted);">Chưa có đơn hàng nào.</div>';
+          return;
+        }
+
+        container.innerHTML = orders
+          .map(function (order) {
+            var itemsText = order.items
+              .slice(0, 2)
+              .map(function (item) {
+                return item.title;
+              })
+              .join(", ");
+            var extra =
+              order.items.length > 2
+                ? " và hơn " + (order.items.length - 2) + " sản phẩm"
+                : "";
+            var paymentLabel =
+              order.paymentMethod === "cod"
+                ? "Thanh toán khi nhận hàng"
+                : order.paymentMethod === "bank"
+                  ? "Chuyển khoản"
+                  : order.paymentMethod === "momo"
+                    ? "Ví MoMo"
+                    : "Thẻ tín dụng";
+
+            return (
+              '<div style="border:1px solid #e6e6e6;border-radius:14px;padding:16px;background:#fff;">' +
+              '<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;">' +
+              "<div><strong>Mã đơn: MSH-" +
+              order.id +
+              '</strong><div style="color:var(--muted);font-size:0.95rem;margin-top:4px">' +
+              order.createdAt +
+              "</div></div>" +
+              '<span style="padding:6px 10px;border-radius:999px;background:#f2f8ff;color:#1d4ed8;font-size:0.9rem">' +
+              order.status +
+              "</span>" +
+              "</div>" +
+              '<div style="margin-top:12px;color:var(--muted)">' +
+              itemsText +
+              extra +
+              "</div>" +
+              '<div style="margin-top:10px;color:var(--muted);line-height:1.5">' +
+              "<div><strong>Người nhận:</strong> " +
+              (order.recipient && order.recipient.name
+                ? order.recipient.name
+                : "Chưa cập nhật") +
+              "</div>" +
+              "<div><strong>SĐT:</strong> " +
+              (order.recipient && order.recipient.phone
+                ? order.recipient.phone
+                : "Chưa cập nhật") +
+              "</div>" +
+              "<div><strong>Địa chỉ:</strong> " +
+              (order.recipient && order.recipient.address
+                ? order.recipient.address
+                : "Chưa cập nhật") +
+              "</div>" +
+              "</div>" +
+              '<div style="margin-top:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">' +
+              "<span>Phương thức: " +
+              paymentLabel +
+              "</span>" +
+              "<strong>" +
+              formatVND(order.total) +
+              "</strong>" +
+              "</div>" +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+
       updateCartCount();
+      renderOrders();
     </script>
   </body>
 </html>

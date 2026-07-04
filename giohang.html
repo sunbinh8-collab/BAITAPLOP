@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Giỏ hàng - MiniShop</title>
     <link rel="stylesheet" href="css/minishop.css" />
+    <style>
+      .confirm-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        z-index: 1100;
+      }
+      .confirm-modal-overlay.active {
+        display: flex;
+      }
+      .confirm-modal {
+        width: min(420px, 100%);
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+      }
+      .confirm-modal h3 {
+        margin: 0 0 8px;
+        color: #102a43;
+      }
+      .confirm-modal p {
+        margin: 0;
+        color: var(--muted, #6b7280);
+        line-height: 1.6;
+      }
+      .confirm-modal .confirm-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .confirm-modal .btn {
+        min-width: 110px;
+      }
+    </style>
   </head>
   <body>
     <header class="site-header">
@@ -14,9 +54,29 @@
           <a href="trangchu.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a class="active" href="giohang.html">Giỏ hàng</a>
+          <a href="admin/quanly.html">Quản lý</a>
         </nav>
       </div>
     </header>
+
+    <div id="clearCartModal" class="confirm-modal-overlay" aria-hidden="true">
+      <div
+        class="confirm-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="clearCartTitle"
+      >
+        <h3 id="clearCartTitle">Xóa toàn bộ giỏ hàng?</h3>
+        <p>
+          Bạn có chắc muốn xóa tất cả sản phẩm khỏi giỏ hàng? Hành động này sẽ
+          làm giỏ hàng trống.
+        </p>
+        <div class="confirm-actions">
+          <button id="cancelClearCart" class="btn">Hủy</button>
+          <button id="confirmClearCart" class="btn primary">Xác nhận</button>
+        </div>
+      </div>
+    </div>
 
     <main class="container cart-page">
       <h1>Giỏ hàng của bạn</h1>
@@ -153,7 +213,8 @@
         var body = document.getElementById("cartBody");
         body.innerHTML = "";
         if (cart.length === 0) {
-          body.innerHTML = '<tr><td colspan="4">Giỏ hàng trống.</td></tr>';
+          body.innerHTML =
+            '<tr><td colspan="4">Giỏ hàng hiện đang trống.</td></tr>';
         }
         cart.forEach(function (item) {
           var tr = document.createElement("tr");
@@ -237,15 +298,54 @@
         document.getElementById("grandTotal").textContent = formatVND(total);
       }
 
+      var clearCartModal = document.getElementById("clearCartModal");
+
+      function openClearCartModal() {
+        clearCartModal.classList.add("active");
+        clearCartModal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeClearCartModal() {
+        clearCartModal.classList.remove("active");
+        clearCartModal.setAttribute("aria-hidden", "true");
+      }
+
       document
         .getElementById("clearCart")
         .addEventListener("click", function () {
-          if (!confirm("Xoá toàn bộ giỏ hàng?")) return;
+          openClearCartModal();
+        });
+
+      document
+        .getElementById("cancelClearCart")
+        .addEventListener("click", function () {
+          closeClearCartModal();
+        });
+
+      document
+        .getElementById("confirmClearCart")
+        .addEventListener("click", function () {
           localStorage.removeItem("mini_cart");
           renderCart();
           updateCartCount();
-          showToast("Giỏ hàng đã được làm trống", "warning");
+          closeClearCartModal();
+          showToast("Đã xóa toàn bộ sản phẩm khỏi giỏ hàng", "warning");
         });
+
+      clearCartModal.addEventListener("click", function (event) {
+        if (event.target === clearCartModal) {
+          closeClearCartModal();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (
+          event.key === "Escape" &&
+          clearCartModal.classList.contains("active")
+        ) {
+          closeClearCartModal();
+        }
+      });
 
       document
         .getElementById("applyCoupon")

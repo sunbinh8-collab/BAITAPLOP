@@ -16,6 +16,7 @@
           <a href="giohang.html">Giỏ hàng</a>
           <a href="dangnhap.html">Đăng nhập</a>
           <a href="dangky.html">Đăng ký</a>
+          <a href="admin/quanly.html">Quản lý</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
         <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
@@ -26,7 +27,7 @@
       <section class="hero">
         <div>
           <h1>Đơn hàng đã được xác nhận</h1>
-          <p>
+          <p id="orderMessage">
             Cảm ơn bạn đã tin dùng MiniShop. Đơn hàng của bạn đang được xử lý.
           </p>
         </div>
@@ -71,6 +72,96 @@
             <a class="btn primary" href="trangchu.html">Tiếp tục mua sắm</a>
             <a class="btn" href="giohang.html">Xem giỏ hàng</a>
           </div>
+
+          <div
+            style="
+              margin-top: 28px;
+              border-top: 1px solid #e6e6e6;
+              padding-top: 24px;
+            "
+          >
+            <h3 style="margin-bottom: 16px">Tiến trình đơn hàng</h3>
+            <div id="orderProgress" style="display: grid; gap: 12px">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 12px 14px;
+                  border-radius: 12px;
+                  background: #f7fbff;
+                  border: 1px solid #d9ecff;
+                "
+              >
+                <div
+                  style="
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: #1d4ed8;
+                  "
+                ></div>
+                <div>
+                  <strong>Đặt hàng thành công</strong>
+                  <div style="color: var(--muted); font-size: 0.9rem">
+                    Đơn hàng đã được ghi nhận và đang chờ xử lý.
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 12px 14px;
+                  border-radius: 12px;
+                  background: #f9fafb;
+                  border: 1px solid #e5e7eb;
+                "
+              >
+                <div
+                  style="
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: #cbd5e1;
+                  "
+                ></div>
+                <div>
+                  <strong>Đang chuẩn bị hàng</strong>
+                  <div style="color: var(--muted); font-size: 0.9rem">
+                    Shop đang đóng gói và chuẩn bị giao cho đơn vị vận chuyển.
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 12px 14px;
+                  border-radius: 12px;
+                  background: #f9fafb;
+                  border: 1px solid #e5e7eb;
+                "
+              >
+                <div
+                  style="
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: #cbd5e1;
+                  "
+                ></div>
+                <div>
+                  <strong>Đang giao hàng</strong>
+                  <div style="color: var(--muted); font-size: 0.9rem">
+                    Đơn hàng sẽ được giao đến bạn trong vòng 24–48 giờ.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -91,6 +182,9 @@
 
       function refreshOrder() {
         var cart = JSON.parse(localStorage.getItem("mini_last_order") || "[]");
+        var message =
+          localStorage.getItem("mini_order_message") ||
+          "Đơn hàng đã được xác nhận.";
         var total = cart.reduce(function (sum, item) {
           return sum + (item.qty || 0) * (item.price || 0);
         }, 0);
@@ -100,6 +194,7 @@
         document.getElementById("orderCode").textContent = Math.floor(
           100000 + Math.random() * 899999,
         );
+        document.getElementById("orderMessage").textContent = message;
       }
 
       updateCartCount();

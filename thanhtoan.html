@@ -14,6 +14,7 @@
           <a href="trangchu.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="giohang.html">Giỏ hàng</a>
+          <a href="admin/quanly.html">Quản lý</a>
           <a href="thanhtoan.html" class="active">Thanh toán</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
@@ -47,6 +48,34 @@
               Thông tin thanh toán
             </h2>
             <form id="paymentForm" novalidate>
+              <div class="form-field">
+                <label for="recipientName">Tên người nhận</label>
+                <input
+                  id="recipientName"
+                  name="recipientName"
+                  type="text"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label for="recipientPhone">Số điện thoại</label>
+                <input
+                  id="recipientPhone"
+                  name="recipientPhone"
+                  type="tel"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label for="recipientAddress">Địa chỉ giao hàng</label>
+                <textarea
+                  id="recipientAddress"
+                  name="recipientAddress"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
               <div class="form-field">
                 <label>Phương thức thanh toán</label>
                 <div class="payment-methods">
@@ -259,6 +288,14 @@
         renderCartItems();
       }
 
+      function getOrders() {
+        return JSON.parse(localStorage.getItem("mini_orders") || "[]");
+      }
+
+      function saveOrders(orders) {
+        localStorage.setItem("mini_orders", JSON.stringify(orders));
+      }
+
       var paymentOptions = document.querySelectorAll(".payment-option");
       var cardDetails = document.getElementById("cardDetails");
       var bankDetails = document.getElementById("bankDetails");
@@ -317,6 +354,21 @@
           return;
         }
 
+        var recipientName = document
+          .getElementById("recipientName")
+          .value.trim();
+        var recipientPhone = document
+          .getElementById("recipientPhone")
+          .value.trim();
+        var recipientAddress = document
+          .getElementById("recipientAddress")
+          .value.trim();
+
+        if (!recipientName || !recipientPhone || !recipientAddress) {
+          showToast("Vui lòng nhập đầy đủ thông tin người nhận.", "error");
+          return;
+        }
+
         if (selectedMethod === "card") {
           var cardName = document.getElementById("cardName").value.trim();
           var cardNumber = document.getElementById("cardNumber").value.trim();
@@ -334,9 +386,31 @@
             ? "Đặt hàng thành công! Bạn sẽ thanh toán khi nhận hàng."
             : "Thanh toán thành công! Cảm ơn bạn đã mua hàng.";
 
+        var total = cart.reduce(function (sum, item) {
+          return sum + (item.qty || 0) * (item.price || 0);
+        }, 0);
+        var order = {
+          id: Math.floor(100000 + Math.random() * 899999),
+          createdAt: new Date().toLocaleString("vi-VN"),
+          paymentMethod: selectedMethod,
+          status: selectedMethod === "cod" ? "Đang xử lý" : "Đã thanh toán",
+          total: total + 20000,
+          items: cart,
+          message: message,
+          recipient: {
+            name: recipientName,
+            phone: recipientPhone,
+            address: recipientAddress,
+          },
+        };
+        var orders = getOrders();
+        orders.unshift(order);
+        saveOrders(orders);
+
         localStorage.setItem("mini_cart", "[]");
         localStorage.setItem("mini_last_order", JSON.stringify(cart));
         localStorage.setItem("mini_order_message", message);
+        localStorage.setItem("mini_last_order_meta", JSON.stringify(order));
         showToast(message, "success");
         window.location.href = "xacnhandonhang.html";
       });

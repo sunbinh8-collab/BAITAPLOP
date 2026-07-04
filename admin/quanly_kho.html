@@ -8,15 +8,28 @@
     <link rel="stylesheet" href="../css/admin.css">
   </head>
   <body>
-    <header class="site-header"><div class="container header-inner"><a class="logo" href="../trangchu.html">MiniShop</a></div></header>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="./quanly.html">Dashboard</a>
+          <a href="../trangchu.html">Trang chủ</a>
+        </nav>
+      </div>
+    </header>
     <main class="container">
       <h1>Quản lý kho</h1>
-      <table class="admin-table">
-        <thead><tr><th>Mã</th><th>Sản phẩm</th><th>Số lượng</th><th>Vị trí</th></tr></thead>
-        <tbody>
-          <tr><td>SP001</td><td>Áo thun basic</td><td>120</td><td>Kho A</td></tr>
-        </tbody>
+      <form id="inventoryForm" class="admin-form">
+        <input id="inventoryName" placeholder="Tên sản phẩm" required>
+        <input id="inventoryQuantity" placeholder="Số lượng" type="number" min="0" required>
+        <input id="inventoryLocation" placeholder="Vị trí" required>
+        <button class="btn" type="submit">Thêm vào kho</button>
+      </form>
+      <table id="inventoryTable" class="admin-table">
+        <thead><tr><th>Mã</th><th>Sản phẩm</th><th>Số lượng</th><th>Vị trí</th><th>Hành động</th></tr></thead>
+        <tbody></tbody>
       </table>
     </main>
+    <script src="./js/quanly_kho.js"></script>
   </body>
 </html>
