@@ -1,196 +1,689 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quản lý khách hàng</title>
-    <link rel="stylesheet" href="../css/minishop.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý khách hàng - MiniShop Admin</title>
+    <style>
+      :root {
+        --primary-color: #4e73df;
+        --primary-hover: #2e59d9;
+        --secondary-color: #858796;
+        --success-color: #1cc88a;
+        --info-color: #36b9cc;
+        --warning-color: #f6c23e;
+        --danger-color: #e74a3b;
+        --sidebar-bg: #1f2937;
+        --body-bg: #f8f9fc;
+        --text-color: #5a5c69;
+        --heading-color: #3a3b45;
+        --border-color: #eaecf4;
+        --radius: 10px;
+        --shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        --transition: all 0.25s ease;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--body-bg);
+        color: var(--text-color);
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* === SIDEBAR COMPONENT === */
+      .admin-sidebar {
+        width: 260px;
+        background-color: var(--sidebar-bg);
+        color: #fff;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .sidebar-brand {
+        padding: 0 24px 24px 24px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .admin-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 0 16px;
+      }
+
+      .admin-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        padding: 14px 18px;
+        border-radius: var(--radius);
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .admin-card:hover, .admin-card.active {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      
+      .admin-card.active {
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(78, 115, 223, 0.25);
+      }
+
+      .admin-card svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* === MAIN DISPLAY FRAMEWORK === */
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .site-header {
+        background-color: #fff;
+        padding: 18px 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .logo {
+        text-decoration: none;
+        color: var(--heading-color);
+        font-weight: 700;
+        font-size: 1.25rem;
+        transition: var(--transition);
+      }
+      .logo:hover { color: var(--primary-color); }
+
+      .top-nav a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: 20px;
+        transition: var(--transition);
+      }
+
+      .top-nav a:hover {
+        color: var(--primary-color);
+      }
+
+      .main-content {
+        padding: 35px 30px;
+        flex: 1;
+      }
+
+      .page-heading {
+        margin-bottom: 25px;
+        color: var(--heading-color);
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+
+      /* === INTERACTIVE CARDS === */
+      .content-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 18px 24px;
+        background: #f8f9fc;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 700;
+        color: var(--heading-color);
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+
+      /* === TOOLBAR & FILTERS === */
+      .toolbar-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 12px;
+        flex: 1;
+        min-width: 280px;
+      }
+
+      /* === FORM CONTROL DESIGN === */
+      select, input {
+        padding: 11px 16px;
+        border: 1px solid #d1d3e2;
+        border-radius: 6px;
+        outline: none;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        width: 100%;
+        transition: var(--transition);
+      }
+
+      select:focus, input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+      }
+
+      .admin-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        align-items: flex-end;
+      }
+
+      /* === BUTTON DESIGN === */
+      .btn {
+        padding: 11px 22px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .btn-success { background: var(--success-color); color: #fff; }
+      .btn-success:hover { background: #14a371; }
+      
+      .btn-primary { background: var(--primary-color); color: #fff; padding: 7px 14px; font-size: 0.85rem;}
+      .btn-primary:hover { background: var(--primary-hover); }
+
+      .btn-danger { background: var(--danger-color); color: #fff; padding: 7px 14px; font-size: 0.85rem; }
+      .btn-danger:hover { background: #be2617; }
+      
+      .btn-secondary { background: var(--secondary-color); color: #fff; }
+
+      /* === DATA TABLE === */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .admin-table th, .admin-table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+      }
+
+      .admin-table th {
+        background-color: #f8f9fc;
+        font-weight: 700;
+        color: var(--heading-color);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .admin-table tbody tr {
+        transition: var(--transition);
+      }
+
+      .admin-table tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.03);
+      }
+
+      .badge-qty {
+        padding: 5px 12px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border-radius: 30px;
+        display: inline-block;
+      }
+      .qty-normal { background-color: rgba(28, 200, 138, 0.1); color: var(--success-color); }
+      .qty-warning { background-color: rgba(246, 194, 62, 0.1); color: var(--warning-color); }
+      .qty-danger { background-color: rgba(231, 74, 59, 0.1); color: var(--danger-color); }
+
+      .badge-location {
+        background-color: rgba(78, 115, 223, 0.1);
+        color: var(--primary-color);
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border-radius: 6px;
+        display: inline-block;
+      }
+      
+      .action-btns {
+        display: flex;
+        gap: 8px;
+      }
+
+      /* === MODAL POPUP CHỈNH SỬA === */
+      .modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0; pointer-events: none;
+        transition: var(--transition);
+        z-index: 999;
+      }
+
+      .modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: var(--radius);
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transform: translateY(-30px);
+        transition: var(--transition);
+      }
+
+      .modal.active .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--heading-color);
+        margin-bottom: 20px;
+      }
+
+      .modal-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .site-footer {
+        background: #fff;
+        padding: 24px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+        border-top: 1px solid var(--border-color);
+        margin-top: auto;
+      }
+    </style>
+
+    <!-- KIỂM TRA PHÂN QUYỀN TRUY CẬP -->
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../dangnhap.html");
+        }
+      })();
+    </script>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="logo" href="../trangchu.html">MiniShop</a>
-        <nav class="main-nav">
+
+    <!-- SIDEBAR - MENU DI CHUYỂN TRÁI -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" style="width:24px; fill:#fff;"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v4h2v-4h3l-4-4-4 4h3z"/></svg>
+        MiniShop Admin
+      </div>
+      <nav class="admin-nav">
+        <a class="admin-card" href="./quanly_sanpham.html">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.2c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.57 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm1 14h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          Quản lý sản phẩm
+        </a>
+        <a class="admin-card" href="./quanly_donhang.html">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H10v-2h4v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Quản lý đơn hàng
+        </a>
+        <a class="admin-card" href="./quanly_nhanvien.html">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"/></svg>
+          Quản lý nhân viên
+        </a>
+        <a class="admin-card active" href="./quanly_khachhang.html">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Quản lý khách hàng
+        </a>
+        <a class="admin-card" href="./quanly_doanhthu.html">
+          <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+          Quản lý doanh thu
+        </a>
+        <a class="admin-card" href="./quanly_kho.html">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          Quản lý kho
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENT KHU VỰC HIỂN THỊ PHẢI -->
+    <div class="main-wrapper">
+      <header class="site-header">
+        <a class="logo" href="../trangchu.html">MiniShop Hệ Thống</a>
+        <nav class="top-nav">
           <a href="./quanly.html">Dashboard</a>
-          <a href="../trangchu.html">Trang chủ</a>
+          <a href="../trangchu.html">Xem Trang Chủ</a>
         </nav>
-      </div>
-    </header>
-    <main class="container">
-      <h1>Quản lý khách hàng</h1>
-      <button class="btn-add" onclick="openAddModal()">+ Thêm khách hàng</button>
-      <br><br>
-      <table class="admin-table">
-        <thead><tr><th>ID</th><th>Tên</th><th>SĐT</th><th>Email</th><th>Số tiền đã chi</th><th>Hành động</th></tr></thead>
-        <tbody id="customerTableBody">
-          <tr><td>KH001</td><td>Nguyễn A</td><td>0912345678</td><td>nguyen@example.com</td><td>2.500.000₫</td><td><button class="btn-edit" onclick="editCustomer('KH001', 'Nguyễn A', '0912345678', 'nguyen@example.com')">Chỉnh sửa</button> <button class="btn-delete" onclick="deleteCustomer('KH001')">Xóa</button></td></tr>
-          <tr><td>KH002</td><td>Trần B</td><td>0987654321</td><td>tran@example.com</td><td>1.800.000₫</td><td><button class="btn-edit" onclick="editCustomer('KH002', 'Trần B', '0987654321', 'tran@example.com')">Chỉnh sửa</button> <button class="btn-delete" onclick="deleteCustomer('KH002')">Xóa</button></td></tr>
-          <tr><td>KH003</td><td>Lê C</td><td>0923456789</td><td>le@example.com</td><td>3.200.000₫</td><td><button class="btn-edit" onclick="editCustomer('KH003', 'Lê C', '0923456789', 'le@example.com')">Chỉnh sửa</button> <button class="btn-delete" onclick="deleteCustomer('KH003')">Xóa</button></td></tr>
-          <tr><td>KH004</td><td>Phạm D</td><td>0934567890</td><td>pham@example.com</td><td>950.000₫</td><td><button class="btn-edit" onclick="editCustomer('KH004', 'Phạm D', '0934567890', 'pham@example.com')">Chỉnh sửa</button> <button class="btn-delete" onclick="deleteCustomer('KH004')">Xóa</button></td></tr>
-        </tbody>
-      </table>
+      </header>
 
-      <!-- Modal chỉnh sửa khách hàng -->
-      <div id="editModal" class="modal" style="display: none;">
-        <div class="modal-content">
-          <span class="close" onclick="closeModal('editModal')">&times;</span>
-          <h2>Chỉnh sửa khách hàng</h2>
-          <form id="editForm" onsubmit="saveCustomer(event)">
-            <div class="form-group">
-              <label>ID khách hàng:</label>
-              <input type="text" id="customerId" readonly>
+      <main class="main-content">
+        <h2 class="page-heading">Hệ thống Quản lý khách hàng</h2>
+
+        <!-- THANH TÌM KIẾM THỜI GIAN THỰC -->
+        <div class="content-card">
+          <div class="card-body">
+            <div class="toolbar-grid">
+              <div class="search-box">
+                <input type="text" id="searchCustomer" placeholder="🔍 Tìm kiếm khách hàng theo tên, số điện thoại hoặc email..." />
+                <select id="typeFilter" style="max-width: 220px;">
+                  <option value="all">Tất cả hạng thành viên</option>
+                  <option value="VIP">Thành viên VIP</option>
+                  <option value="Thân thiết">Thành viên Thân thiết</option>
+                  <option value="Mới">Thành viên Mới</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Tên:</label>
-              <input type="text" id="customerName" required>
-            </div>
-            <div class="form-group">
-              <label>Số điện thoại:</label>
-              <input type="text" id="customerPhone" required>
-            </div>
-            <div class="form-group">
-              <label>Email:</label>
-              <input type="email" id="customerEmail" required>
-            </div>
-            <button type="submit" class="btn-save">Lưu</button>
-            <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Hủy</button>
-          </form>
+          </div>
         </div>
-      </div>
 
-      <!-- Modal thêm khách hàng -->
-      <div id="addModal" class="modal" style="display: none;">
-        <div class="modal-content">
-          <span class="close" onclick="closeModal('addModal')">&times;</span>
-          <h2>Thêm khách hàng mới</h2>
-          <form id="addForm" onsubmit="addCustomer(event)">
-            <div class="form-group">
-              <label>ID khách hàng:</label>
-              <input type="text" id="newCustomerId" placeholder="VD: KH005" required>
-            </div>
-            <div class="form-group">
-              <label>Tên:</label>
-              <input type="text" id="newCustomerName" placeholder="Nhập tên khách hàng" required>
-            </div>
-            <div class="form-group">
-              <label>Số điện thoại:</label>
-              <input type="text" id="newCustomerPhone" placeholder="VD: 0912345678" required>
-            </div>
-            <div class="form-group">
-              <label>Email:</label>
-              <input type="email" id="newCustomerEmail" placeholder="VD: email@example.com" required>
-            </div>
-            <button type="submit" class="btn-save">Thêm</button>
-            <button type="button" class="btn-cancel" onclick="closeModal('addModal')">Hủy</button>
-          </form>
+        <!-- THẺ THÊM KHÁCH HÀNG MỚI -->
+        <div class="content-card">
+          <div class="card-header">Nhập thông tin khách hàng mới</div>
+          <div class="card-body">
+            <form id="customerForm" class="admin-form">
+              <div>
+                <input id="customerName" placeholder="Họ và tên khách hàng" required />
+              </div>
+              <div>
+                <input id="customerPhone" placeholder="Số điện thoại" required />
+              </div>
+              <div>
+                <input id="customerEmail" type="email" placeholder="Địa chỉ Email" required />
+              </div>
+              <div>
+                <select id="customerMembership">
+                  <option value="Mới">Hạng: Mới</option>
+                  <option value="Thân thiết">Hạng: Thân thiết</option>
+                  <option value="VIP">Hạng: VIP</option>
+                </select>
+              </div>
+              <button class="btn btn-success" type="submit">Thêm khách hàng</button>
+            </form>
+          </div>
         </div>
+
+        <!-- THẺ DANH SÁCH KHÁCH HÀNG CHI TIẾT -->
+        <div class="content-card">
+          <div class="card-header">Danh sách cơ sở dữ liệu khách hàng</div>
+          <div class="table-responsive">
+            <table id="customerTable" class="admin-table">
+              <thead>
+                <tr>
+                  <th>Mã KH</th>
+                  <th>Họ và Tên</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Email</th>
+                  <th>Hạng Thành Viên</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dữ liệu render tự động -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>© 2026 Hệ thống Quản trị Doanh nghiệp MiniShop. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- MODAL POPUP CẬP NHẬT THÔNG TIN KHÁCH HÀNG -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">Chỉnh sửa thông tin khách hàng</div>
+        <form id="editForm" class="modal-form">
+          <input type="hidden" id="editId" />
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Họ và tên</label>
+            <input type="text" id="editName" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Số điện thoại</label>
+            <input type="text" id="editPhone" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Địa chỉ Email</label>
+            <input type="email" id="editEmail" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Phân hạng thành viên</label>
+            <select id="editMembership">
+              <option value="Mới">Mới</option>
+              <option value="Thân thiết">Thân thiết</option>
+              <option value="VIP">VIP</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btnCancelEdit">Hủy bỏ</button>
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <style>
-        .modal {
-          position: fixed;
-          z-index: 1000;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0,0,0,0.4);
-        }
-        .modal-content {
-          background-color: #fefefe;
-          margin: 10% auto;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 400px;
-          border-radius: 5px;
-        }
-        .close {
-          color: #aaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-          cursor: pointer;
-        }
-        .close:hover {
-          color: #000;
-        }
-        .form-group {
-          margin-bottom: 15px;
-        }
-        .form-group label {
-          display: block;
-          margin-bottom: 5px;
-          font-weight: bold;
-        }
-        .form-group input {
-          width: 100%;
-          padding: 8px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-        .btn-edit {
-          background-color: #007bff;
-          color: white;
-          border: none;
-          padding: 6px 12px;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .btn-edit:hover {
-          background-color: #0056b3;
-        }
-        .btn-delete {
-          background-color: #dc3545;
-          color: white;
-          border: none;
-          padding: 6px 12px;
-          border-radius: 4px;
-          cursor: pointer;
-          margin-left: 5px;
-        }
-        .btn-delete:hover {
-          background-color: #c82333;
-        }
-        .btn-add {
-          background-color: #28a745;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 16px;
-        }
-        .btn-add:hover {
-          background-color: #218838;
-        }
-        .btn-save {
-          background-color: #28a745;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 4px;
-          cursor: pointer;
-          margin-right: 10px;
-        }
-        .btn-save:hover {
-          background-color: #218838;
-        }
-        .btn-cancel {
-          background-color: #6c757d;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .btn-cancel:hover {
-          background-color: #5a6268;
-        }
-      </style>
+    <!-- HỆ THỐNG LOGIC JAVASCRIPT ĐIỀU HÀNH CRUD KHÁCH HÀNG -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var customerForm = document.getElementById("customerForm");
+        var searchCustomer = document.getElementById("searchCustomer");
+        var typeFilter = document.getElementById("typeFilter");
+        var customerTableBody = document.querySelector("#customerTable tbody");
 
-      <script src="./js/quanly_khachhang.js"></script>
-    </main>
+        var editModal = document.getElementById("editModal");
+        var editForm = document.getElementById("editForm");
+        var btnCancelEdit = document.getElementById("btnCancelEdit");
+
+        // Dữ liệu khách hàng mẫu ban đầu nếu localStorage trống rỗng
+        var defaultCustomers = [
+          { id: 201, name: "Nguyễn Văn A", phone: "0912345678", email: "vana@gmail.com", membership: "VIP" },
+          { id: 202, name: "Trần Thị B", phone: "0987654321", email: "bthi@gmail.com", membership: "Thân thiết" },
+          { id: 203, name: "Phạm Minh C", phone: "0905123456", email: "minhc@gmail.com", membership: "Mới" }
+        ];
+
+        var customers = defaultCustomers
+        if (!localStorage.getItem("customers")) {
+          localStorage.setItem("customers", JSON.stringify(customers));
+        }
+
+        // Hàm kết xuất dữ liệu khách hàng
+        function renderCustomers() {
+          customerTableBody.innerHTML = "";
+          var searchKey = searchCustomer.value.trim().toLowerCase();
+          var filterType = typeFilter.value;
+
+          customers.forEach(function (item) {
+            // Bộ lọc tìm kiếm theo tên, số điện thoại hoặc email
+            if (searchKey && 
+                !item.name.toLowerCase().includes(searchKey) && 
+                !item.phone.includes(searchKey) && 
+                !item.email.toLowerCase().includes(searchKey)) return;
+
+            // Bộ lọc phân hạng thành viên
+            if (filterType !== "all" && item.membership !== filterType) return;
+
+            var tr = document.createElement("tr");
+
+            // Phân định style badge cho phân hạng thành viên
+            var memberBadgeClass = "qty-normal"; // tương đương màu xanh thành viên mới
+            if (item.membership === "VIP") {
+              memberBadgeClass = "qty-danger"; // màu đỏ rực nổi bật cho VIP
+            } else if (item.membership === "Thân thiết") {
+              memberBadgeClass = "qty-warning"; // màu vàng cho thành viên lâu năm
+            }
+
+            tr.innerHTML = `
+              <td style="font-weight:600; color:var(--secondary-color);">#${item.id}</td>
+              <td style="font-weight:600; color:var(--heading-color);">${item.name}</td>
+              <td>${item.phone}</td>
+              <td>${item.email}</td>
+              <td><span class="badge-qty ${memberBadgeClass}">${item.membership}</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn btn-primary btn-edit" data-id="${item.id}">Sửa</button>
+                  <button class="btn btn-danger btn-delete" data-id="${item.id}">Xóa</button>
+                </div>
+              </td>
+            `;
+            customerTableBody.appendChild(tr);
+          });
+
+          attachRowEvents();
+        }
+
+        // Gán sự kiện cho các nút sửa và xóa
+        function attachRowEvents() {
+          // THAO TÁC XÓA KHÁCH HÀNG
+          document.querySelectorAll(".btn-delete").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              var idToDelete = parseInt(this.getAttribute("data-id"));
+              if(confirm("Bạn có chắc chắn muốn xóa khách hàng #" + idToDelete + " khỏi cơ sở dữ liệu?")) {
+                customers = customers.filter(function(item) { return item.id !== idToDelete; });
+                localStorage.setItem("customers", JSON.stringify(customers));
+                renderCustomers();
+              }
+            });
+          });
+
+          // THAO TÁC SỬA THÔNG TIN KHÁCH HÀNG (MỞ MODAL)
+          document.querySelectorAll(".btn-edit").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              var idToEdit = parseInt(this.getAttribute("data-id"));
+              var targetItem = customers.find(function(item) { return item.id === idToEdit; });
+              
+              if(targetItem) {
+                document.getElementById("editId").value = targetItem.id;
+                document.getElementById("editName").value = targetItem.name;
+                document.getElementById("editPhone").value = targetItem.phone;
+                document.getElementById("editEmail").value = targetItem.email;
+                document.getElementById("editMembership").value = targetItem.membership;
+                
+                editModal.classList.add("active");
+              }
+            });
+          });
+        }
+
+        // Xử lý gửi biểu mẫu chỉnh sửa thông tin từ popup modal
+        editForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+          var id = parseInt(document.getElementById("editId").value);
+          var name = document.getElementById("editName").value.trim();
+          var phone = document.getElementById("editPhone").value.trim();
+          var email = document.getElementById("editEmail").value.trim();
+          var membership = document.getElementById("editMembership").value;
+
+          var index = customers.findIndex(function(item) { return item.id === id; });
+          if(index !== -1) {
+            customers[index].name = name;
+            customers[index].phone = phone;
+            customers[index].email = email;
+            customers[index].membership = membership;
+            
+            localStorage.setItem("customers", JSON.stringify(customers));
+            editModal.classList.remove("active");
+            renderCustomers();
+          }
+        });
+
+        // Hủy bỏ việc chỉnh sửa khách hàng
+        btnCancelEdit.addEventListener("click", function() {
+          editModal.classList.remove("active");
+        });
+
+        // Tạo sự kiện thêm mới khách hàng
+        customerForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = document.getElementById("customerName").value.trim();
+          var phone = document.getElementById("customerPhone").value.trim();
+          var email = document.getElementById("customerEmail").value.trim();
+          var membership = document.getElementById("customerMembership").value;
+
+          var nextId = customers.length > 0 ? Math.max(...customers.map(item => item.id)) + 1 : 201;
+
+          customers.push({ id: nextId, name: name, phone: phone, email: email, membership: membership });
+          localStorage.setItem("customers", JSON.stringify(customers));
+          
+          customerForm.reset();
+          renderCustomers();
+          alert("Thêm hồ sơ khách hàng mới thành công!");
+        });
+
+        // Theo dõi thay đổi ô tìm kiếm và dropdown bộ lọc
+        searchCustomer.addEventListener("input", renderCustomers);
+        typeFilter.addEventListener("change", renderCustomers);
+
+        // Chạy kết xuất danh sách khi khởi động trang
+        renderCustomers();
+      });
+    </script>
   </body>
 </html>

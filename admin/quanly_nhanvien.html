@@ -1,38 +1,675 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quản lý nhân viên</title>
-    <link rel="stylesheet" href="../css/minishop.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý nhân viên - MiniShop Admin</title>
+    <style>
+      :root {
+        --primary-color: #4e73df;
+        --primary-hover: #2e59d9;
+        --secondary-color: #858796;
+        --success-color: #1cc88a;
+        --info-color: #36b9cc;
+        --warning-color: #f6c23e;
+        --danger-color: #e74a3b;
+        --sidebar-bg: #1f2937;
+        --body-bg: #f8f9fc;
+        --text-color: #5a5c69;
+        --heading-color: #3a3b45;
+        --border-color: #eaecf4;
+        --radius: 10px;
+        --shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        --transition: all 0.25s ease;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--body-bg);
+        color: var(--text-color);
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* === SIDEBAR COMPONENT === */
+      .admin-sidebar {
+        width: 260px;
+        background-color: var(--sidebar-bg);
+        color: #fff;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .sidebar-brand {
+        padding: 0 24px 24px 24px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .admin-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 0 16px;
+      }
+
+      .admin-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        padding: 14px 18px;
+        border-radius: var(--radius);
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .admin-card:hover, .admin-card.active {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      
+      .admin-card.active {
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(78, 115, 223, 0.25);
+      }
+
+      .admin-card svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* === MAIN DISPLAY FRAMEWORK === */
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .site-header {
+        background-color: #fff;
+        padding: 18px 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .logo {
+        text-decoration: none;
+        color: var(--heading-color);
+        font-weight: 700;
+        font-size: 1.25rem;
+        transition: var(--transition);
+      }
+      .logo:hover { color: var(--primary-color); }
+
+      .top-nav a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: 20px;
+        transition: var(--transition);
+      }
+
+      .top-nav a:hover {
+        color: var(--primary-color);
+      }
+
+      .main-content {
+        padding: 35px 30px;
+        flex: 1;
+      }
+
+      .page-heading {
+        margin-bottom: 25px;
+        color: var(--heading-color);
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+
+      /* === INTERACTIVE CARDS === */
+      .content-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 18px 24px;
+        background: #f8f9fc;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 700;
+        color: var(--heading-color);
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+
+      /* === TOOLBAR & FILTERS === */
+      .toolbar-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 12px;
+        flex: 1;
+        min-width: 280px;
+      }
+
+      /* === FORM CONTROL DESIGN === */
+      select, input {
+        padding: 11px 16px;
+        border: 1px solid #d1d3e2;
+        border-radius: 6px;
+        outline: none;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        width: 100%;
+        transition: var(--transition);
+      }
+
+      select:focus, input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+      }
+
+      .admin-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        align-items: flex-end;
+      }
+
+      /* === BUTTON DESIGN === */
+      .btn {
+        padding: 11px 22px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .btn-success { background: var(--success-color); color: #fff; }
+      .btn-success:hover { background: #14a371; }
+      
+      .btn-primary { background: var(--primary-color); color: #fff; padding: 7px 14px; font-size: 0.85rem;}
+      .btn-primary:hover { background: var(--primary-hover); }
+
+      .btn-danger { background: var(--danger-color); color: #fff; padding: 7px 14px; font-size: 0.85rem; }
+      .btn-danger:hover { background: #be2617; }
+      
+      .btn-secondary { background: var(--secondary-color); color: #fff; }
+
+      /* === DATA TABLE === */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .admin-table th, .admin-table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+      }
+
+      .admin-table th {
+        background-color: #f8f9fc;
+        font-weight: 700;
+        color: var(--heading-color);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .admin-table tbody tr {
+        transition: var(--transition);
+      }
+
+      .admin-table tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.03);
+      }
+
+      .avatar-img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--border-color);
+        background-color: #eaecf4;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      }
+
+      .badge-role {
+        background-color: rgba(54, 185, 204, 0.1);
+        color: var(--info-color);
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border-radius: 30px;
+        display: inline-block;
+      }
+      
+      .action-btns {
+        display: flex;
+        gap: 8px;
+      }
+
+      /* === MODAL POPUP CHỈNH SỬA === */
+      .modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0; pointer-events: none;
+        transition: var(--transition);
+        z-index: 999;
+      }
+
+      .modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: var(--radius);
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transform: translateY(-30px);
+        transition: var(--transition);
+      }
+
+      .modal.active .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--heading-color);
+        margin-bottom: 20px;
+      }
+
+      .modal-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .site-footer {
+        background: #fff;
+        padding: 24px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+        border-top: 1px solid var(--border-color);
+        margin-top: auto;
+      }
+    </style>
+
+    <!-- KIỂM TRA PHÂN QUYỀN TRUY CẬP -->
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../dangnhap.html");
+        }
+      })();
+    </script>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="logo" href="../trangchu.html">MiniShop</a>
-        <nav class="main-nav">
+
+    <!-- SIDEBAR - MENU DI CHUYỂN TRÁI -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" style="width:24px; fill:#fff;"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v4h2v-4h3l-4-4-4 4h3z"/></svg>
+        MiniShop Admin
+      </div>
+      <nav class="admin-nav">
+        <a class="admin-card" href="./quanly_sanpham.html">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.2c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.57 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm1 14h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          Quản lý sản phẩm
+        </a>
+        <a class="admin-card" href="./quanly_donhang.html">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H10v-2h4v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Quản lý đơn hàng
+        </a>
+        <a class="admin-card active" href="./quanly_nhanvien.html">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"/></svg>
+          Quản lý nhân viên
+        </a>
+        <a class="admin-card" href="./quanly_khachhang.html">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Quản lý khách hàng
+        </a>
+        <a class="admin-card" href="./quanly_doanhthu.html">
+          <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+          Quản lý doanh thu
+        </a>
+        <a class="admin-card" href="./quanly_kho.html">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          Quản lý kho
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENT KHU VỰC HIỂN THỊ PHẢI -->
+    <div class="main-wrapper">
+      <header class="site-header">
+        <a class="logo" href="../trangchu.html">MiniShop Hệ Thống</a>
+        <nav class="top-nav">
           <a href="./quanly.html">Dashboard</a>
-          <a href="../trangchu.html">Trang chủ</a>
+          <a href="../trangchu.html">Xem Trang Chủ</a>
         </nav>
+      </header>
+
+      <main class="main-content">
+        <h2 class="page-heading">Hệ thống Quản lý nhân viên</h2>
+
+        <!-- THANH BỘ LỌC VÀ TÌM KIẾM NÂNG CAO -->
+        <div class="content-card">
+          <div class="card-body">
+            <div class="toolbar-grid">
+              <div class="search-box">
+                <input type="text" id="searchEmployee" placeholder="🔍 Tìm kiếm nhân viên theo tên hoặc email..." />
+                <select id="roleFilter" style="max-width: 200px;">
+                  <option value="all">Tất cả chức vụ</option>
+                  <option value="Quản lý">Quản lý</option>
+                  <option value="Thu ngân">Thu ngân</option>
+                  <option value="Bán hàng">Bán hàng</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THẺ THÊM NHÂN VIÊN MỚI -->
+        <div class="content-card">
+          <div class="card-header">Thêm nhân viên mới vào hệ thống</div>
+          <div class="card-body">
+            <form id="employeeForm" class="admin-form">
+              <div>
+                <input id="empName" placeholder="Họ và tên nhân viên" required />
+              </div>
+              <div>
+                <input id="empEmail" placeholder="Địa chỉ Email" type="email" required />
+              </div>
+              <div>
+                <select id="empRole" required>
+                  <option value="">-- Chọn chức vụ --</option>
+                  <option value="Quản lý">Quản lý</option>
+                  <option value="Thu ngân">Thu ngân</option>
+                  <option value="Bán hàng">Bán hàng</option>
+                </select>
+              </div>
+              <div>
+                <input id="empAvatar" placeholder="URL ảnh đại diện (tùy chọn)" />
+              </div>
+              <button class="btn btn-success" type="submit">Thêm nhân viên</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- THẺ DANH SÁCH NHÂN VIÊN -->
+        <div class="content-card">
+          <div class="card-header">Danh sách chi tiết nhân sự</div>
+          <div class="table-responsive">
+            <table id="employeesTable" class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Ảnh đại diện</th>
+                  <th>Họ và Tên</th>
+                  <th>Email</th>
+                  <th>Chức vụ</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dữ liệu render tự động bằng JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>© 2026 Hệ thống Quản trị Doanh nghiệp MiniShop. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- MODAL POPUP CẬP NHẬT NHÂN VIÊN -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">Cập nhật thông tin nhân viên</div>
+        <form id="editForm" class="modal-form">
+          <input type="hidden" id="editId" />
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Họ và tên</label>
+            <input type="text" id="editName" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Email liên hệ</label>
+            <input type="email" id="editEmail" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Chức vụ</label>
+            <select id="editRole" required>
+              <option value="Quản lý">Quản lý</option>
+              <option value="Thu ngân">Thu ngân</option>
+              <option value="Bán hàng">Bán hàng</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Đường dẫn ảnh chân dung</label>
+            <input type="text" id="editAvatar" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btnCancelEdit">Hủy bỏ</button>
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+          </div>
+        </form>
       </div>
-    </header>
-    <main class="container">
-      <h1>Quản lý nhân viên</h1>
-      <div class="admin-actions">
-        <a class="btn" href="./quanly.html">Quay về Dashboard</a>
-      </div>
-      <form id="staffForm" class="admin-form">
-        <input id="staffName" placeholder="Tên nhân viên" required>
-        <input id="staffRole" placeholder="Chức vụ" required>
-        <input id="staffEmail" placeholder="Email" type="email" required>
-        <button class="btn" type="submit">Thêm nhân viên</button>
-      </form>
-      <table id="staffTable" class="admin-table">
-        <thead><tr><th>ID</th><th>Tên</th><th>Chức vụ</th><th>Email</th><th>Hành động</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </main>
-    <script src="./js/quanly_nhanvien.js"></script>
+    </div>
+
+    <!-- HỆ THỐNG LOGIC JAVASCRIPT ĐIỀU HÀNH CRUD NHÂN VIÊN -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var employeeForm = document.getElementById("employeeForm");
+        var roleFilter = document.getElementById("roleFilter");
+        var searchEmployee = document.getElementById("searchEmployee");
+        var employeesTableBody = document.querySelector("#employeesTable tbody");
+
+        var editModal = document.getElementById("editModal");
+        var editForm = document.getElementById("editForm");
+        var btnCancelEdit = document.getElementById("btnCancelEdit");
+
+        // Dữ liệu ban đầu mẫu nếu LocalStorage trống rỗng
+        var defaultEmployees = [
+          { id: 1, name: "Nguyễn Văn Đại", email: "dainv@minishop.com", role: "Quản lý", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" },
+          { id: 2, name: "Trần Thị Lan", email: "lantt@minishop.com", role: "Thu ngân", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" },
+          { id: 3, name: "Lê Minh Hoàng", email: "hoanglm@minishop.com", role: "Bán hàng", avatar: "" }
+        ];
+
+        // Đồng bộ dữ liệu dạng chuỗi JSON lên localStorage
+        var employees = JSON.parse(localStorage.getItem("employees")) || defaultEmployees;
+        if (!localStorage.getItem("employees")) {
+          localStorage.setItem("employees", JSON.stringify(employees));
+        }
+
+        // Hàm render hiển thị danh sách nhân sự ra bảng
+        function renderEmployees() {
+          employeesTableBody.innerHTML = "";
+          var filterRole = roleFilter.value;
+          var searchKey = searchEmployee.value.trim().toLowerCase();
+
+          employees.forEach(function (emp) {
+            // Lọc theo phòng ban / chức vụ
+            if (filterRole !== "all" && emp.role !== filterRole) return;
+            // Lọc thời gian thực theo từ khóa
+            if (searchKey && !emp.name.toLowerCase().includes(searchKey) && !emp.email.toLowerCase().includes(searchKey)) return;
+
+            var tr = document.createElement("tr");
+            var avatarUrl = emp.avatar ? emp.avatar : "https://via.placeholder.com/150?text=User";
+
+            tr.innerHTML = `
+              <td style="font-weight:600; color:var(--secondary-color);">#${emp.id}</td>
+              <td><img src="${avatarUrl}" class="avatar-img" alt="${emp.name}"></td>
+              <td style="font-weight:600; color:var(--heading-color);">${emp.name}</td>
+              <td>${emp.email}</td>
+              <td><span class="badge-role">${emp.role}</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn btn-primary btn-edit" data-id="${emp.id}">Sửa</button>
+                  <button class="btn btn-danger btn-delete" data-id="${emp.id}">Xóa</button>
+                </div>
+              </td>
+            `;
+            employeesTableBody.appendChild(tr);
+          });
+
+          attachRowEvents();
+        }
+
+        // Gán sự kiện cho các nút Xóa & Sửa của từng hàng
+        function attachRowEvents() {
+          // XỬ LÝ XOÁ NHÂN VIÊN
+          document.querySelectorAll(".btn-delete").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              var idToDelete = parseInt(this.getAttribute("data-id"));
+              if(confirm("Bạn có chắc chắn muốn xóa nhân viên #" + idToDelete + " khỏi hệ thống?")) {
+                employees = employees.filter(function(e) { return e.id !== idToDelete; });
+                localStorage.setItem("employees", JSON.stringify(employees));
+                renderEmployees();
+              }
+            });
+          });
+
+          // XỬ LÝ SỬA NHÂN VIÊN (MỞ MODAL POPUP)
+          document.querySelectorAll(".btn-edit").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              var idToEdit = parseInt(this.getAttribute("data-id"));
+              var targetEmp = employees.find(function(e) { return e.id === idToEdit; });
+              
+              if(targetEmp) {
+                document.getElementById("editId").value = targetEmp.id;
+                document.getElementById("editName").value = targetEmp.name;
+                document.getElementById("editEmail").value = targetEmp.email;
+                document.getElementById("editRole").value = targetEmp.role;
+                document.getElementById("editAvatar").value = targetEmp.avatar || "";
+                
+                editModal.classList.add("active");
+              }
+            });
+          });
+        }
+
+        // Lưu dữ liệu sau khi chỉnh sửa
+        editForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+          var id = parseInt(document.getElementById("editId").value);
+          var name = document.getElementById("editName").value.trim();
+          var email = document.getElementById("editEmail").value.trim();
+          var role = document.getElementById("editRole").value;
+          var avatar = document.getElementById("editAvatar").value.trim();
+
+          var index = employees.findIndex(function(e) { return e.id === id; });
+          if(index !== -1) {
+            employees[index] = { id: id, name: name, email: email, role: role, avatar: avatar };
+            localStorage.setItem("employees", JSON.stringify(employees));
+            editModal.classList.remove("active");
+            renderEmployees();
+          }
+        });
+
+        // Đóng modal chỉnh sửa khi click hủy
+        btnCancelEdit.addEventListener("click", function() {
+          editModal.classList.remove("active");
+        });
+
+        // Thêm nhân viên mới
+        employeeForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = document.getElementById("empName").value.trim();
+          var email = document.getElementById("empEmail").value.trim();
+          var role = document.getElementById("empRole").value;
+          var avatar = document.getElementById("empAvatar").value.trim();
+
+          var nextId = employees.length > 0 ? Math.max(...employees.map(e => e.id)) + 1 : 1;
+
+          employees.push({ id: nextId, name: name, email: email, role: role, avatar: avatar });
+          localStorage.setItem("employees", JSON.stringify(employees));
+          
+          employeeForm.reset();
+          renderEmployees();
+          alert("Thêm nhân viên thành công!");
+        });
+
+        // Gán sự kiện tìm kiếm và lọc danh mục thời gian thực
+        roleFilter.addEventListener("change", renderEmployees);
+        searchEmployee.addEventListener("input", renderEmployees);
+
+        // Chạy kết xuất giao diện lần đầu
+        renderEmployees();
+      });
+    </script>
   </body>
 </html>
