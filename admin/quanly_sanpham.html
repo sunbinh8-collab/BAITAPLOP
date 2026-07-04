@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="../css/minishop.css">
+    <link rel="stylesheet" href="../css/admin.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="./quanly.html">Quản lý</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Quản lý sản phẩm</h1>
+      <form id="productForm" class="admin-form">
+        <input id="pName" placeholder="Tên sản phẩm" required>
+        <input id="pPrice" placeholder="Giá (số)" type="number" required>
+        <input id="pImage" placeholder="Đường dẫn ảnh (tùy chọn)">
+        <button class="btn" type="submit">Thêm</button>
+      </form>
+
+      <table id="productsTable" class="admin-table">
+        <thead><tr><th>ID</th><th>Tên</th><th>Giá</th><th>Ảnh</th><th>Hành động</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </main>
+
+    <script src="./js/quanly_products.js"></script>
+  </body>
+</html>

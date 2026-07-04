@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trang quản lý</title>
+  <link rel="stylesheet" href="../css/minishop.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Trang quản lý</h1>
+    <nav>
+      <a href="../trangchu.html">Trang chủ</a> | <a href="../taikhoan.html">Tài khoản</a>
+    </nav>
+  </header>
+
+    <main class="container">
+    <section id="revenue">
+      <h2>Quản lý doanh thu</h2>
+      <div class="revenue-controls">
+        <label>Trạng thái:
+          <select id="statusFilter">
+            <option value="all">Tất cả</option>
+            <option value="processing">Đang xử lý</option>
+            <option value="delivered">Đã giao</option>
+          </select>
+        </label>
+        <label>Từ:
+          <input type="date" id="fromDate">
+        </label>
+        <label>Đến:
+          <input type="date" id="toDate">
+        </label>
+        <button id="filterBtn" class="btn">Lọc</button>
+        <button id="resetBtn" class="btn">Đặt lại</button>
+      </div>
+
+      <div class="revenue-summary">
+        <strong>Tổng doanh thu:</strong> <span id="totalRevenue">₫0</span>
+        &nbsp;•&nbsp;
+        <strong>Số đơn:</strong> <span id="orderCount">0</span>
+      </div>
+
+      <p>Danh sách đơn hàng bên dưới (mẫu). Sử dụng bộ lọc để tính doanh thu.</p>
+      <table id="ordersTable" class="admin-table">
+        <thead>
+          <tr><th>Mã</th><th>Khách hàng</th><th>Trạng thái</th><th>Ngày</th><th>Tổng</th></tr>
+        </thead>
+        <tbody>
+          <tr data-amount="500000" data-date="2026-06-01" data-status="processing"><td>DH001</td><td>Nguyễn A</td><td>Đang xử lý</td><td>2026-06-01</td><td>₫500,000</td></tr>
+          <tr data-amount="320000" data-date="2026-06-05" data-status="delivered"><td>DH002</td><td>Trần B</td><td>Đã giao</td><td>2026-06-05</td><td>₫320,000</td></tr>
+          <tr data-amount="150000" data-date="2026-06-10" data-status="delivered"><td>DH003</td><td>Phạm C</td><td>Đã giao</td><td>2026-06-10</td><td>₫150,000</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Quản lý sản phẩm</h2>
+      <p>Thêm, sửa, xóa sản phẩm từ giao diện quản lý.</p>
+    </section>
+  </main>
+
+  <script src="./js/quanly.js"></script>
+
+  <footer class="site-footer">
+    <p>© 2026 Minishop</p>
+  </footer>
+</body>
+</html>
