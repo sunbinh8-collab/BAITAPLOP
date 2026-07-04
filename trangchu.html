@@ -64,7 +64,7 @@
             </button>
             <a href="chitietsanpham.html?id=1">
               <img
-                src="https://picsum.photos/seed/ao1/400/400"
+                src="images/products/aothunden.jpg"
                 alt="Áo thun basic"
                 loading="lazy"
               />
@@ -88,7 +88,7 @@
             </button>
             <a href="chitietsanpham.html?id=2">
               <img
-                src="https://picsum.photos/seed/jean1/400/400"
+                src="images/products/quanjean.jpg"
                 alt="Quần jean"
                 loading="lazy"
               />
@@ -108,7 +108,7 @@
             </button>
             <a href="chitietsanpham.html?id=3">
               <img
-                src="https://picsum.photos/seed/vay1/400/400"
+                src="images/products/bonuday.jpeg"
                 alt="Váy nữ"
                 loading="lazy"
               />
@@ -126,7 +126,7 @@
             </button>
             <a href="chitietsanpham.html?id=4">
               <img
-                src="https://picsum.photos/seed/so-mi/400/400"
+                src="images/products/somi.jpg"
                 alt="Áo sơ mi"
                 loading="lazy"
               />
@@ -146,7 +146,7 @@
             </button>
             <a href="chitietsanpham.html?id=5">
               <img
-                src="https://picsum.photos/seed/mu1/400/400"
+                src="images/products/images.jpg"
                 alt="Mũ thời trang"
                 loading="lazy"
               />
@@ -164,7 +164,7 @@
             </button>
             <a href="chitietsanpham.html?id=6">
               <img
-                src="https://picsum.photos/seed/aokhoac1/400/400"
+                src="images/products/quanaobongchuyen.jpg"
                 alt="Áo khoác"
                 loading="lazy"
               />
@@ -179,12 +179,16 @@
           </article>
 
           <article class="product">
-            <button class="heart-btn" data-product="Giày thể thao" title="Yêu thích">
+            <button
+              class="heart-btn"
+              data-product="Giày thể thao"
+              title="Yêu thích"
+            >
               ♡
             </button>
             <a href="chitietsanpham.html?id=7">
               <img
-                src="https://picsum.photos/seed/giaythethao1/400/400"
+                src="images/products/images.jpg"
                 alt="Giày thể thao"
                 loading="lazy"
               />
@@ -204,7 +208,7 @@
             </button>
             <a href="chitietsanpham.html?id=8">
               <img
-                src="https://picsum.photos/seed/tuixach1/400/400"
+                src="images/products/bonuday.jpeg"
                 alt="Túi xách"
                 loading="lazy"
               />
@@ -224,7 +228,7 @@
             </button>
             <a href="chitietsanpham.html?id=9">
               <img
-                src="https://picsum.photos/seed/dongho1/400/400"
+                src="images/products/quanjean.jpg"
                 alt="Đồng hồ"
                 loading="lazy"
               />
@@ -261,25 +265,72 @@
         var btn = document.querySelector(".cart-btn");
         if (btn) btn.textContent = "Giỏ (" + count + ")";
       }
-      document.querySelectorAll(".product .btn").forEach(function (b) {
-        b.addEventListener("click", function () {
-          var art = this.closest(".product");
-          var title = art.querySelector("h3").textContent.trim();
-          var priceText = art.querySelector(".price").textContent || "";
-          var price = parseInt(priceText.replace(/[^0-9]/g, "")) || 0;
-          var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
-          var exist = cart.find(function (i) {
-            return i.title === title;
-          });
-          if (exist) exist.qty += 1;
-          else
-            cart.push({ id: Date.now(), title: title, price: price, qty: 1 });
-          localStorage.setItem("mini_cart", JSON.stringify(cart));
-          updateCartCount();
-          showToast('Đã thêm "' + title + '" vào giỏ', "success");
-          pulseCart();
+
+      function buildVariantControls(id) {
+        return (
+          '<div class="product-opts">' +
+          '<select class="size-select"><option value="M">Size M</option><option value="L">Size L</option><option value="XL">Size XL</option></select>' +
+          '<select class="color-select"><option value="Đen">Đen</option><option value="Trắng">Trắng</option><option value="Xanh">Xanh</option></select>' +
+          '<input class="qty-input" type="number" value="1" min="1" aria-label="Số lượng" />' +
+          "</div>" +
+          '<button class="btn add-to-cart" data-id="' +
+          id +
+          '">Thêm vào giỏ</button>'
+        );
+      }
+
+      function setupProductCards() {
+        document.querySelectorAll(".product").forEach(function (card) {
+          var actions = card.querySelector(".actions");
+          if (!actions || actions.querySelector(".product-opts")) return;
+          var link = card.querySelector(".product-link");
+          var href = link ? link.getAttribute("href") || "" : "";
+          var match = href.match(/id=(\d+)/);
+          var id = match ? parseInt(match[1], 10) : null;
+          if (!id) return;
+          actions.innerHTML = buildVariantControls(id);
         });
-      });
+      }
+
+      function attachAddToCartButtons() {
+        document
+          .querySelectorAll(".product .add-to-cart")
+          .forEach(function (b) {
+            b.addEventListener("click", function () {
+              var art = this.closest(".product");
+              var title = art.querySelector("h3").textContent.trim();
+              var priceText = art.querySelector(".price").textContent || "";
+              var price = parseInt(priceText.replace(/[^0-9]/g, "")) || 0;
+              var size = art.querySelector(".size-select").value;
+              var color = art.querySelector(".color-select").value;
+              var qty =
+                parseInt(art.querySelector(".qty-input").value, 10) || 1;
+              if (qty < 1) qty = 1;
+              var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+              var exist = cart.find(function (i) {
+                return (
+                  i.id === parseInt(this.getAttribute("data-id"), 10) &&
+                  i.size === size &&
+                  i.color === color
+                );
+              }, this);
+              if (exist) exist.qty += qty;
+              else
+                cart.push({
+                  id: parseInt(this.getAttribute("data-id"), 10),
+                  title: title,
+                  price: price,
+                  qty: qty,
+                  size: size,
+                  color: color,
+                });
+              localStorage.setItem("mini_cart", JSON.stringify(cart));
+              updateCartCount();
+              showToast('Đã thêm "' + title + '" vào giỏ', "success");
+              pulseCart();
+            });
+          });
+      }
       // Heart button favorite toggle
       document.querySelectorAll(".heart-btn").forEach(function (btn) {
         var productName = btn.getAttribute("data-product");

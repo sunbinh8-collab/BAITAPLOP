@@ -33,7 +33,7 @@
               >
               <a href="hoadon.html" data-panel="orders">Đơn hàng</a>
               <a href="diachi.html" data-panel="addresses">Địa chỉ</a>
-              <a href="phuongthucthanhtoان.html" data-panel="payments"
+              <a href="phuongthucthanhtoan.html" data-panel="payments"
                 >Phương thức thanh toán</a
               >
               <a href="yeuthich.html" data-panel="favorites">Yêu thích</a>
@@ -45,14 +45,54 @@
 
         <section class="account-main">
           <div id="profile" class="account-panel" data-panel>
-            <h2>Hồ sơ</h2>
-            <p><strong>Tên:</strong> Người dùng mẫu</p>
-            <p><strong>Email:</strong> user@example.com</p>
-            <p><strong>Số điện thoại:</strong> 0123 456 789</p>
-            <p><strong>Ngày tham gia:</strong> 01/01/2026</p>
-            <div style="margin-top: 20px">
-              <button class="btn primary">Chỉnh sửa hồ sơ</button>
+            <div id="profileSummary" class="profile-summary">
+              <div class="account-panel-header">
+                <h2>Hồ sơ</h2>
+                <button class="btn primary" id="editProfileBtn" type="button">
+                  Chỉnh sửa hồ sơ
+                </button>
+              </div>
+              <div class="profile-meta-grid">
+                <p><strong>Tên:</strong> <span id="profileName">Người dùng mẫu</span></p>
+                <p><strong>Email:</strong> <span id="profileEmail">user@example.com</span></p>
+                <p><strong>Số điện thoại:</strong> <span id="profilePhone">0123 456 789</span></p>
+                <p><strong>Địa chỉ:</strong> <span id="profileAddress">Hà Nội, Việt Nam</span></p>
+                <p><strong>Ngày tham gia:</strong> <span id="profileJoin">01/01/2026</span></p>
+                <p><strong>Giới thiệu:</strong> <span id="profileBio">Khách hàng thân thiết của MiniShop.</span></p>
+              </div>
             </div>
+
+            <form class="profile-edit-form" id="profileEditForm">
+              <div class="account-panel-header">
+                <h2>Chỉnh sửa hồ sơ</h2>
+              </div>
+              <div class="profile-grid">
+                <div class="form-field">
+                  <label for="editName">Họ và tên</label>
+                  <input id="editName" name="name" type="text" required />
+                </div>
+                <div class="form-field">
+                  <label for="editEmail">Email</label>
+                  <input id="editEmail" name="email" type="email" required />
+                </div>
+                <div class="form-field">
+                  <label for="editPhone">Số điện thoại</label>
+                  <input id="editPhone" name="phone" type="tel" />
+                </div>
+                <div class="form-field">
+                  <label for="editAddress">Địa chỉ</label>
+                  <input id="editAddress" name="address" type="text" />
+                </div>
+                <div class="form-field full">
+                  <label for="editBio">Giới thiệu</label>
+                  <textarea id="editBio" name="bio" rows="4"></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Lưu thay đổi</button>
+                <button class="btn" id="cancelEditBtn" type="button">Hủy</button>
+              </div>
+            </form>
           </div>
         </section>
       </div>
@@ -76,73 +116,73 @@
           id: 1,
           title: "Áo thun basic",
           price: 199000,
-          img: "https://picsum.photos/seed/aothun1/300/300",
+          img: "images/products/aothunden.jpg",
         },
         {
           id: 2,
           title: "Quần jean",
           price: 299000,
-          img: "https://picsum.photos/seed/quanjean/300/300",
+          img: "images/products/quanjean.jpg",
         },
         {
           id: 3,
           title: "Váy nữ",
           price: 349000,
-          img: "https://picsum.photos/seed/vaynu/300/300",
+          img: "images/products/bonuday.jpeg",
         },
         {
           id: 4,
           title: "Áo sơ mi",
           price: 249000,
-          img: "https://picsum.photos/seed/aosomi/300/300",
+          img: "images/products/somi.jpg",
         },
         {
           id: 5,
           title: "Mũ thời trang",
           price: 89000,
-          img: "https://picsum.photos/seed/muthoitrang/300/300",
+          img: "images/products/images.jpg",
         },
         {
           id: 6,
           title: "Áo khoác",
           price: 499000,
-          img: "https://picsum.photos/seed/aokhoac/300/300",
+          img: "images/products/quanaobongchuyen.jpg",
         },
         {
           id: 7,
           title: "Giày thể thao",
           price: 599000,
-          img: "https://picsum.photos/seed/giaythethao/300/300",
+          img: "images/products/images.jpg",
         },
         {
           id: 8,
           title: "Túi xách",
           price: 259000,
-          img: "https://picsum.photos/seed/tuixach/300/300",
+          img: "images/products/bonuday.jpeg",
         },
         {
           id: 9,
           title: "Đồng hồ",
           price: 1290000,
-          img: "https://picsum.photos/seed/dongho/300/300",
+          img: "images/products/quanjean.jpg",
         },
         {
           id: 10,
           title: "Áo hoodie",
           price: 399000,
-          img: "https://picsum.photos/seed/aohoodie/300/300",
+          img: "images/products/somi.jpg",
         },
         {
           id: 11,
           title: "Sandal nữ",
           price: 189000,
-          img: "https://picsum.photos/seed/sandalnu/300/300",
+          img: "images/products/images.jpg",
         },
         {
           id: 12,
           title: "Ví da nam",
           price: 229000,
-          img: "https://picsum.photos/seed/vida/300/300",
+          img: "images/products/quanaobongchuyen.jpg",
         },
       ];
 
@@ -176,7 +216,7 @@
             p.img +
             '" alt="' +
             p.title +
-            '" loading="lazy" style="height:200px;object-fit:cover"/>' +
+            '" loading="lazy" decoding="async" width="300" height="300" style="height:200px;object-fit:cover"/>' +
             "<h3>" +
             p.title +
             "</h3>" +
@@ -239,19 +279,17 @@
           link.addEventListener("click", function (e) {
             var panel = this.getAttribute("data-panel");
             if (!panel) return;
-            e.preventDefault();
-            // set active link
-            document
-              .querySelectorAll(".account-aside nav a")
-              .forEach(function (a) {
-                a.classList.remove("active");
-              });
-            this.classList.add("active");
 
-            // Scroll to panel smoothly if the panel exists on this page
             var targetPanel = document.getElementById(panel);
             if (targetPanel) {
               e.preventDefault();
+              document
+                .querySelectorAll(".account-aside nav a")
+                .forEach(function (a) {
+                  a.classList.remove("active");
+                });
+              this.classList.add("active");
+
               targetPanel.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
@@ -269,10 +307,97 @@
         if (cartBtn) cartBtn.textContent = "Giỏ (" + count + ")";
       }
 
+      function getProfileData() {
+        var saved = localStorage.getItem("mini_profile");
+        if (!saved) {
+          return {
+            name: "Người dùng mẫu",
+            email: "user@example.com",
+            phone: "0123 456 789",
+            address: "Hà Nội, Việt Nam",
+            join: "01/01/2026",
+            bio: "Khách hàng thân thiết của MiniShop.",
+          };
+        }
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          return {
+            name: "Người dùng mẫu",
+            email: "user@example.com",
+            phone: "0123 456 789",
+            address: "Hà Nội, Việt Nam",
+            join: "01/01/2026",
+            bio: "Khách hàng thân thiết của MiniShop.",
+          };
+        }
+      }
+
+      function renderProfile() {
+        var profile = getProfileData();
+        document.getElementById("profileName").textContent = profile.name;
+        document.getElementById("profileEmail").textContent = profile.email;
+        document.getElementById("profilePhone").textContent = profile.phone;
+        document.getElementById("profileAddress").textContent = profile.address;
+        document.getElementById("profileJoin").textContent = profile.join;
+        document.getElementById("profileBio").textContent = profile.bio;
+
+        document.getElementById("editName").value = profile.name;
+        document.getElementById("editEmail").value = profile.email;
+        document.getElementById("editPhone").value = profile.phone;
+        document.getElementById("editAddress").value = profile.address;
+        document.getElementById("editBio").value = profile.bio;
+      }
+
+      function toggleProfileEditor(showForm) {
+        var summary = document.getElementById("profileSummary");
+        var form = document.getElementById("profileEditForm");
+        if (summary) summary.classList.toggle("is-hidden", showForm);
+        if (form) form.classList.toggle("is-visible", showForm);
+      }
+
       updateCartCount();
+      renderProfile();
+      toggleProfileEditor(false);
+
+      var editProfileBtn = document.getElementById("editProfileBtn");
+      if (editProfileBtn) {
+        editProfileBtn.addEventListener("click", function () {
+          toggleProfileEditor(true);
+        });
+      }
+
+      var cancelEditBtn = document.getElementById("cancelEditBtn");
+      if (cancelEditBtn) {
+        cancelEditBtn.addEventListener("click", function () {
+          renderProfile();
+          toggleProfileEditor(false);
+        });
+      }
+
+      var profileEditForm = document.getElementById("profileEditForm");
+      if (profileEditForm) {
+        profileEditForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var profile = {
+            name: document.getElementById("editName").value.trim() || "Người dùng mẫu",
+            email: document.getElementById("editEmail").value.trim() || "user@example.com",
+            phone: document.getElementById("editPhone").value.trim() || "0123 456 789",
+            address: document.getElementById("editAddress").value.trim() || "Hà Nội, Việt Nam",
+            join: document.getElementById("profileJoin").textContent,
+            bio: document.getElementById("editBio").value.trim() || "Khách hàng thân thiết của MiniShop.",
+          };
+          localStorage.setItem("mini_profile", JSON.stringify(profile));
+          renderProfile();
+          toggleProfileEditor(false);
+          showToast("Đã cập nhật hồ sơ", "success");
+        });
+      }
+
       if (document.getElementById("favoritesList")) {
         renderFavorites();
       }
+    </script>
     </footer>
   </body>
 </html>

@@ -52,63 +52,63 @@
           id: 1,
           title: "Áo thun basic",
           price: 199000,
-          img: "https://via.placeholder.com/600x600?text=Áo+1",
+          img: "images/products/aothunden.jpg",
           desc: "Áo thun mềm mại, thoáng mát phù hợp hàng ngày.",
         },
         {
           id: 2,
           title: "Quần jean",
           price: 299000,
-          img: "https://via.placeholder.com/600x600?text=Quần+1",
+          img: "images/products/quanjean.jpg",
           desc: "Quần jean form ôm vừa vặn, chất liệu bền.",
         },
         {
           id: 3,
           title: "Váy nữ",
           price: 349000,
-          img: "https://via.placeholder.com/600x600?text=Váy+1",
+          img: "images/products/bonuday.jpeg",
           desc: "Váy nữ trẻ trung, phong cách.",
         },
         {
           id: 4,
           title: "Áo sơ mi",
           price: 249000,
-          img: "https://via.placeholder.com/600x600?text=Áo+2",
+          img: "images/products/somi.jpg",
           desc: "Áo sơ mi lịch sự, phù hợp công sở.",
         },
         {
           id: 5,
           title: "Mũ thời trang",
           price: 89000,
-          img: "https://via.placeholder.com/600x600?text=Mũ",
+          img: "images/products/images.jpg",
           desc: "Mũ phong cách, nhiều màu sắc.",
         },
         {
           id: 6,
           title: "Áo khoác",
           price: 499000,
-          img: "https://via.placeholder.com/600x600?text=Áo+3",
+          img: "images/products/quanaobongchuyen.jpg",
           desc: "Áo khoác ấm áp, chống gió.",
         },
         {
           id: 7,
           title: "Giày thể thao",
           price: 599000,
-          img: "https://via.placeholder.com/600x600?text=Giày",
+          img: "images/products/images.jpg",
           desc: "Giày êm chân, phù hợp chạy bộ.",
         },
         {
           id: 8,
           title: "Túi xách",
           price: 259000,
-          img: "https://via.placeholder.com/600x600?text=Túi",
+          img: "images/products/bonuday.jpeg",
           desc: "Túi xách thời trang, nhiều ngăn.",
         },
         {
           id: 9,
           title: "Đồng hồ",
           price: 1290000,
-          img: "https://via.placeholder.com/600x600?text=Đồng+hồ",
+          img: "images/products/quanjean.jpg",
           desc: "Đồng hồ sang trọng, chống nước.",
         },
       ];
@@ -138,7 +138,7 @@
         p.img +
         '" alt="' +
         p.title +
-        '" style="width:100%;border-radius:8px"></div>' +
+        '" loading="eager" decoding="async" width="600" height="600" style="width:100%;border-radius:8px"></div>' +
         '<div class="pd-info">' +
         "<h1>" +
         p.title +
@@ -150,7 +150,10 @@
         p.desc +
         "</p>" +
         '<div style="margin:12px 0">' +
-        '<label>Size:</label> <select id="sizeSelect" style="padding:8px;border-radius:6px;margin-left:8px"><option>M</option><option>L</option><option>XL</option></select>' +
+        '<label>Size:</label> <select id="sizeSelect" style="padding:8px;border-radius:6px;margin-left:8px"><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select>' +
+        "</div>" +
+        '<div style="margin:12px 0">' +
+        '<label>Màu:</label> <select id="colorSelect" style="padding:8px;border-radius:6px;margin-left:8px"><option value="Đen">Đen</option><option value="Trắng">Trắng</option><option value="Xanh">Xanh</option></select>' +
         "</div>" +
         '<div style="margin:12px 0">Số lượng: <input id="qty" type="number" value="1" min="1" style="width:60px;padding:6px;margin-left:8px;border-radius:6px;border:1px solid #e6e6e6"></div>' +
         '<div style="display:flex;gap:8px">' +
@@ -162,12 +165,22 @@
 
       document.getElementById("addCart").addEventListener("click", function () {
         var qty = parseInt(document.getElementById("qty").value) || 1;
+        var size = document.getElementById("sizeSelect").value;
+        var color = document.getElementById("colorSelect").value;
         var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
         var exist = cart.find(function (i) {
-          return i.id === p.id;
+          return i.id === p.id && i.size === size && i.color === color;
         });
         if (exist) exist.qty += qty;
-        else cart.push({ id: p.id, title: p.title, price: p.price, qty: qty });
+        else
+          cart.push({
+            id: p.id,
+            title: p.title,
+            price: p.price,
+            qty: qty,
+            size: size,
+            color: color,
+          });
         localStorage.setItem("mini_cart", JSON.stringify(cart));
         // cập nhật số lượng trên header
         (function updateCartCount() {

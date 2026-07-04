@@ -62,73 +62,73 @@
           id: 1,
           title: "Áo thun basic",
           price: 199000,
-          img: "https://picsum.photos/seed/aothun1/500/500",
+          img: "images/products/aothunden.jpg",
         },
         {
           id: 2,
           title: "Quần jean",
           price: 299000,
-          img: "https://picsum.photos/seed/quanjean/500/500",
+          img: "images/products/quanjean.jpg",
         },
         {
           id: 3,
           title: "Váy nữ",
           price: 349000,
-          img: "https://picsum.photos/seed/vaynu/500/500",
+          img: "images/products/bonuday.jpeg",
         },
         {
           id: 4,
           title: "Áo sơ mi",
           price: 249000,
-          img: "https://picsum.photos/seed/aosomi/500/500",
+          img: "images/products/somi.jpg",
         },
         {
           id: 5,
           title: "Mũ thời trang",
           price: 89000,
-          img: "https://picsum.photos/seed/muthoitrang/500/500",
+          img: "images/products/images.jpg",
         },
         {
           id: 6,
           title: "Áo khoác",
           price: 499000,
-          img: "https://picsum.photos/seed/aokhoac/500/500",
+          img: "images/products/quanaobongchuyen.jpg",
         },
         {
           id: 7,
           title: "Giày thể thao",
           price: 599000,
-          img: "https://picsum.photos/seed/giaythethao/500/500",
+          img: "images/products/images.jpg",
         },
         {
           id: 8,
           title: "Túi xách",
           price: 259000,
-          img: "https://picsum.photos/seed/tuixach/500/500",
+          img: "images/products/bonuday.jpeg",
         },
         {
           id: 9,
           title: "Đồng hồ",
           price: 1290000,
-          img: "https://picsum.photos/seed/dongho/500/500",
+          img: "images/products/quanjean.jpg",
         },
         {
           id: 10,
           title: "Áo hoodie",
           price: 399000,
-          img: "https://picsum.photos/seed/aohoodie/500/500",
+          img: "images/products/somi.jpg",
         },
         {
           id: 11,
           title: "Sandal nữ",
           price: 189000,
-          img: "https://picsum.photos/seed/sandalnu/500/500",
+          img: "images/products/images.jpg",
         },
         {
           id: 12,
           title: "Ví da nam",
           price: 229000,
-          img: "https://picsum.photos/seed/vida/500/500",
+          img: "images/products/quanaobongchuyen.jpg",
         },
       ];
 
@@ -162,7 +162,7 @@
             p.img +
             '" alt="' +
             p.title +
-            '" loading="lazy"></a>' +
+            '" loading="lazy" decoding="async" width="400" height="400"></a>' +
             '<h3><a class="product-link" href="chitietsanpham.html?id=' +
             p.id +
             '">' +
@@ -171,7 +171,13 @@
             '<p class="price">' +
             formatVND(p.price) +
             "</p>" +
-            '<div class="actions"><button class="btn" data-id="' +
+            '<div class="actions">' +
+            '<div class="product-opts">' +
+            '<select class="size-select"><option value="M">Size M</option><option value="L">Size L</option><option value="XL">Size XL</option></select>' +
+            '<select class="color-select"><option value="Đen">Đen</option><option value="Trắng">Trắng</option><option value="Xanh">Xanh</option></select>' +
+            '<input class="qty-input" type="number" value="1" min="1" aria-label="Số lượng" />' +
+            "</div>" +
+            '<button class="btn add-to-cart" data-id="' +
             p.id +
             '">Thêm vào giỏ</button></div>';
           fragment.appendChild(el);
@@ -185,28 +191,43 @@
       }
 
       function attachCartButtons() {
-        document.querySelectorAll(".product .btn").forEach(function (b) {
-          b.addEventListener("click", function () {
-            var id = parseInt(this.getAttribute("data-id"));
-            var p = products.find(function (x) {
-              return x.id === id;
+        document
+          .querySelectorAll(".product .add-to-cart")
+          .forEach(function (b) {
+            b.addEventListener("click", function () {
+              var id = parseInt(this.getAttribute("data-id"));
+              var p = products.find(function (x) {
+                return x.id === id;
+              });
+              if (!p) return;
+              var card = this.closest(".product");
+              var size = card.querySelector(".size-select").value;
+              var color = card.querySelector(".color-select").value;
+              var qty =
+                parseInt(card.querySelector(".qty-input").value, 10) || 1;
+              if (qty < 1) qty = 1;
+              var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+              var exist = cart.find(function (i) {
+                return i.id === p.id && i.size === size && i.color === color;
+              });
+              if (exist) {
+                exist.qty += qty;
+              } else {
+                cart.push({
+                  id: p.id,
+                  title: p.title,
+                  price: p.price,
+                  qty: qty,
+                  size: size,
+                  color: color,
+                });
+              }
+              localStorage.setItem("mini_cart", JSON.stringify(cart));
+              updateCartCount();
+              showToast('Đã thêm "' + p.title + '" vào giỏ', "success");
+              pulseCart();
             });
-            if (!p) return;
-            var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
-            var exist = cart.find(function (i) {
-              return i.id === p.id;
-            });
-            if (exist) {
-              exist.qty += 1;
-            } else {
-              cart.push({ id: p.id, title: p.title, price: p.price, qty: 1 });
-            }
-            localStorage.setItem("mini_cart", JSON.stringify(cart));
-            updateCartCount();
-            showToast('Đã thêm "' + p.title + '" vào giỏ', "success");
-            pulseCart();
           });
-        });
       }
 
       function attachHeartButtons() {

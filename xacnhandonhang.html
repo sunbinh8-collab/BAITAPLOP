@@ -90,7 +90,7 @@
       }
 
       function refreshOrder() {
-        var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+        var cart = JSON.parse(localStorage.getItem("mini_last_order") || "[]");
         var total = cart.reduce(function (sum, item) {
           return sum + (item.qty || 0) * (item.price || 0);
         }, 0);

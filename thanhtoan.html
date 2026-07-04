@@ -34,54 +34,114 @@
       </section>
 
       <section class="products">
-        <div style="display: grid; grid-template-columns: 1fr 320px; gap: 24px">
-          <div class="form-card" style="margin: 0">
-            <h2>Thông tin thanh toán</h2>
-            <form id="paymentForm">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 18px;
+            align-items: start;
+          "
+        >
+          <div class="form-card" style="margin: 0; padding: 22px">
+            <h2 style="margin-bottom: 16px; font-size: 1.25rem">
+              Thông tin thanh toán
+            </h2>
+            <form id="paymentForm" novalidate>
               <div class="form-field">
-                <label for="cardName">Tên trên thẻ</label>
-                <input id="cardName" name="cardName" type="text" required />
-              </div>
-              <div class="form-field">
-                <label for="cardNumber">Số thẻ</label>
-                <input
-                  id="cardNumber"
-                  name="cardNumber"
-                  type="text"
-                  required
-                  maxlength="19"
-                  placeholder="1234 5678 9012 3456"
-                />
-              </div>
-              <div
-                style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px"
-              >
-                <div class="form-field">
-                  <label for="expiry">Hết hạn</label>
-                  <input
-                    id="expiry"
-                    name="expiry"
-                    type="text"
-                    required
-                    placeholder="MM/YY"
-                  />
-                </div>
-                <div class="form-field">
-                  <label for="cvc">CVC</label>
-                  <input
-                    id="cvc"
-                    name="cvc"
-                    type="text"
-                    required
-                    maxlength="4"
-                    placeholder="123"
-                  />
+                <label>Phương thức thanh toán</label>
+                <div class="payment-methods">
+                  <label class="payment-option active">
+                    <span>Thẻ tín dụng</span>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="card"
+                      checked
+                    />
+                  </label>
+                  <label class="payment-option">
+                    <span>Chuyển khoản ngân hàng</span>
+                    <input type="radio" name="paymentMethod" value="bank" />
+                  </label>
+                  <label class="payment-option">
+                    <span>Ví MoMo</span>
+                    <input type="radio" name="paymentMethod" value="momo" />
+                  </label>
+                  <label class="payment-option">
+                    <span>Thanh toán khi nhận hàng</span>
+                    <input type="radio" name="paymentMethod" value="cod" />
+                  </label>
                 </div>
               </div>
+
+              <div id="cardDetails">
+                <div class="form-field">
+                  <label for="cardName">Tên trên thẻ</label>
+                  <input id="cardName" name="cardName" type="text" required />
+                </div>
+                <div class="form-field">
+                  <label for="cardNumber">Số thẻ</label>
+                  <input
+                    id="cardNumber"
+                    name="cardNumber"
+                    type="text"
+                    required
+                    maxlength="19"
+                    placeholder="1234 5678 9012 3456"
+                  />
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 12px;
+                  "
+                >
+                  <div class="form-field">
+                    <label for="expiry">Hết hạn</label>
+                    <input
+                      id="expiry"
+                      name="expiry"
+                      type="text"
+                      required
+                      placeholder="MM/YY"
+                    />
+                  </div>
+                  <div class="form-field">
+                    <label for="cvc">CVC</label>
+                    <input
+                      id="cvc"
+                      name="cvc"
+                      type="text"
+                      required
+                      maxlength="4"
+                      placeholder="123"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div id="bankDetails" class="payment-info" style="display: none">
+                <p>Vui lòng chuyển khoản tới tài khoản:</p>
+                <p><strong>MB Bank</strong> - 0123456789</p>
+                <p>Nội dung: <strong>MiniShop [Số điện thoại]</strong></p>
+              </div>
+
+              <div id="momoDetails" class="payment-info" style="display: none">
+                <p>Quét mã QR hoặc chuyển tới số:</p>
+                <p><strong>MoMo</strong> - 0901234567</p>
+              </div>
+
+              <div id="codDetails" class="payment-info" style="display: none">
+                <p>
+                  Thanh toán khi nhận hàng sẽ được xác nhận sau khi giao hàng.
+                </p>
+              </div>
+
               <button class="btn primary" type="submit">Thanh toán</button>
             </form>
           </div>
-          <aside class="cart-summary" style="margin: 0">
+          <aside class="cart-summary" style="margin: 0; padding: 18px">
             <h3>Tóm tắt đơn hàng</h3>
             <p>Kiểm tra lại thông tin đơn hàng trước khi thanh toán.</p>
             <div
@@ -199,16 +259,93 @@
         renderCartItems();
       }
 
-      document
-        .getElementById("paymentForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-          showToast(
-            "Thanh toán thành công! Cảm ơn bạn đã mua hàng.",
-            "success",
-          );
-          window.location.href = "xacnhandonhang.html";
+      var paymentOptions = document.querySelectorAll(".payment-option");
+      var cardDetails = document.getElementById("cardDetails");
+      var bankDetails = document.getElementById("bankDetails");
+      var momoDetails = document.getElementById("momoDetails");
+      var codDetails = document.getElementById("codDetails");
+      var paymentForm = document.getElementById("paymentForm");
+      var cardInputs = [
+        document.getElementById("cardName"),
+        document.getElementById("cardNumber"),
+        document.getElementById("expiry"),
+        document.getElementById("cvc"),
+      ];
+
+      function setCardRequirements(isCard) {
+        cardInputs.forEach(function (input) {
+          if (input) {
+            input.required = isCard;
+            input.disabled = !isCard;
+          }
         });
+      }
+
+      function togglePaymentDetails(value) {
+        cardDetails.style.display = value === "card" ? "block" : "none";
+        bankDetails.style.display = value === "bank" ? "block" : "none";
+        momoDetails.style.display = value === "momo" ? "block" : "none";
+        codDetails.style.display = value === "cod" ? "block" : "none";
+      }
+
+      paymentOptions.forEach(function (option) {
+        option.addEventListener("click", function () {
+          paymentOptions.forEach(function (item) {
+            item.classList.remove("active");
+          });
+          this.classList.add("active");
+
+          var value = this.querySelector("input").value;
+          togglePaymentDetails(value);
+          setCardRequirements(value === "card");
+        });
+      });
+
+      paymentForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var selectedMethod = document.querySelector(
+          'input[name="paymentMethod"]:checked',
+        ).value;
+        var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+
+        if (!cart.length) {
+          showToast(
+            "Giỏ hàng đang trống. Hãy thêm sản phẩm trước khi thanh toán.",
+            "error",
+          );
+          return;
+        }
+
+        if (selectedMethod === "card") {
+          var cardName = document.getElementById("cardName").value.trim();
+          var cardNumber = document.getElementById("cardNumber").value.trim();
+          var expiry = document.getElementById("expiry").value.trim();
+          var cvc = document.getElementById("cvc").value.trim();
+
+          if (!cardName || !cardNumber || !expiry || !cvc) {
+            showToast("Vui lòng điền đầy đủ thông tin thẻ.", "error");
+            return;
+          }
+        }
+
+        var message =
+          selectedMethod === "cod"
+            ? "Đặt hàng thành công! Bạn sẽ thanh toán khi nhận hàng."
+            : "Thanh toán thành công! Cảm ơn bạn đã mua hàng.";
+
+        localStorage.setItem("mini_cart", "[]");
+        localStorage.setItem("mini_last_order", JSON.stringify(cart));
+        localStorage.setItem("mini_order_message", message);
+        showToast(message, "success");
+        window.location.href = "xacnhandonhang.html";
+      });
+
+      var initialMethod = document.querySelector(
+        'input[name="paymentMethod"]:checked',
+      ).value;
+      togglePaymentDetails(initialMethod);
+      setCardRequirements(initialMethod === "card");
 
       updateCartCount();
       refreshSummary();

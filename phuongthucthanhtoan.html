@@ -83,9 +83,10 @@
       </div>
     </footer>
 
+    <script src="js/common.js"></script>
     <script>
       function updateCartCount() {
-        var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]);
+        var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
         var count = cart.reduce(function (s, i) {
           return s + (i.qty || 0);
         }, 0);
