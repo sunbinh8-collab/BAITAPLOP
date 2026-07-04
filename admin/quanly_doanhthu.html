@@ -1,11 +1,351 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý doanh thu</title>
     <link rel="stylesheet" href="../css/minishop.css" />
     <link rel="stylesheet" href="../css/admin.css" />
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý doanh thu - MiniShop Admin</title>
+    <style>
+      :root {
+        --primary-color: #4e73df;
+        --primary-hover: #2e59d9;
+        --secondary-color: #858796;
+        --success-color: #1cc88a;
+        --info-color: #36b9cc;
+        --warning-color: #f6c23e;
+        --danger-color: #e74a3b;
+        --sidebar-bg: #1f2937;
+        --body-bg: #f8f9fc;
+        --text-color: #5a5c69;
+        --heading-color: #3a3b45;
+        --border-color: #eaecf4;
+        --radius: 10px;
+        --shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        --transition: all 0.25s ease;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--body-bg);
+        color: var(--text-color);
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* === SIDEBAR COMPONENT === */
+      .admin-sidebar {
+        width: 260px;
+        background-color: var(--sidebar-bg);
+        color: #fff;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .sidebar-brand {
+        padding: 0 24px 24px 24px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .admin-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 0 16px;
+      }
+
+      .admin-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        padding: 14px 18px;
+        border-radius: var(--radius);
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .admin-card:hover, .admin-card.active {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      
+      .admin-card.active {
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(78, 115, 223, 0.25);
+      }
+
+      .admin-card svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* === MAIN DISPLAY FRAMEWORK === */
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .site-header {
+        background-color: #fff;
+        padding: 18px 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .logo {
+        text-decoration: none;
+        color: var(--heading-color);
+        font-weight: 700;
+        font-size: 1.25rem;
+        transition: var(--transition);
+      }
+      .logo:hover { color: var(--primary-color); }
+
+      .top-nav a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: 20px;
+        transition: var(--transition);
+      }
+      .top-nav a:hover { color: var(--primary-color); }
+
+      .main-content {
+        padding: 35px 30px;
+        flex: 1;
+      }
+
+      .page-heading {
+        margin-bottom: 5px;
+        color: var(--heading-color);
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+      
+      .page-subheading {
+        font-size: 0.95rem;
+        color: var(--secondary-color);
+        margin-bottom: 30px;
+      }
+
+      /* === STATS CARDS === */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 20px 24px;
+        border-left: 4px solid var(--primary-color);
+        box-shadow: var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .stat-card.card-revenue { border-left-color: var(--success-color); }
+      .stat-card.card-orders { border-left-color: var(--info-color); }
+
+      .stat-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+      }
+      .stat-card.card-revenue .stat-title { color: var(--success-color); }
+      .stat-card.card-orders .stat-title { color: var(--info-color); }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--heading-color);
+      }
+
+      .stat-icon svg {
+        width: 32px;
+        height: 32px;
+        color: #dddfeb;
+        fill: currentColor;
+      }
+
+      /* === INTERACTIVE CARDS & CONTROLS === */
+      .content-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 18px 24px;
+        background: #f8f9fc;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 700;
+        color: var(--heading-color);
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+
+      .revenue-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: flex-end;
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-width: 180px;
+      }
+
+      .control-group label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--heading-color);
+      }
+
+      select, input {
+        padding: 10px 14px;
+        border: 1px solid #d1d3e2;
+        border-radius: 6px;
+        outline: none;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        width: 100%;
+        background-color: #fff;
+        transition: var(--transition);
+      }
+
+      select:focus, input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 11px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        white-space: nowrap;
+      }
+      
+      .btn-primary { background: var(--primary-color); color: #fff; }
+      .btn-primary:hover { background: var(--primary-hover); }
+      
+      .btn-secondary { background: #eaecf4; color: var(--heading-color); }
+      .btn-secondary:hover { background: #d1d3e2; }
+
+      /* === DATA TABLE === */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .admin-table th, .admin-table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+      }
+
+      .admin-table th {
+        background-color: #f8f9fc;
+        font-weight: 700;
+        color: var(--heading-color);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .admin-table tbody tr {
+        transition: var(--transition);
+      }
+
+      .admin-table tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.02);
+      }
+
+      /* === STATUS BADGES === */
+      .badge-status {
+        padding: 5px 12px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border-radius: 30px;
+        display: inline-block;
+      }
+      .status-processing { background-color: rgba(246, 194, 62, 0.1); color: var(--warning-color); }
+      .status-delivered { background-color: rgba(28, 200, 138, 0.1); color: var(--success-color); }
+
+      .site-footer {
+        background: #fff;
+        padding: 24px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+        border-top: 1px solid var(--border-color);
+        margin-top: auto;
+      }
+    </style>
+
+    <!-- KIỂM TRA PHÂN QUYỀN TRUY CẬP -->
+>>>>>>> 2615dae (one time)
     <script>
       (function () {
         try {
@@ -20,14 +360,14 @@
     </script>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="logo" href="../trangchu.html">MiniShop</a>
-        <nav class="main-nav">
-          <a href="./quanly.html">Dashboard</a>
-          <a href="../trangchu.html">Trang chủ</a>
-        </nav>
+
+    <!-- SIDEBAR DI CHUYỂN BÊN TRÁI -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" style="width:24px; fill:#fff;"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v4h2v-4h3l-4-4-4 4h3z"/></svg>
+        MiniShop Admin
       </div>
+<<<<<<< HEAD
     </header>
     <main class="container">
       <h1>Quản lý doanh thu</h1>
@@ -52,14 +392,102 @@
           </label>
           <button id="filterBtn" class="btn">Lọc</button>
           <button id="resetBtn" class="btn">Đặt lại</button>
+=======
+      <nav class="admin-nav">
+        <a class="admin-card" href="./quanly_sanpham.html">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.2c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.57 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm1 14h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          Quản lý sản phẩm
+        </a>
+        <a class="admin-card" href="./quanly_donhang.html">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H10v-2h4v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Quản lý đơn hàng
+        </a>
+        <a class="admin-card" href="./quanly_nhanvien.html">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"/></svg>
+          Quản lý nhân viên
+        </a>
+        <a class="admin-card" href="./quanly_khachhang.html">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Quản lý khách hàng
+        </a>
+        <a class="admin-card active" href="./quanly_doanhthu.html">
+          <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+          Quản lý doanh thu
+        </a>
+        <a class="admin-card" href="./quanly_kho.html">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          Quản lý kho
+        </a>
+      </nav>
+    </aside>
+
+    <!-- KHU VỰC CHÍNH BÊN PHẢI -->
+    <div class="main-wrapper">
+      <header class="site-header">
+        <a class="logo" href="../trangchu.html">MiniShop Hệ Thống</a>
+        <nav class="top-nav">
+          <a href="./quanly.html">Dashboard</a>
+          <a href="../trangchu.html">Xem Trang Chủ</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <h2 class="page-heading">Báo cáo Doanh thu</h2>
+        <p class="page-subheading">Theo dõi số liệu thống kê dòng tiền và trạng thái xử lý đơn hàng thực tế.</p>
+
+        <!-- THẺ THỐNG KÊ TỔNG QUAN (CARDS) -->
+        <div class="stats-grid">
+          <div class="stat-card card-revenue">
+            <div>
+              <div class="stat-title">Tổng doanh thu lọc được</div>
+              <div class="stat-value" id="totalRevenue">₫0</div>
+            </div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+            </div>
+          </div>
+          <div class="stat-card card-orders">
+            <div>
+              <div class="stat-title">Số lượng đơn hàng</div>
+              <div class="stat-value" id="orderCount">0</div>
+            </div>
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
+          </div>
+>>>>>>> 2615dae (one time)
         </div>
 
-        <div class="revenue-summary">
-          <strong>Tổng doanh thu:</strong> <span id="totalRevenue">₫0</span>
-          &nbsp;•&nbsp;
-          <strong>Số đơn:</strong> <span id="orderCount">0</span>
+        <!-- BỘ LỌC DỮ LIỆU TÌM KIẾM -->
+        <div class="content-card">
+          <div class="card-header">Bộ lọc tìm kiếm và kết xuất số liệu</div>
+          <div class="card-body">
+            <div class="revenue-controls">
+              <div class="control-group">
+                <label for="statusFilter">Trạng thái đơn</label>
+                <select id="statusFilter">
+                  <option value="all">Tất cả trạng thái</option>
+                  <option value="processing">Đang xử lý</option>
+                  <option value="delivered">Đã giao</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="fromDate">Từ ngày</label>
+                <input type="date" id="fromDate" />
+              </div>
+              <div class="control-group">
+                <label for="toDate">Đến ngày</label>
+                <input type="date" id="toDate" />
+              </div>
+              <div class="btn-group">
+                <button id="filterBtn" class="btn btn-primary">Áp dụng Lọc</button>
+                <button id="resetBtn" class="btn btn-secondary">Đặt lại</button>
+              </div>
+            </div>
+          </div>
         </div>
 
+<<<<<<< HEAD
         <table id="ordersTable" class="admin-table">
           <thead>
             <tr>
@@ -109,5 +537,124 @@
       </section>
     </main>
     <script src="./js/quanly.js"></script>
+=======
+        <!-- DANH SÁCH CHI TIẾT ĐƠN HÀNG TRÊN HỆ THỐNG -->
+        <div class="content-card">
+          <div class="card-header">Chi tiết danh sách hóa đơn kinh doanh</div>
+          <div class="table-responsive">
+            <table id="ordersTable" class="admin-table">
+              <thead>
+                <tr>
+                  <th>Mã Đơn</th>
+                  <th>Khách Hàng</th>
+                  <th>Trạng Thái</th>
+                  <th>Ngày Tạo</th>
+                  <th>Tổng Thành Tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-amount="500000" data-date="2026-06-01" data-status="processing">
+                  <td style="font-weight:600; color:var(--primary-color);">DH001</td>
+                  <td style="font-weight:600; color:var(--heading-color);">Nguyễn A</td>
+                  <td><span class="badge-status status-processing">Đang xử lý</span></td>
+                  <td>2026-06-01</td>
+                  <td style="font-weight:600; color:var(--heading-color);">₫500,000</td>
+                </tr>
+                <tr data-amount="320000" data-date="2026-06-05" data-status="delivered">
+                  <td style="font-weight:600; color:var(--primary-color);">DH002</td>
+                  <td style="font-weight:600; color:var(--heading-color);">Trần B</td>
+                  <td><span class="badge-status status-delivered">Đã giao</span></td>
+                  <td>2026-06-05</td>
+                  <td style="font-weight:600; color:var(--heading-color);">₫320,000</td>
+                </tr>
+                <tr data-amount="150000" data-date="2026-06-10" data-status="delivered">
+                  <td style="font-weight:600; color:var(--primary-color);">DH003</td>
+                  <td style="font-weight:600; color:var(--heading-color);">Phạm C</td>
+                  <td><span class="badge-status status-delivered">Đã giao</span></td>
+                  <td>2026-06-10</td>
+                  <td style="font-weight:600; color:var(--heading-color);">₫150,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>© 2026 Hệ thống Quản trị Doanh nghiệp MiniShop. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- LOGIC JAVASCRIPT XỬ LÝ BỘ LỌC DOANH THU -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var statusFilter = document.getElementById("statusFilter");
+        var fromDateInput = document.getElementById("fromDate");
+        var toDateInput = document.getElementById("toDate");
+        var filterBtn = document.getElementById("filterBtn");
+        var resetBtn = document.getElementById("resetBtn");
+        
+        var totalRevenueEl = document.getElementById("totalRevenue");
+        var orderCountEl = document.getElementById("orderCount");
+        var tableRows = document.querySelectorAll("#ordersTable tbody tr");
+
+        // Định dạng tiền tệ VND hiển thị lên thẻ Card
+        function formatCurrency(amount) {
+          return '₫' + amount.toLocaleString('vi-VN');
+        }
+
+        // Hàm tính toán doanh thu và ẩn/hiện các hàng dựa theo bộ lọc được chọn
+        function updateRevenue() {
+          var selectedStatus = statusFilter.value;
+          var fromDate = fromDateInput.value ? new Date(fromDateInput.value) : null;
+          var toDate = toDateInput.value ? new Date(toDateInput.value) : null;
+
+          // Thiết lập mốc giờ chuẩn để so sánh chính xác ngày đặt đơn
+          if (fromDate) fromDate.setHours(0, 0, 0, 0);
+          if (toDate) toDate.setHours(23, 59, 59, 999);
+
+          var totalRevenue = 0;
+          var visibleOrderCount = 0;
+
+          tableRows.forEach(function (row) {
+            var amount = parseFloat(row.getAttribute("data-amount")) || 0;
+            var status = row.getAttribute("data-status");
+            var dateStr = row.getAttribute("data-date");
+            var rowDate = dateStr ? new Date(dateStr) : null;
+            if (rowDate) rowDate.setHours(0, 0, 0, 0);
+
+            var matchesStatus = (selectedStatus === "all" || status === selectedStatus);
+            var matchesFromDate = (!fromDate || (rowDate && rowDate >= fromDate));
+            var matchesToDate = (!toDate || (rowDate && rowDate <= toDate));
+
+            if (matchesStatus && matchesFromDate && matchesToDate) {
+              row.style.display = ""; // Hiển thị hàng hợp lệ
+              totalRevenue += amount;
+              visibleOrderCount++;
+            } else {
+              row.style.display = "none"; // Ẩn hàng không hợp lệ
+            }
+          });
+
+          // Cập nhật giá trị trực tiếp ra ngoài giao diện người dùng
+          totalRevenueEl.textContent = formatCurrency(totalRevenue);
+          orderCountEl.textContent = visibleOrderCount;
+        }
+
+        // Lắng nghe hành vi click nút bấm lọc và reset dữ liệu
+        filterBtn.addEventListener("click", updateRevenue);
+
+        resetBtn.addEventListener("click", function () {
+          statusFilter.value = "all";
+          fromDateInput.value = "";
+          toDateInput.value = "";
+          updateRevenue();
+        });
+
+        // Tự động kích hoạt tính toán số liệu lần đầu tiên khi tải trang
+        updateRevenue();
+      });
+    </script>
+>>>>>>> 2615dae (one time)
   </body>
 </html>

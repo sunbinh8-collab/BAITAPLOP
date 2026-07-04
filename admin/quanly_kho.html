@@ -1,11 +1,375 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý kho</title>
     <link rel="stylesheet" href="../css/minishop.css" />
     <link rel="stylesheet" href="../css/admin.css" />
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý kho - MiniShop Admin</title>
+    <style>
+      :root {
+        --primary-color: #4e73df;
+        --primary-hover: #2e59d9;
+        --secondary-color: #858796;
+        --success-color: #1cc88a;
+        --info-color: #36b9cc;
+        --warning-color: #f6c23e;
+        --danger-color: #e74a3b;
+        --sidebar-bg: #1f2937;
+        --body-bg: #f8f9fc;
+        --text-color: #5a5c69;
+        --heading-color: #3a3b45;
+        --border-color: #eaecf4;
+        --radius: 10px;
+        --shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        --transition: all 0.25s ease;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--body-bg);
+        color: var(--text-color);
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* === SIDEBAR COMPONENT === */
+      .admin-sidebar {
+        width: 260px;
+        background-color: var(--sidebar-bg);
+        color: #fff;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .sidebar-brand {
+        padding: 0 24px 24px 24px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .admin-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 0 16px;
+      }
+
+      .admin-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        padding: 14px 18px;
+        border-radius: var(--radius);
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .admin-card:hover, .admin-card.active {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      
+      .admin-card.active {
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(78, 115, 223, 0.25);
+      }
+
+      .admin-card svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* === MAIN DISPLAY FRAMEWORK === */
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .site-header {
+        background-color: #fff;
+        padding: 18px 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .logo {
+        text-decoration: none;
+        color: var(--heading-color);
+        font-weight: 700;
+        font-size: 1.25rem;
+        transition: var(--transition);
+      }
+      .logo:hover { color: var(--primary-color); }
+
+      .top-nav a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: 20px;
+        transition: var(--transition);
+      }
+
+      .top-nav a:hover {
+        color: var(--primary-color);
+      }
+
+      .main-content {
+        padding: 35px 30px;
+        flex: 1;
+      }
+
+      .page-heading {
+        margin-bottom: 25px;
+        color: var(--heading-color);
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+
+      /* === INTERACTIVE CARDS === */
+      .content-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 18px 24px;
+        background: #f8f9fc;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 700;
+        color: var(--heading-color);
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+
+      /* === TOOLBAR & FILTERS === */
+      .toolbar-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 12px;
+        flex: 1;
+        min-width: 280px;
+      }
+
+      /* === FORM CONTROL DESIGN === */
+      select, input {
+        padding: 11px 16px;
+        border: 1px solid #d1d3e2;
+        border-radius: 6px;
+        outline: none;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        width: 100%;
+        transition: var(--transition);
+      }
+
+      select:focus, input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+      }
+
+      .admin-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        align-items: flex-end;
+      }
+
+      /* === BUTTON DESIGN === */
+      .btn {
+        padding: 11px 22px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .btn-success { background: var(--success-color); color: #fff; }
+      .btn-success:hover { background: #14a371; }
+      
+      .btn-primary { background: var(--primary-color); color: #fff; padding: 7px 14px; font-size: 0.85rem;}
+      .btn-primary:hover { background: var(--primary-hover); }
+
+      .btn-danger { background: var(--danger-color); color: #fff; padding: 7px 14px; font-size: 0.85rem; }
+      .btn-danger:hover { background: #be2617; }
+      
+      .btn-secondary { background: var(--secondary-color); color: #fff; }
+
+      /* === DATA TABLE === */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .admin-table th, .admin-table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+      }
+
+      .admin-table th {
+        background-color: #f8f9fc;
+        font-weight: 700;
+        color: var(--heading-color);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .admin-table tbody tr {
+        transition: var(--transition);
+      }
+
+      .admin-table tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.03);
+      }
+
+      .badge-qty {
+        padding: 5px 12px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border-radius: 30px;
+        display: inline-block;
+      }
+      .qty-normal { background-color: rgba(28, 200, 138, 0.1); color: var(--success-color); }
+      .qty-warning { background-color: rgba(246, 194, 62, 0.1); color: var(--warning-color); }
+      .qty-danger { background-color: rgba(231, 74, 59, 0.1); color: var(--danger-color); }
+
+      .badge-location {
+        background-color: rgba(78, 115, 223, 0.1);
+        color: var(--primary-color);
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border-radius: 6px;
+        display: inline-block;
+      }
+      
+      .action-btns {
+        display: flex;
+        gap: 8px;
+      }
+
+      /* === MODAL POPUP CHỈNH SỬA === */
+      .modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0; pointer-events: none;
+        transition: var(--transition);
+        z-index: 999;
+      }
+
+      .modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: var(--radius);
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transform: translateY(-30px);
+        transition: var(--transition);
+      }
+
+      .modal.active .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--heading-color);
+        margin-bottom: 20px;
+      }
+
+      .modal-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .site-footer {
+        background: #fff;
+        padding: 24px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+        border-top: 1px solid var(--border-color);
+        margin-top: auto;
+      }
+    </style>
+
+    <!-- KIỂM TRA PHÂN QUYỀN TRUY CẬP -->
+>>>>>>> 2615dae (one time)
     <script>
       (function () {
         try {
@@ -20,14 +384,14 @@
     </script>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="logo" href="../trangchu.html">MiniShop</a>
-        <nav class="main-nav">
-          <a href="./quanly.html">Dashboard</a>
-          <a href="../trangchu.html">Trang chủ</a>
-        </nav>
+
+    <!-- SIDEBAR - MENU DI CHUYỂN TRÁI -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" style="width:24px; fill:#fff;"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v4h2v-4h3l-4-4-4 4h3z"/></svg>
+        MiniShop Admin
       </div>
+<<<<<<< HEAD
     </header>
     <main class="container">
       <h1>Quản lý kho</h1>
@@ -57,5 +421,288 @@
       </table>
     </main>
     <script src="./js/quanly_kho.js"></script>
+=======
+      <nav class="admin-nav">
+        <a class="admin-card" href="./quanly_sanpham.html">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.2c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.57 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm1 14h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          Quản lý sản phẩm
+        </a>
+        <a class="admin-card" href="./quanly_donhang.html">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H10v-2h4v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Quản lý đơn hàng
+        </a>
+        <a class="admin-card" href="./quanly_nhanvien.html">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"/></svg>
+          Quản lý nhân viên
+        </a>
+        <a class="admin-card" href="./quanly_khachhang.html">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Quản lý khách hàng
+        </a>
+        <a class="admin-card" href="./quanly_doanhthu.html">
+          <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+          Quản lý doanh thu
+        </a>
+        <a class="admin-card active" href="./quanly_kho.html">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          Quản lý kho
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENT KHU VỰC HIỂN THỊ PHẢI -->
+    <div class="main-wrapper">
+      <header class="site-header">
+        <a class="logo" href="../trangchu.html">MiniShop Hệ Thống</a>
+        <nav class="top-nav">
+          <a href="./quanly.html">Dashboard</a>
+          <a href="../trangchu.html">Xem Trang Chủ</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <h2 class="page-heading">Hệ thống Quản lý kho hàng</h2>
+
+        <!-- THANH TÌM KIẾM THỜI GIAN THỰC -->
+        <div class="content-card">
+          <div class="card-body">
+            <div class="toolbar-grid">
+              <div class="search-box">
+                <input type="text" id="searchInventory" placeholder="🔍 Tìm kiếm sản phẩm trong kho theo tên hoặc vị trí kệ..." />
+                <select id="statusFilter" style="max-width: 220px;">
+                  <option value="all">Tất cả tình trạng kho</option>
+                  <option value="normal">Còn hàng tốt (Trên 20)</option>
+                  <option value="warning">Sắp hết hàng (1 - 20)</option>
+                  <option value="danger">Hết hàng (0)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THẺ THÊM LÔ HÀNG VÀO KHO -->
+        <div class="content-card">
+          <div class="card-header">Nhập thông tin sản phẩm nhập kho</div>
+          <div class="card-body">
+            <form id="inventoryForm" class="admin-form">
+              <div>
+                <input id="inventoryName" placeholder="Tên sản phẩm nhập kho" required />
+              </div>
+              <div>
+                <input id="inventoryQuantity" placeholder="Số lượng nhập" type="number" min="0" required />
+              </div>
+              <div>
+                <input id="inventoryLocation" placeholder="Vị trí lưu kho (VD: Kệ A1, Lô B)" required />
+              </div>
+              <button class="btn btn-success" type="submit">Thêm vào kho</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- THẺ DANH SÁCH TỒN KHO CHI TIẾT -->
+        <div class="content-card">
+          <div class="card-header">Bảng kiểm kê lưu kho thực tế</div>
+          <div class="table-responsive">
+            <table id="inventoryTable" class="admin-table">
+              <thead>
+                <tr>
+                  <th>Mã Lô</th>
+                  <th>Sản Phẩm</th>
+                  <th>Số Lượng Tồn</th>
+                  <th>Vị Trí Kệ</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dữ liệu render tự động -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>© 2026 Hệ thống Quản trị Doanh nghiệp MiniShop. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- MODAL POPUP CẬP NHẬT THÔNG TIN KHO -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">Chỉnh sửa thông tin lưu kho</div>
+        <form id="editForm" class="modal-form">
+          <input type="hidden" id="editId" />
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Tên sản phẩm</label>
+            <input type="text" id="editName" readonly style="background-color: #f0f2f5; cursor: not-allowed;" />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Số lượng tồn hiện tại</label>
+            <input type="number" id="editQuantity" min="0" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Vị trí lưu kho mới</label>
+            <input type="text" id="editLocation" required />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btnCancelEdit">Hủy bỏ</button>
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- HỆ THỐNG LOGIC JAVASCRIPT ĐIỀU HÀNH CRUD KHO HÀNG -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var inventoryForm = document.getElementById("inventoryForm");
+        var searchInventory = document.getElementById("searchInventory");
+        var statusFilter = document.getElementById("statusFilter");
+        var inventoryTableBody = document.querySelector("#inventoryTable tbody");
+
+        var editModal = document.getElementById("editModal");
+        var editForm = document.getElementById("editForm");
+        var btnCancelEdit = document.getElementById("btnCancelEdit");
+
+        // Dữ liệu kho mẫu ban đầu nếu localStorage trống rỗng
+        var defaultInventory = [
+          { id: 101, name: "Áo sơ mi nam", quantity: 45, location: "Kệ A1 - Khu áo sơ mi" },
+          { id: 102, name: "Áo thun basic", quantity: 30, location: "Kệ A2 - Khu Áo Thun" },
+          { id: 103, name: "Áo khoác nam", quantity: 18, location: "Kệ A3 - Khu Áo Khoác" },
+          { id: 104, name: "Giày Sneaker thể thao", quantity: 12, location: "Kệ B1 - Khu Giày" },
+          { id: 105, name: "Váy nữ", quantity: 20, location: "Kệ C1 - Khu Váy" },
+          { id: 106, name: "Quần jeans nam", quantity: 15, location: "Kệ D1 - Khu Quần Jeans" },
+
+
+        ];
+
+        var inventory = defaultInventory;
+        if (!localStorage.getItem("inventory")) {
+          localStorage.setItem("inventory", JSON.stringify(inventory));
+        }
+
+        // Hàm kết xuất dữ liệu và đồng bộ bộ lọc
+        function renderInventory() {
+          inventoryTableBody.innerHTML = "";
+          var searchKey = searchInventory.value.trim().toLowerCase();
+          var filterStatus = statusFilter.value;
+
+          inventory.forEach(function (item) {
+            // Lọc theo từ khóa tìm kiếm (tên hoặc vị trí)
+            if (searchKey && !item.name.toLowerCase().includes(searchKey) && !item.location.toLowerCase().includes(searchKey)) return;
+
+            // Lọc theo tình trạng số lượng tồn kho
+            if (filterStatus === "normal" && item.quantity <= 20) return;
+            if (filterStatus === "warning" && (item.quantity <= 0 || item.quantity > 20)) return;
+            if (filterStatus === "danger" && item.quantity > 0) return;
+
+            var tr = document.createElement("tr");
+
+            // Phân loại badge cảnh báo theo mức độ tồn kho
+            var qtyBadgeClass = "qty-normal";
+            if (item.quantity === 0) {
+              qtyBadgeClass = "qty-danger";
+            } else if (item.quantity <= 20) {
+              qtyBadgeClass = "qty-warning";
+            }
+
+            tr.innerHTML = `
+              <td style="font-weight:600; color:var(--secondary-color);">#${item.id}</td>
+              <td style="font-weight:600; color:var(--heading-color);">${item.name}</td>
+              <td><span class="badge-qty ${qtyBadgeClass}">${item.quantity} sản phẩm</span></td>
+              <td><span class="badge-location">${item.location}</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn btn-primary btn-edit" data-id="${item.id}">Sửa</button>
+                  <button class="btn btn-danger btn-delete" data-id="${item.id}">Xóa</button>
+                </div>
+              </td>
+            `;
+            inventoryTableBody.appendChild(tr);
+          });
+
+          attachRowEvents();
+        }
+
+        // Gán sự kiện tương tác sửa xóa cho từng hàng
+        function attachRowEvents() {
+          // THAO TÁC XÓA LÔ HÀNG KHỎI KHO
+          document.querySelectorAll(".btn-delete").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              var idToDelete = parseInt(this.getAttribute("data-id"));
+              if(confirm("Bạn có chắc chắn muốn xóa bản ghi kho #" + idToDelete + " không?")) {
+                inventory = inventory.filter(function(item) { return item.id !== idToDelete; });
+                localStorage.setItem("inventory", JSON.stringify(inventory));
+                renderInventory();
+              }
+            });
+          });
+
+          // THAO TÁC SỬA SỐ LƯỢNG / VỊ TRÍ (MỞ POPUP MODAL)
+          document.querySelectorAll(".btn-edit").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              var idToEdit = parseInt(this.getAttribute("data-id"));
+              var targetItem = inventory.find(function(item) { return item.id === idToEdit; });
+              
+              if(targetItem) {
+                document.getElementById("editId").value = targetItem.id;
+                document.getElementById("editName").value = targetItem.name;
+                document.getElementById("editQuantity").value = targetItem.quantity;
+                document.getElementById("editLocation").value = targetItem.location;
+                
+                editModal.classList.add("active");
+              }
+            });
+          });
+        }
+
+        // Lưu dữ liệu sau khi sửa đổi từ form popup
+        editForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+          var id = parseInt(document.getElementById("editId").value);
+          var qty = parseInt(document.getElementById("editQuantity").value) || 0;
+          var loc = document.getElementById("editLocation").value.trim();
+
+          var index = inventory.findIndex(function(item) { return item.id === id; });
+          if(index !== -1) {
+            inventory[index].quantity = qty;
+            inventory[index].location = loc;
+            localStorage.setItem("inventory", JSON.stringify(inventory));
+            editModal.classList.remove("active");
+            renderInventory();
+          }
+        });
+
+        // Đóng popup sửa đổi
+        btnCancelEdit.addEventListener("click", function() {
+          editModal.classList.remove("active");
+        });
+
+        // Thêm mới sản phẩm nhập kho
+        inventoryForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = document.getElementById("inventoryName").value.trim();
+          var qty = parseInt(document.getElementById("inventoryQuantity").value) || 0;
+          var loc = document.getElementById("inventoryLocation").value.trim();
+
+          var nextId = inventory.length > 0 ? Math.max(...inventory.map(item => item.id)) + 1 : 101;
+
+          inventory.push({ id: nextId, name: name, quantity: qty, location: loc });
+          localStorage.setItem("inventory", JSON.stringify(inventory));
+          
+          inventoryForm.reset();
+          renderInventory();
+          alert("Cập nhật lô hàng mới vào kho thành công!");
+        });
+
+        // Lắng nghe sự kiện để tìm kiếm và lọc thời gian thực
+        searchInventory.addEventListener("input", renderInventory);
+        statusFilter.addEventListener("change", renderInventory);
+
+        // Khởi tạo bảng dữ liệu ngay khi tải xong trang
+        renderInventory();
+      });
+    </script>
+>>>>>>> 2615dae (one time)
   </body>
 </html>
