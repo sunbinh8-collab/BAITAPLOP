@@ -1,12 +1,155 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cài đặt - MiniShop</title>
+    <title>Cài đặt tài khoản - MiniShop</title>
     <link rel="stylesheet" href="css/minishop.css" />
+    
+    <style>
+      /* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+      :root {
+        --primary-color: #ff4757;
+        --primary-hover: #ee3848;
+        --secondary-color: #2ed573;
+        --text-color: #2f3542;
+        --text-muted: #747d8c;
+        --border-color: #e4e7eb;
+        --bg-light: #f8f9fa;
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+        --transition: all 0.25s ease;
+      }
+
+      body {
+        background-color: #f7f9fa;
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0; padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* === SITE HEADER === */
+      .site-header {
+        background: #fff;
+        box-shadow: var(--shadow-sm);
+        padding: 15px 0;
+      }
+      .header-inner { display: flex; justify-content: space-between; align-items: center; }
+      .logo { font-size: 24px; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+      .main-nav a {
+        color: var(--text-color); text-decoration: none; margin-right: 20px; font-weight: 500; transition: var(--transition);
+      }
+      .main-nav a:hover, .main-nav a.active { color: var(--primary-color); }
+      .cart-btn {
+        background: var(--primary-color); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 20px; font-weight: 600;
+      }
+
+      /* Layout hai cột Tài khoản */
+      .account-wrap {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 30px;
+        margin: 40px auto;
+      }
+
+      @media (max-width: 768px) {
+        .account-wrap { grid-template-columns: 1fr; gap: 20px; }
+      }
+
+      /* Thanh menu tài khoản bên trái */
+      .account-aside .aside-card {
+        background: #fff;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        padding: 10px;
+        border: 1px solid var(--border-color);
+      }
+      .account-aside nav { display: flex; flex-direction: column; gap: 4px; }
+      .account-aside nav a {
+        display: block; padding: 12px 16px; color: var(--text-color); text-decoration: none; font-weight: 500; border-radius: 6px; transition: var(--transition); font-size: 0.95rem;
+      }
+      .account-aside nav a:hover, .account-aside nav a.active {
+        background-color: #ffe0e3; color: var(--primary-color);
+      }
+
+      /* Panel hiển thị cài đặt bên phải */
+      .account-panel {
+        background: #fff;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        padding: 24px;
+        border: 1px solid var(--border-color);
+      }
+
+      .account-panel h2 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+      }
+      .account-panel .panel-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0 0 24px 0;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #f1f2f6;
+      }
+      .setting-section { margin-top: 28px; }
+      .setting-section h3 { font-size: 1.15rem; font-weight: 700; margin: 0 0 16px 0; color: var(--text-color); }
+
+      /* Form trường nhập liệu */
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 16px;
+        max-width: 450px;
+      }
+      .form-field label {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+      .form-field input {
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        outline: none;
+        font-size: 0.92rem;
+        transition: var(--transition);
+        background: #fff;
+      }
+      .form-field input:focus { border-color: var(--primary-color); }
+
+      .checkbox-group { display: flex; align-items: center; gap: 10px; margin: 12px 0; cursor: pointer; font-size: 0.95rem; font-weight: 500; }
+      .checkbox-group input { width: auto; cursor: pointer; accent-color: var(--primary-color); }
+
+      /* === BUTTONS === */
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; font-size: 0.9rem; font-weight: 600; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff; color: var(--text-color); cursor: pointer; transition: var(--transition); text-decoration: none;
+      }
+      .btn:hover { background: var(--bg-light); }
+      .btn.primary { background: var(--text-color); color: #fff; border: none; }
+      .btn.primary:hover { background: #1e222b; }
+      .btn.danger { background: #ff4757; color: #fff; border: none; }
+      .btn.danger:hover { background: #ee3848; }
+
+      /* === TOAST === */
+      .toast-msg { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(47, 53, 66, 0.95); color: #fff; padding: 12px 24px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 9999; font-weight: 500; display: flex; align-items: center; gap: 8px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; opacity: 0; }
+      .toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+      .toast-msg.error { background: #ff4757; }
+    </style>
   </head>
   <body>
+
     <header class="site-header">
       <div class="container header-inner">
         <a class="logo" href="trangchu.html">MiniShop</a>
@@ -14,13 +157,12 @@
           <a href="trangchu.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="giohang.html">Giỏ hàng</a>
-          <a href="dangnhap.html">Đăng nhập</a>
-          <a href="dangky.html">Đăng ký</a>
-          <a href="taikhoan.html">Tài khoản</a>
-          <a href="admin/quanly.html">Quản lý</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a class="active" href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ hàng(0)</a>
       </div>
     </header>
 
@@ -29,17 +171,13 @@
         <aside class="account-aside">
           <div class="aside-card">
             <nav>
-              <a href="taikhoan.html" data-panel="profile">Hồ sơ</a>
-              <a href="hoadon.html" data-panel="orders">Đơn hàng</a>
+              <a href="taikhoan.html" data-panel="profile">Hồ sơ cá nhân</a>
+              <a href="hoadon.html" data-panel="orders">Đơn hàng của tôi</a>
               <a href="diachi.html" data-panel="addresses">Địa chỉ</a>
-              <a href="phuongthucthanhtoan.html" data-panel="payments"
-                >Phương thức thanh toán</a
-              >
-              <a href="yeuthich.html" data-panel="favorites">Yêu thích</a>
-              <a href="caidat.html" class="active" data-panel="settings"
-                >Cài đặt</a
-              >
-              <a href="dangnhap.html">Đăng xuất</a>
+              <a href="phuongthucthanhtoan.html" data-panel="payments">Phương thức thanh toán</a>
+              <a href="yeuthich.html" data-panel="favorites">Danh sách yêu thích</a>
+              <a href="caidat.html" class="active" data-panel="settings">Cài đặt tài khoản</a>
+              <a href="#" id="asideLogout" style="color: var(--primary-color);">Đăng xuất</a>
             </nav>
           </div>
         </aside>
@@ -47,84 +185,147 @@
         <section class="account-main">
           <div class="account-panel">
             <h2>Cài đặt</h2>
-            <p>Tùy chọn tài khoản và bảo mật.</p>
-            <div style="margin-top: 20px">
+            <p class="panel-desc">Tùy chọn cấu hình tài khoản và bảo mật hệ thống.</p>
+            
+            <div class="setting-section">
               <h3>Thay đổi mật khẩu</h3>
-              <div class="form-field" style="margin-bottom: 12px">
-                <label>Mật khẩu hiện tại:</label>
-                <input type="password" placeholder="Nhập mật khẩu hiện tại" />
-              </div>
-              <div class="form-field" style="margin-bottom: 12px">
-                <label>Mật khẩu mới:</label>
-                <input type="password" placeholder="Nhập mật khẩu mới" />
-              </div>
-              <div class="form-field" style="margin-bottom: 12px">
-                <label>Xác nhận mật khẩu:</label>
-                <input type="password" placeholder="Xác nhận mật khẩu mới" />
-              </div>
-              <button class="btn primary">Cập nhật mật khẩu</button>
+              <form id="changePasswordForm">
+                <div class="form-field">
+                  <label for="currentPassword">Mật khẩu hiện tại:</label>
+                  <input type="password" id="currentPassword" placeholder="Nhập mật khẩu hiện tại" required />
+                </div>
+                <div class="form-field">
+                  <label for="newPassword">Mật khẩu mới:</label>
+                  <input type="password" id="newPassword" placeholder="Tối thiểu 6 ký tự" minlength="6" required />
+                </div>
+                <div class="form-field">
+                  <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
+                  <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu mới" required />
+                </div>
+                <button type="submit" class="btn primary">Cập nhật mật khẩu</button>
+              </form>
             </div>
 
-            <div
-              style="
-                margin-top: 28px;
-                border-top: 1px solid #e0e0e0;
-                padding-top: 20px;
-              "
-            >
-              <h3>Thông báo</h3>
-              <div style="margin: 12px 0">
-                <label style="display: flex; align-items: center; gap: 8px">
-                  <input type="checkbox" checked /> Nhận thông báo qua email
-                </label>
-              </div>
-              <div style="margin: 12px 0">
-                <label style="display: flex; align-items: center; gap: 8px">
-                  <input type="checkbox" checked /> Nhận thông báo qua SMS
-                </label>
-              </div>
+            <div class="setting-section" style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+              <h3>Cài đặt thông báo</h3>
+              <label class="checkbox-group">
+                <input type="checkbox" checked /> Nhận thông báo khuyến mãi/hành trình đơn hàng qua email
+              </label>
+              <label class="checkbox-group">
+                <input type="checkbox" checked /> Nhận thông báo khuyến mãi/hành trình đơn hàng qua SMS
+              </label>
             </div>
 
-            <div
-              style="
-                margin-top: 28px;
-                border-top: 1px solid #e0e0e0;
-                padding-top: 20px;
-              "
-            >
-              <h3>Xóa tài khoản</h3>
-              <p style="color: #666; margin-bottom: 12px">
-                Hành động này không thể hoàn tác.
+            <div class="setting-section" style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+              <h3>Hủy kích hoạt tài khoản</h3>
+              <p style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.9rem;">
+                Hành động này sẽ xóa sạch thông tin hồ sơ của bạn khỏi MiniShop. Dữ liệu không thể khôi phục.
               </p>
-              <button class="btn" style="background: #ff6b6b">
-                Xóa tài khoản
-              </button>
+              <button type="button" class="btn danger" id="btnDeleteAccount">Xóa tài khoản vĩnh viễn</button>
             </div>
           </div>
         </section>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <div>© 2026 MiniShop. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="lienhe.html">Hỗ trợ</a>
-          <a href="taikhoan.html">Tài khoản</a>
-          <a href="thanhtoan.html">Thanh toán</a>
+    <div class="footer-bottom" style="border-top: 1px solid var(--border-color); margin-top: 30px; padding-top: 20px; text-align: center; color: var(--text-muted);">
+          <div style="margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">
+            © 2026 <span style="color: var(--primary-color); font-weight: 600;">MiniShop</span>. All rights reserved. Powered by HTML5 & CSS3.
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+            <img src="images/payment-methods.png" alt="Phương thức thanh toán" style="max-height: 24px; opacity: 0.6; filter: grayscale(100%);" onerror="this.style.display='none'">
+          </div>
         </div>
-      </div>
-    </footer>
 
     <script>
+      function showToast(message, type = "success") {
+        var oldToast = document.querySelector(".toast-msg"); if (oldToast) oldToast.remove();
+        var toast = document.createElement("div"); toast.className = "toast-msg" + (type === "error" ? " error" : "");
+        toast.innerHTML = (type === "error" ? "✕ " : "✓ ") + message; document.body.appendChild(toast);
+        setTimeout(function () { toast.classList.add("show"); }, 50);
+        setTimeout(function () { toast.classList.remove("show"); }, 3000);
+      }
+
       function updateCartCount() {
         var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
-        var count = cart.reduce(function (s, i) {
-          return s + (i.qty || 0);
-        }, 0);
+        var count = cart.reduce(function (s, i) { return s + (i.qty || 0); }, 0);
         var btn = document.querySelector(".cart-btn");
         if (btn) btn.textContent = "Giỏ (" + count + ")";
       }
+
+      // --- BẢO VỆ TUYẾN ĐƯỜNG (KIỂM TRA ĐĂNG NHẬP) ---
+      var currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+      if (!currentUser) {
+        window.location.href = "dangnhap.html";
+      }
+
+      // --- ĐỒNG BỘ TRẠNG THÁI ĐĂNG NHẬP TRÊN HEADER ---
+      if (currentUser) {
+        var navLogin = document.getElementById("navLoginLink");
+        var navRegister = document.getElementById("navRegisterLink");
+        if (navLogin) { navLogin.textContent = currentUser.name; navLogin.href = "taikhoan.html"; }
+        if (navRegister) {
+          navRegister.textContent = "Đăng xuất"; navRegister.href = "#";
+          navRegister.addEventListener("click", handleLogout);
+        }
+      }
+
+      function handleLogout(e) {
+        if(e) e.preventDefault();
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("mini_profile");
+        window.location.href = "dangnhap.html";
+      }
+      document.getElementById("asideLogout").addEventListener("click", handleLogout);
+
+      // --- LOGIC XỬ LÝ ĐỔI MẬT KHẨU ĐỒNG BỘ VỚI DB LOCAL ---
+      document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var currentPass = document.getElementById("currentPassword").value;
+        var newPass = document.getElementById("newPassword").value;
+        var confirmPass = document.getElementById("confirmPassword").value;
+
+        // 1. Đối chiếu mật khẩu hiện tại
+        if (currentUser.password !== currentPass) {
+          showToast("Mật khẩu hiện tại không chính xác!", "error");
+          return;
+        }
+
+        // 2. Kiểm tra trùng khớp mật khẩu mới
+        if (newPass !== confirmPass) {
+          showToast("Xác nhận mật khẩu mới không trùng khớp!", "error");
+          return;
+        }
+
+        // 3. Tiến hành cập nhật vào mảng mini_users để phiên đăng nhập sau không lỗi
+        var users = JSON.parse(localStorage.getItem("mini_users") || "[]");
+        var idx = users.findIndex(function(u) { return u.email.toLowerCase() === currentUser.email.toLowerCase(); });
+        
+        if (idx !== -1) {
+          users[idx].password = newPass;
+          localStorage.setItem("mini_users", JSON.stringify(users));
+        }
+
+        // 4. Cập nhật lại mật khẩu cho phiên hiện hành
+        currentUser.password = newPass;
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+        showToast("Thay đổi mật khẩu tài khoản thành công!");
+        this.reset();
+      });
+
+      // --- LOGIC XÓA TÀI KHOẢN KHỎI LOCALSTORAGE ---
+      document.getElementById("btnDeleteAccount").addEventListener("click", function() {
+        if(confirm("Bạn có chắc chắn muốn xóa tài khoản này? Toàn bộ đơn hàng và sổ địa chỉ sẽ bị hủy bỏ vĩnh viễn.")) {
+          var users = JSON.parse(localStorage.getItem("mini_users") || "[]");
+          users = users.filter(function(u) { return u.email.toLowerCase() !== currentUser.email.toLowerCase(); });
+          localStorage.setItem("mini_users", JSON.stringify(users));
+          
+          // Dọn dẹp phiên và đẩy về màn hình đăng nhập
+          handleLogout();
+        }
+      });
+
       updateCartCount();
     </script>
   </body>

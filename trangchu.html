@@ -1,10 +1,335 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MiniShop - Trang chủ</title>
-    <link rel="stylesheet" href="css/minishop.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+      :root {
+        --primary-color: #ff4757;
+        --primary-hover: #ee3848;
+        --secondary-color: #2ed573;
+        --text-color: #2f3542;
+        --text-muted: #747d8c;
+        --border-color: #e4e7eb;
+        --bg-light: #f1f2f6;
+        --radius-lg: 16px;
+        --radius-md: 10px;
+        --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+        --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      body {
+        background-color: #f7f9fa;
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        margin: 0; padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* === SITE HEADER === */
+      .site-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-sm);
+        padding: 16px 0;
+        position: sticky; top: 0; z-index: 100;
+        border-bottom: 1px solid rgba(0,0,0,0.03);
+      }
+      .header-inner {
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      .logo {
+        font-size: 26px; font-weight: 800;
+        color: var(--primary-color); text-decoration: none;
+        letter-spacing: -0.5px;
+      }
+      .main-nav a {
+        color: var(--text-color); text-decoration: none;
+        margin-right: 24px; font-weight: 600;
+        font-size: 0.95rem; transition: var(--transition);
+        position: relative; padding: 4px 0;
+      }
+      .main-nav a::after {
+        content: ''; position: absolute; bottom: 0; left: 0;
+        width: 0; height: 2px; background-color: var(--primary-color);
+        transition: var(--transition);
+      }
+      .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
+      .main-nav a.active, .main-nav a:hover { color: var(--primary-color); }
+
+      .cart-btn {
+        background: var(--primary-color); color: #fff;
+        text-decoration: none; padding: 10px 20px;
+        border-radius: 30px; font-weight: 700;
+        box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+        transition: var(--transition);
+      }
+      .cart-btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4);
+      }
+
+      /* === HERO SECTION === */
+      .hero {
+        background: linear-gradient(135deg, #2f3542, #57606f);
+        color: #fff;
+        padding: 60px 0;
+        text-align: center;
+        border-bottom-left-radius: var(--radius-lg);
+        border-bottom-right-radius: var(--radius-lg);
+        margin-bottom: 30px;
+      }
+      .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+      .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 24px; }
+      .btn-hero {
+        display: inline-block; background: var(--primary-color); color: #fff;
+        text-decoration: none; padding: 12px 32px; border-radius: 30px;
+        font-weight: 700; transition: var(--transition);
+        box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+      }
+      .btn-hero:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+      /* === HIGHLIGHTS === */
+      .highlights { margin-bottom: 40px; }
+      .highlight-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;
+      }
+      .highlight-card {
+        background: #fff; padding: 20px; border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); text-align: center;
+      }
+      .highlight-card strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+      .highlight-card p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+
+      /* === BUTTON DESIGN === */
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 12px 24px; font-size: 0.95rem; font-weight: 600;
+        border-radius: var(--radius-md); border: 1px solid var(--border-color);
+        background: #fff; color: var(--text-color);
+        cursor: pointer; text-decoration: none; transition: var(--transition);
+      }
+      .btn:hover { background: var(--bg-light); transform: translateY(-1px); }
+
+      /* === LƯỚI SẢN PHẨM === */
+      .products h2 {
+        font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;
+        border-left: 4px solid var(--primary-color); padding-left: 10px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      .product {
+        background: #fff; border-radius: var(--radius-lg); padding: 16px;
+        box-shadow: var(--shadow-sm); position: relative;
+        transition: var(--transition); border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+      .product:hover {
+        transform: translateY(-6px); box-shadow: var(--shadow-md);
+      }
+      .product img {
+        width: 100%;
+        max-width: 180px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+        margin: 0 auto 14px auto;
+        display: block;
+      }
+
+      .product-info-wrap {
+        text-align: center;
+        margin-top: 10px;
+      }
+      .product h3 { font-size: 0.95rem; margin: 0 0 6px 0; font-weight: 600; }
+      .product h3 a { color: var(--text-color); text-decoration: none; }
+      .product h3 a:hover { color: var(--primary-color); }
+      .product .price { font-size: 1.05rem; color: var(--primary-color); font-weight: 700; margin: 0; }
+
+      /* Khối chứa chấm màu sắc */
+      .color-dots-container {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        margin-top: 8px;
+        height: 14px;
+      }
+      .color-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1px solid #ced6e0;
+        display: inline-block;
+      }
+
+      /* Nút thêm vào giỏ hàng dưới cùng */
+      .product .add-to-cart {
+        width: 100%;
+        background: #fff;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        padding: 10px;
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .product .add-to-cart:hover {
+        background: var(--primary-color);
+        color: #fff;
+      }
+
+      /* Thẻ nút trái tim và huy hiệu */
+      .heart-btn {
+        position: absolute; top: 22px; right: 22px; background: rgba(255,255,255,0.9);
+        border: none; width: 30px; height: 30px; border-radius: 50%; display: flex;
+        align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
+        cursor: pointer; color: #ccc; font-size: 1.1rem; z-index: 5; transition: var(--transition);
+      }
+      .heart-btn.liked { color: var(--primary-color); }
+      .product-badge { position: absolute; top: 22px; left: 22px; background: #ff4757; color: white; padding: 2px 6px; font-size: 0.7rem; font-weight: 600; border-radius: 4px; z-index: 4; }
+
+      /* === FOOTER THEO THIẾT KẾ MỚI === */
+      .site-footer {
+        background-color: #ffffff;
+        border-top: 1px solid var(--border-color);
+        padding: 60px 0 20px 0;
+        margin-top: 80px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      .footer-col h4 {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .footer-col p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin: 0 0 15px 0;
+      }
+      .footer-links-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-links-list li {
+        margin-bottom: 12px;
+      }
+      .footer-links-list a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+      .footer-links-list a:hover {
+        color: var(--primary-color);
+        padding-left: 4px;
+      }
+      /* Cột nhận tin nhắn khuyến mãi (Newsletter) */
+      .newsletter-form {
+        display: flex;
+        gap: 8px;
+        margin-top: 15px;
+      }
+      .newsletter-input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        font-size: 0.9rem;
+        outline: none;
+        transition: var(--transition);
+      }
+      .newsletter-input:focus {
+        border-color: var(--primary-color);
+      }
+      .newsletter-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .newsletter-btn:hover {
+        background-color: var(--primary-hover);
+      }
+      /* Biểu tượng Mạng xã hội */
+      .social-icons {
+        display: flex;
+        gap: 12px;
+        margin-top: 15px;
+      }
+      .social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: var(--bg-light);
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+      .social-icon:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+      }
+      /* Dòng bản quyền cuối trang */
+      .footer-bottom {
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      /* === TOAST NOTIFICATION SYSTEM === */
+      .toast-msg {
+        position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+        background: rgba(47, 53, 66, 0.95); color: #fff; padding: 12px 24px; border-radius: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); z-index: 9999; font-weight: 500; font-size: 0.9rem;
+        display: flex; align-items: center; gap: 8px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; opacity: 0;
+      }
+      .toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+      .toast-icon { background: var(--secondary-color); width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; }
+    </style>
   </head>
   <body>
     <header class="site-header">
@@ -14,19 +339,20 @@
           <a class="active" href="trangchu.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="giohang.html">Giỏ hàng</a>
-          <a href="dangnhap.html">Đăng nhập</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ (0)</a>
       </div>
     </header>
 
     <section class="hero">
       <div class="container">
         <h1>Chào mừng đến với MiniShop</h1>
-        <p>Thời trang nam & nữ — phong cách mỗi ngày</p>
-        <a class="btn primary" href="danhmucsanpham.html">Mua ngay</a>
+        <p>Xu hướng thời trang nam & nữ nâng tầm phong cách mỗi ngày</p>
+        <a class="btn-hero" href="danhmucsanpham.html">Khám phá ngay</a>
       </div>
     </section>
 
@@ -34,16 +360,16 @@
       <div class="container">
         <div class="highlight-grid">
           <article class="highlight-card">
-            <strong>Miễn phí giao hàng</strong>
-            <p>Giao nhanh toàn quốc cho đơn hàng từ 500.000₫.</p>
+            <strong>🚀 Miễn phí giao hàng</strong>
+            <p>Giao nhanh toàn quốc cho hóa đơn hàng từ 499.000đ.</p>
           </article>
           <article class="highlight-card">
-            <strong>Hoàn tiền 100%</strong>
-            <p>Đổi trả nhanh trong 7 ngày nếu không hài lòng.</p>
+            <strong>🔄 Hoàn tiền 100%</strong>
+            <p>Đổi trả uy tín tận nơi trong vòng 7 ngày nếu lỗi.</p>
           </article>
           <article class="highlight-card">
-            <strong>Thanh toán an toàn</strong>
-            <p>Bảo mật mọi giao dịch với nhiều phương thức.</p>
+            <strong>🔒 Thanh toán an toàn</strong>
+            <p>Mã hóa bảo mật thông tin với đa dạng cổng liên kết.</p>
           </article>
         </div>
       </div>
@@ -51,314 +377,237 @@
 
     <main class="container">
       <section class="products">
-        <h2>Sản phẩm nổi bật</h2>
-        <div class="grid">
-          <article class="product">
-            <button
-              class="heart-btn"
-              data-product="Áo thun basic"
-              title="Yêu thích"
-            >
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=1">
-              <img
-                src="images/products/aothunden.jpg"
-                alt="Áo thun basic"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=1"
-                >Áo thun basic</a
-              >
-            </h3>
-            <p class="price">₫199.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button
-              class="heart-btn"
-              data-product="Quần jean"
-              title="Yêu thích"
-            >
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=2">
-              <img
-                src="images/products/quanjean.jpg"
-                alt="Quần jean"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=2"
-                >Quần jean</a
-              >
-            </h3>
-            <p class="price">₫299.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button class="heart-btn" data-product="Váy nữ" title="Yêu thích">
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=3">
-              <img
-                src="images/products/bonuday.jpeg"
-                alt="Váy nữ"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=3">Váy nữ</a>
-            </h3>
-            <p class="price">₫349.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button class="heart-btn" data-product="Áo sơ mi" title="Yêu thích">
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=4">
-              <img
-                src="images/products/somi.jpg"
-                alt="Áo sơ mi"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=4"
-                >Áo sơ mi</a
-              >
-            </h3>
-            <p class="price">₫249.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button class="heart-btn" data-product="Mũ" title="Yêu thích">
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=5">
-              <img
-                src="images/products/images.jpg"
-                alt="Mũ thời trang"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=5">Mũ</a>
-            </h3>
-            <p class="price">₫89.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button class="heart-btn" data-product="Áo khoác" title="Yêu thích">
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=6">
-              <img
-                src="images/products/quanaobongchuyen.jpg"
-                alt="Áo khoác"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=6"
-                >Áo khoác</a
-              >
-            </h3>
-            <p class="price">₫499.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button
-              class="heart-btn"
-              data-product="Giày thể thao"
-              title="Yêu thích"
-            >
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=7">
-              <img
-                src="images/products/images.jpg"
-                alt="Giày thể thao"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=7"
-                >Giày thể thao</a
-              >
-            </h3>
-            <p class="price">₫599.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button class="heart-btn" data-product="Túi xách" title="Yêu thích">
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=8">
-              <img
-                src="images/products/bonuday.jpeg"
-                alt="Túi xách"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=8"
-                >Túi xách</a
-              >
-            </h3>
-            <p class="price">₫259.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-
-          <article class="product">
-            <button class="heart-btn" data-product="Đồng hồ" title="Yêu thích">
-              ♡
-            </button>
-            <a href="chitietsanpham.html?id=9">
-              <img
-                src="images/products/quanjean.jpg"
-                alt="Đồng hồ"
-                loading="lazy"
-              />
-            </a>
-            <h3>
-              <a class="product-link" href="chitietsanpham.html?id=9"
-                >Đồng hồ</a
-              >
-            </h3>
-            <p class="price">₫1.290.000</p>
-            <div class="actions"><button class="btn">Thêm vào giỏ</button></div>
-          </article>
-        </div>
+        <h2>Sản phẩm nổi bật xu hướng</h2>
+        <div class="grid" id="productHomeGrid"></div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <div>© 2026 MiniShop. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="lienhe.html">Hỗ trợ</a>
-          <a href="taikhoan.html">Tài khoản</a>
-          <a href="thanhtoan.html">Thanh toán</a>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>MiniShop</h4>
+            <p>Chúng tôi tự hào là thương hiệu thời trang chất lượng hàng đầu Việt Nam, mang đến sự trẻ trung, hiện đại và tinh thần tự tin cho giới trẻ.</p>
+            <p><strong>Hotline:</strong> 1800 2026</p>
+            <p><strong>Email:</strong> minishop@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Chính Sách</h4>
+            <ul class="footer-links-list">
+              <li><a href="#">Chính sách bảo mật thông tin</a></li>
+              <li><a href="#">Chính sách đổi trả hàng dễ dàng</a></li>
+              <li><a href="#">Chính sách vận chuyển & giao hàng</a></li>
+              <li><a href="#">Chính sách bảo hành sản phẩm</a></li>
+              <li><a href="#">Điều khoản dịch vụ khách hàng</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Hỗ Trợ</h4>
+            <ul class="footer-links-list">
+              <li><a href="lienhe.html">Liên hệ chúng tôi</a></li>
+              <li><a href="taikhoan.html">Quản lý tài khoản</a></li>
+              <li><a href="giohang.html">Xem giỏ hàng hiện tại</a></li>
+              <li><a href="danhmucsanpham.html">Hệ thống cửa hàng</a></li>
+              <li><a href="#">Câu hỏi thường gặp (FAQs)</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Đăng Ký Nhận Tin</h4>
+            <p>Hãy là người đầu tiên nhận thông tin về các bộ sưu tập mới và chương trình khuyến mãi độc quyền từ MiniShop.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Đăng ký nhận thông tin ưu đãi thành công!');">
+              <input type="email" placeholder="Nhập email của bạn..." required class="newsletter-input" />
+              <button type="submit" class="newsletter-btn">Gửi</button>
+            </form>
+            <div class="social-icons">
+              <a href="#" class="social-icon" title="Facebook">FB</a>
+              <a href="#" class="social-icon" title="Instagram">IG</a>
+              <a href="#" class="social-icon" title="TikTok">TK</a>
+              <a href="#" class="social-icon" title="YouTube">YT</a>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="footer-bottom" style="border-top: 1px solid var(--border-color); margin-top: 30px; padding-top: 20px; text-align: center; color: var(--text-muted);">
+          <div style="margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">
+            © 2026 <span style="color: var(--primary-color); font-weight: 600;">MiniShop</span>. All rights reserved. Powered by HTML5 & CSS3.
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+            <img src="images/payment-methods.png" alt="Phương thức thanh toán" style="max-height: 24px; opacity: 0.6; filter: grayscale(100%);" onerror="this.style.display='none'">
+          </div>
+        </div>
     </footer>
-    <script src="js/common.js"></script>
+
     <script>
+      // Cấu hình mảng sản phẩm có thuộc tính colors chứa mã màu riêng biệt cho từng sản phẩm
+      var products = [
+        { id: 1, title: "Áo thun Basic Unisex", price: 199000, img: "images/products/aothunden.jpg", colors: ["#2c3e50", "#ffffff", "#e74c3c"] },
+        { id: 2, title: "Quần Jean Slimfit Nam", price: 299000, img: "images/products/quanjean.jpg", colors: ["#34495e", "#2980b9"] },
+        { id: 3, title: "Chân váy ngắn đũi nữ", price: 349000, img: "images/products/bonuday.jpeg", colors: ["#f7d794", "#f8a5c2"] },
+        { id: 4, title: "Áo sơ mi lụa cổ bẻ", price: 249000, img: "images/products/somi.jpg", colors: ["#ffffff", "#f5f6fa"] },
+        { id: 5, title: "Mũ Beanie phong cách", price: 89000, img: "images/products/images.jpg", colors: ["#2f3542"] },
+        { id: 6, title: "Áo khoác gió Bomber", price: 499000, img: "images/products/quanaobongchuyen.jpg", colors: ["#1e272e", "#2c3a47", "#05c46b"] },
+        { id: 7, title: "Giày Sneaker Sport", price: 599000, img: "images/products/images.jpg", colors: ["#ffffff", "#111111"] },
+        { id: 8, title: "Túi đeo chéo Canvas", price: 259000, img: "images/products/bonuday.jpeg", colors: ["#dcdde1"] },
+        { id: 9, title: "Đồng hồ Classic Quartz", price: 1290000, img: "images/products/quanjean.jpg", colors: ["#f1c40f", "#b2bec3"] },
+        { id: 10, title: "Áo Polo Nam phối cổ", price: 279000, img: "images/products/aothunden.jpg", colors: ["#2f3640", "#192a56", "#c23616"] },
+        { id: 11, title: "Quần Short Kaki Casual", price: 189000, img: "images/products/quanjean.jpg", colors: ["#d2dae2", "#84817a"] },
+        { id: 12, title: "Đầm hoa nhí dáng xòe", price: 389000, img: "images/products/bonuday.jpeg", colors: ["#ffb8b8", "#eccc68"] },
+        { id: 13, title: "Áo Hoodie nỉ ngoại", price: 350000, img: "images/products/quanaobongchuyen.jpg", colors: ["#706fd3", "#474787"] },
+        { id: 14, title: "Ví da nam cầm tay", price: 450000, img: "images/products/images.jpg", colors: ["#40407a"] },
+        { id: 15, title: "Kính mát thời trang chống UV", price: 150000, img: "images/products/images.jpg", colors: ["#111111"] },
+        { id: 16, title: "Quần Tây Âu ống đứng", price: 320000, img: "images/products/quanjean.jpg", colors: ["#222f3e", "#2c3e50"] },
+        { id: 17, title: "Áo Cardigan dệt kim", price: 299000, img: "images/products/somi.jpg", colors: ["#ffeaa7", "#fab1a0", "#ff7675"] },
+        { id: 18, title: "Tất/Vớ cổ cao cotton (Set 5 đôi)", price: 95000, img: "images/products/images.jpg", colors: ["#ffffff"] },
+        { id: 19, title: "Thắt lưng da khóa tự động", price: 220000, img: "images/products/quanjean.jpg", colors: ["#191966", "#111111"] },
+        { id: 20, title: "Dép quai ngang bánh mì", price: 135000, img: "images/products/images.jpg", colors: ["#ffda79", "#ffabe7"] }
+      ];
+
+      function formatVND(n) {
+        return "₫" + n.toLocaleString('vi-VN');
+      }
+
+      function showToast(message) {
+        var oldToast = document.querySelector(".toast-msg");
+        if (oldToast) oldToast.remove();
+
+        var toast = document.createElement("div");
+        toast.className = "toast-msg";
+        toast.innerHTML = '<span class="toast-icon">✓</span> ' + message;
+        document.body.appendChild(toast);
+
+        setTimeout(function () { toast.classList.add("show"); }, 50);
+        setTimeout(function () {
+          toast.classList.remove("show");
+          setTimeout(function () { toast.remove(); }, 300);
+        }, 3000);
+      }
+
+      function renderHomeProducts() {
+        var grid = document.getElementById("productHomeGrid");
+        var favorites = JSON.parse(localStorage.getItem("mini_favorites") || "[]");
+        grid.innerHTML = "";
+
+        products.forEach(function (p) {
+          var isLiked = favorites.includes(p.title);
+          var article = document.createElement("article");
+          article.className = "product";
+          
+          var dotsHtml = "";
+          if (p.colors && p.colors.length > 0) {
+            dotsHtml = p.colors.map(function(hex) {
+              return `<span class="color-dot" style="background-color: ${hex};"></span>`;
+            }).join("");
+          }
+
+          article.innerHTML = `
+            <button class="heart-btn ${isLiked ? 'liked' : ''}" data-product="${p.title}">
+              ${isLiked ? '♥' : '♡'}
+            </button>
+            <span class="product-badge">Hot</span>
+            
+            <a href="chitietsanpham.html?id=${p.id}" class="product-img-link">
+              <img src="${p.img}" alt="${p.title}" loading="lazy">
+            </a>
+            
+            <div class="product-info-wrap">
+              <h3><a href="chitietsanpham.html?id=${p.id}">${p.title}</a></h3>
+              <p class="price">${formatVND(p.price)}</p>
+              
+              <div class="color-dots-container">
+                ${dotsHtml}
+              </div>
+            </div>
+
+            <div class="actions" style="margin-top: 12px;">
+              <button class="btn add-to-cart" data-id="${p.id}">Thêm vào giỏ</button>
+            </div>
+          `;
+          grid.appendChild(article);
+        });
+
+        attachHomeEvents();
+      }
+
+      function attachHomeEvents() {
+        // Mua nhanh từ trang chủ
+        document.querySelectorAll(".add-to-cart").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var id = parseInt(this.getAttribute("data-id"), 10);
+            var p = products.find(function (x) { return x.id === id; });
+            if (!p) return;
+
+            var size = "M"; 
+            var qty = 1;
+            var defaultColor = (p.colors && p.colors.length > 0) ? p.colors[0] : "Mặc định";
+
+            var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
+            var exist = cart.find(function (i) { return i.id === p.id && i.size === size; });
+
+            if (exist) { exist.qty += qty; } 
+            else { cart.push({ id: p.id, title: p.title, price: p.price, img: p.img, qty: qty, size: size, color: defaultColor }); }
+
+            localStorage.setItem("mini_cart", JSON.stringify(cart));
+            updateCartCount();
+            showToast('Đã thêm thành công "' + p.title + '" vào giỏ hàng!');
+          });
+        });
+
+        // Nút thích sản phẩm
+        document.querySelectorAll(".heart-btn").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            var productName = this.getAttribute("data-product");
+            var favorites = JSON.parse(localStorage.getItem("mini_favorites") || "[]");
+            var index = favorites.indexOf(productName);
+
+            if (index > -1) {
+              favorites.splice(index, 1);
+              this.classList.remove("liked");
+              this.textContent = "♡";
+              showToast('Đã bỏ thích "' + productName + '"');
+            } else {
+              favorites.push(productName);
+              this.classList.add("liked");
+              this.textContent = "♥";
+              showToast('Đã thêm "' + productName + '" vào danh sách yêu thích!');
+            }
+            localStorage.setItem("mini_favorites", JSON.stringify(favorites));
+          });
+        });
+      }
+
       function updateCartCount() {
         var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
-        var count = cart.reduce(function (s, i) {
-          return s + (i.qty || 0);
-        }, 0);
-        var btn = document.querySelector(".cart-btn");
+        var count = cart.reduce(function (s, i) { return s + (i.qty || 0); }, 0);
+        var btn = document.getElementById("headerCartBtn");
         if (btn) btn.textContent = "Giỏ (" + count + ")";
       }
 
-      function buildVariantControls(id) {
-        return (
-          '<div class="product-opts">' +
-          '<select class="size-select"><option value="M">Size M</option><option value="L">Size L</option><option value="XL">Size XL</option></select>' +
-          '<select class="color-select"><option value="Đen">Đen</option><option value="Trắng">Trắng</option><option value="Xanh">Xanh</option></select>' +
-          '<input class="qty-input" type="number" value="1" min="1" aria-label="Số lượng" />' +
-          "</div>" +
-          '<button class="btn add-to-cart" data-id="' +
-          id +
-          '">Thêm vào giỏ</button>'
-        );
-      }
+      document.addEventListener("DOMContentLoaded", function() {
+        renderHomeProducts();
+        updateCartCount();
 
-      function setupProductCards() {
-        document.querySelectorAll(".product").forEach(function (card) {
-          var actions = card.querySelector(".actions");
-          if (!actions || actions.querySelector(".product-opts")) return;
-          var link = card.querySelector(".product-link");
-          var href = link ? link.getAttribute("href") || "" : "";
-          var match = href.match(/id=(\d+)/);
-          var id = match ? parseInt(match[1], 10) : null;
-          if (!id) return;
-          actions.innerHTML = buildVariantControls(id);
-        });
-      }
-
-      function attachAddToCartButtons() {
-        document
-          .querySelectorAll(".product .add-to-cart")
-          .forEach(function (b) {
-            b.addEventListener("click", function () {
-              var art = this.closest(".product");
-              var title = art.querySelector("h3").textContent.trim();
-              var priceText = art.querySelector(".price").textContent || "";
-              var price = parseInt(priceText.replace(/[^0-9]/g, "")) || 0;
-              var size = art.querySelector(".size-select").value;
-              var color = art.querySelector(".color-select").value;
-              var qty =
-                parseInt(art.querySelector(".qty-input").value, 10) || 1;
-              if (qty < 1) qty = 1;
-              var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
-              var exist = cart.find(function (i) {
-                return (
-                  i.id === parseInt(this.getAttribute("data-id"), 10) &&
-                  i.size === size &&
-                  i.color === color
-                );
-              }, this);
-              if (exist) exist.qty += qty;
-              else
-                cart.push({
-                  id: parseInt(this.getAttribute("data-id"), 10),
-                  title: title,
-                  price: price,
-                  qty: qty,
-                  size: size,
-                  color: color,
-                });
-              localStorage.setItem("mini_cart", JSON.stringify(cart));
-              updateCartCount();
-              showToast('Đã thêm "' + title + '" vào giỏ', "success");
-              pulseCart();
-            });
-          });
-      }
-      // Heart button favorite toggle
-      document.querySelectorAll(".heart-btn").forEach(function (btn) {
-        var productName = btn.getAttribute("data-product");
-        var favorites = JSON.parse(
-          localStorage.getItem("mini_favorites") || "[]",
-        );
-        if (favorites.includes(productName)) {
-          btn.classList.add("liked");
-        }
-        btn.addEventListener("click", function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var favorites = JSON.parse(
-            localStorage.getItem("mini_favorites") || "[]",
-          );
-          var index = favorites.indexOf(productName);
-          if (index > -1) {
-            favorites.splice(index, 1);
-            btn.classList.remove("liked");
-            showToast('Đã bỏ yêu thích "' + productName + '"', "info");
-          } else {
-            favorites.push(productName);
-            btn.classList.add("liked");
-            showToast('Đã thêm "' + productName + '" vào yêu thích', "success");
+        // --- ĐỒNG BỘ TRẠNG THÁI ĐĂNG NHẬP TRÊN HEADER ---
+        var sessionUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+        if (sessionUser) {
+          var navLogin = document.getElementById("navLoginLink");
+          var navRegister = document.getElementById("navRegisterLink");
+          
+          if (navLogin) {
+            navLogin.textContent = sessionUser.name;
+            navLogin.href = "taikhoan.html";
           }
-          localStorage.setItem("mini_favorites", JSON.stringify(favorites));
-        });
+          if (navRegister) {
+            navRegister.textContent = "Đăng xuất";
+            navRegister.href = "#";
+            navRegister.addEventListener("click", function (e) {
+              e.preventDefault();
+              localStorage.removeItem("currentUser");
+              localStorage.removeItem("mini_profile");
+              window.location.reload();
+            });
+          }
+        }
       });
-      updateCartCount();
     </script>
   </body>
 </html>

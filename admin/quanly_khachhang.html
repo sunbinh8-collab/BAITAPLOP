@@ -3,11 +3,14 @@
   <head>
     <meta charset="utf-8" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quản lý khách hàng</title>
     <link rel="stylesheet" href="../css/minishop.css" />
     <link rel="stylesheet" href="../css/admin.css" />
 =======
+=======
+>>>>>>> 2615daeefdef02a1a46aee216f67438c366ec073
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quản lý khách hàng - MiniShop Admin</title>
     <style>
@@ -369,7 +372,10 @@
     </style>
 
     <!-- KIỂM TRA PHÂN QUYỀN TRUY CẬP -->
+<<<<<<< HEAD
 >>>>>>> 2615dae (one time)
+=======
+>>>>>>> 2615daeefdef02a1a46aee216f67438c366ec073
     <script>
       (function () {
         try {
@@ -427,6 +433,7 @@
           <a href="./quanly.html">Dashboard</a>
           <a href="../trangchu.html">Xem Trang Chủ</a>
         </nav>
+<<<<<<< HEAD
 <<<<<<< HEAD
       </div>
     </header>
@@ -651,6 +658,30 @@
               Hủy
             </button>
           </form>
+=======
+      </header>
+
+      <main class="main-content">
+        <h2 class="page-heading">Hệ thống Quản lý khách hàng</h2>
+
+        <!-- THANH TÌM KIẾM THỜI GIAN THỰC -->
+        <div class="content-card">
+          <div class="card-body">
+            <div class="toolbar-grid">
+              <div class="search-box">
+                <input type="text" id="searchCustomer" placeholder="🔍 Tìm kiếm khách hàng theo tên, số điện thoại hoặc email..." />
+                <select id="typeFilter" style="max-width: 220px;">
+                  <option value="all">Tất cả hạng thành viên</option>
+                  <option value="VIP">Thành viên VIP</option>
+                  <option value="Thân thiết">Thành viên Thân thiết</option>
+                  <option value="Mới">Thành viên Mới</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+>>>>>>> 2615daeefdef02a1a46aee216f67438c366ec073
         <!-- THẺ THÊM KHÁCH HÀNG MỚI -->
         <div class="content-card">
           <div class="card-header">Nhập thông tin khách hàng mới</div>
@@ -676,6 +707,7 @@
             </form>
           </div>
         </div>
+<<<<<<< HEAD
 
         <!-- THẺ DANH SÁCH KHÁCH HÀNG CHI TIẾT -->
         <div class="content-card">
@@ -843,6 +875,71 @@
         }
       </style>
 =======
+=======
+
+        <!-- THẺ DANH SÁCH KHÁCH HÀNG CHI TIẾT -->
+        <div class="content-card">
+          <div class="card-header">Danh sách cơ sở dữ liệu khách hàng</div>
+          <div class="table-responsive">
+            <table id="customerTable" class="admin-table">
+              <thead>
+                <tr>
+                  <th>Mã KH</th>
+                  <th>Họ và Tên</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Email</th>
+                  <th>Hạng Thành Viên</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dữ liệu render tự động -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>© 2026 Hệ thống Quản trị Doanh nghiệp MiniShop. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- MODAL POPUP CẬP NHẬT THÔNG TIN KHÁCH HÀNG -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">Chỉnh sửa thông tin khách hàng</div>
+        <form id="editForm" class="modal-form">
+          <input type="hidden" id="editId" />
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Họ và tên</label>
+            <input type="text" id="editName" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Số điện thoại</label>
+            <input type="text" id="editPhone" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Địa chỉ Email</label>
+            <input type="email" id="editEmail" required />
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:5px;">Phân hạng thành viên</label>
+            <select id="editMembership">
+              <option value="Mới">Mới</option>
+              <option value="Thân thiết">Thân thiết</option>
+              <option value="VIP">VIP</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btnCancelEdit">Hủy bỏ</button>
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+>>>>>>> 2615daeefdef02a1a46aee216f67438c366ec073
     <!-- HỆ THỐNG LOGIC JAVASCRIPT ĐIỀU HÀNH CRUD KHÁCH HÀNG -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -850,6 +947,7 @@
         var searchCustomer = document.getElementById("searchCustomer");
         var typeFilter = document.getElementById("typeFilter");
         var customerTableBody = document.querySelector("#customerTableBody");
+        var customerTableBody = document.querySelector("#customerTable tbody");
 
         var editModal = document.getElementById("editModal");
         var editForm = document.getElementById("editForm");

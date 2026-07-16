@@ -1,12 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Phương thức thanh toán - MiniShop</title>
     <link rel="stylesheet" href="css/minishop.css" />
+    
+    <style>
+      /* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+      :root {
+        --primary-color: #ff4757;
+        --primary-hover: #ee3848;
+        --secondary-color: #2ed573;
+        --text-color: #2f3542;
+        --text-muted: #747d8c;
+        --border-color: #e4e7eb;
+        --bg-light: #f8f9fa;
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+        --transition: all 0.25s ease;
+      }
+
+      body {
+        background-color: #f7f9fa;
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0; padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+      /* === SITE HEADER === */
+      .site-header { background: #fff; box-shadow: var(--shadow-sm); padding: 15px 0; }
+      .header-inner { display: flex; justify-content: space-between; align-items: center; }
+      .logo { font-size: 24px; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+      .main-nav a { color: var(--text-color); text-decoration: none; margin-right: 20px; font-weight: 500; transition: var(--transition); }
+      .main-nav a:hover, .main-nav a.active { color: var(--primary-color); }
+      .cart-btn { background: var(--primary-color); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; }
+
+      /* Layout hai cột Tài khoản */
+      .account-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 30px; margin: 40px auto; }
+      @media (max-width: 768px) { .account-wrap { grid-template-columns: 1fr; gap: 20px; } }
+
+      /* Menu bên trái */
+      .account-aside .aside-card { background: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 10px; border: 1px solid var(--border-color); }
+      .account-aside nav { display: flex; flex-direction: column; gap: 4px; }
+      .account-aside nav a { display: block; padding: 12px 16px; color: var(--text-color); text-decoration: none; font-weight: 500; border-radius: 6px; transition: var(--transition); font-size: 0.95rem; }
+      .account-aside nav a:hover, .account-aside nav a.active { background-color: #ffe0e3; color: var(--primary-color); }
+
+      /* Panel hiển thị chính bên phải */
+      .account-panel { background: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 24px; border: 1px solid var(--border-color); }
+      .account-panel h2 { font-size: 1.4rem; font-weight: 700; margin: 0 0 24px 0; padding-bottom: 12px; border-bottom: 2px solid var(--border-color); }
+
+      /* === HỆ THỐNG TAG/TAB THANH TOÁN === */
+      .payment-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+      .tab-btn { flex: 1; min-width: 130px; padding: 12px 16px; background: var(--bg-light); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; color: var(--text-color); cursor: pointer; transition: var(--transition); text-align: center; }
+      .tab-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
+      .tab-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); box-shadow: 0 4px 12px rgba(255, 71, 87, 0.2); }
+
+      /* Nội dung Tab */
+      .tab-content { display: none; padding: 20px; border: 1px solid var(--border-color); border-radius: var(--radius-lg); background: #fff; animation: fadeIn 0.3s ease; }
+      .tab-content.active { display: block; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+      /* QR Nội dung */
+      .qr-wrapper { text-align: center; padding: 10px 0; }
+      .qr-wrapper img { width: 180px; height: 180px; border: 1px solid var(--border-color); padding: 10px; border-radius: var(--radius-md); background: #fff; margin-bottom: 12px; }
+      .qr-wrapper p { color: var(--text-muted); font-size: 0.88rem; margin: 4px 0; }
+
+      /* === CỤM CHỌN LOẠI THẺ (VISA, CREDIT...) === */
+      .card-type-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+      .card-type-label { cursor: pointer; position: relative; }
+      .card-type-label input { position: absolute; opacity: 0; width: 0; height: 0; }
+      .card-type-text {
+        display: inline-block; padding: 8px 16px; font-size: 0.85rem; font-weight: 700;
+        border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-color);
+        background: var(--bg-light); transition: var(--transition); text-align: center;
+      }
+      .card-type-label input:checked + .card-type-text {
+        border-color: var(--primary-color); color: var(--primary-color); background-color: #ffe0e3;
+      }
+
+      /* Danh sách thẻ đã lưu */
+      .saved-cards-title { font-size: 0.95rem; font-weight: 700; margin: 25px 0 12px 0; border-top: 1px dashed var(--border-color); padding-top: 15px; }
+      .saved-card-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-light); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 10px; }
+      .card-del-btn { background: none; border: none; color: var(--primary-color); font-weight: 600; cursor: pointer; font-size: 0.85rem; font-family: inherit; }
+      .card-del-btn:hover { text-decoration: underline; }
+
+      /* Form nhập liệu */
+      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+      @media (max-width: 576px) { .form-row { grid-template-columns: 1fr; } }
+      .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+      .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-color); }
+      .form-group input { padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 0.92rem; transition: var(--transition); background: #fff; box-sizing: border-box; width: 100%; }
+      .form-group input:focus { border-color: var(--primary-color); }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; font-size: 0.9rem; font-weight: 600; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff; color: var(--text-color); cursor: pointer; transition: var(--transition); text-decoration: none; }
+      .btn:hover { background: var(--bg-light); }
+      .btn.primary { background: var(--text-color); color: #fff; border: none; }
+      .btn.primary:hover { background: #1e222b; }
+
+      /* Toast */
+      .toast-msg { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(47, 53, 66, 0.95); color: #fff; padding: 12px 24px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 9999; font-weight: 500; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; opacity: 0; }
+      .toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    </style>
   </head>
   <body>
+
     <header class="site-header">
       <div class="container header-inner">
         <a class="logo" href="trangchu.html">MiniShop</a>
@@ -14,13 +117,12 @@
           <a href="trangchu.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="giohang.html">Giỏ hàng</a>
-          <a href="dangnhap.html">Đăng nhập</a>
-          <a href="dangky.html">Đăng ký</a>
-          <a href="taikhoan.html">Tài khoản</a>
-          <a href="admin/quanly.html">Quản lý</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a class="active" href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <a class="cart-btn" href="giohang.html">Giỏ (0)</a>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ (0)</a>
       </div>
     </header>
 
@@ -29,72 +131,248 @@
         <aside class="account-aside">
           <div class="aside-card">
             <nav>
-              <a href="taikhoan.html" data-panel="profile">Hồ sơ</a>
-              <a href="hoadon.html" data-panel="orders">Đơn hàng</a>
-              <a href="diachi.html" data-panel="addresses">Địa chỉ</a>
-              <a
-                href="phuongthucthanhtoan.html"
-                class="active"
-                data-panel="payments"
-                >Phương thức thanh toán</a
-              >
-              <a href="yeuthich.html" data-panel="favorites">Yêu thích</a>
-              <a href="caidat.html" data-panel="settings">Cài đặt</a>
-              <a href="dangnhap.html">Đăng xuất</a>
+              <a href="taikhoan.html">Hồ sơ cá nhân</a>
+              <a href="hoadon.html">Đơn hàng của tôi</a>
+              <a href="diachi.html">Sổ địa chỉ</a>
+              <a href="phuongthucthanhtoan.html" class="active">Phương thức thanh toán</a>
+              <a href="yeuthich.html">Danh sách yêu thích</a>
+              <a href="#" id="asideLogout" style="color: var(--primary-color);">Đăng xuất</a>
             </nav>
           </div>
         </aside>
 
         <section class="account-main">
-          <div class="account-panel payment-panel">
+          <div class="account-panel">
             <h2>Phương thức thanh toán</h2>
-            <div class="payment-methods">
-              <div class="payment-item">
-                <h3>Chuyển khoản ngân hàng</h3>
-                <p>
-                  Chuyển tiền trực tiếp vào tài khoản ngân hàng của MiniShop.
-                </p>
-              </div>
-              <div class="payment-item">
-                <h3>Thanh toán qua Momo</h3>
-                <p>Thanh toán nhanh chóng qua ứng dụng Momo.</p>
-              </div>
-              <div class="payment-item">
-                <h3>Thanh toán qua Zalopay</h3>
-                <p>Hỗ trợ thanh toán từ ứng dụng Zalopay.</p>
-              </div>
-              <div class="payment-item">
-                <h3>Thanh toán khi nhận hàng (COD)</h3>
-                <p>Thanh toán tại nhà khi nhận đơn hàng.</p>
+            
+            <div class="payment-tabs">
+              <button class="tab-btn active" data-tab="cod">💵 COD</button>
+              <button class="tab-btn" data-tab="momo">📱 Ví MoMo</button>
+              <button class="tab-btn" data-tab="bank">🏛️ Vietcombank</button>
+              <button class="tab-btn" data-tab="card">💳 Thẻ ngân hàng</button>
+            </div>
+
+            <div class="tab-content active" id="content-cod">
+              <h3 style="margin-top:0;">Thanh toán khi nhận hàng (COD)</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">Bạn sẽ thanh toán bằng tiền mặt trực tiếp cho nhân viên giao hàng khi nhận được bưu kiện từ MiniShop. Đây là phương thức thanh toán an toàn và tiện lợi được đặt làm mặc định.</p>
+            </div>
+
+            <div class="tab-content" id="content-momo">
+              <div class="qr-wrapper">
+                <img src="images/products/images.jpg" alt="QR MoMo">
+                <h3>Mã QR MoMo Cửa Hàng</h3>
+                <p>Vui lòng mở app MoMo quét mã QR trên để chuyển tiền.</p>
+                <p style="font-weight: 700; color: var(--primary-color);">Nội dung chuyển khoản: Tên của bạn + Số điện thoại</p>
               </div>
             </div>
+
+            <div class="tab-content" id="content-bank">
+              <div class="qr-wrapper">
+                <img src="images/products/images.jpg" alt="QR Bank">
+                <h3>Mã VietQR MBbank Shop</h3>
+                <p>Quét mã bằng ứng dụng ngân hàng (Mobile Banking) để chuyển khoản nhanh 24/7.</p>
+                <p><b>Chủ TK:</b> MINISHOP VIETNAM • <b>Số TK: 0528469555555</b></p>
+              </div>
+            </div>
+
+            <div class="tab-content" id="content-card">
+              <h3 style="margin-top:0;">Liên kết thẻ tín dụng / thẻ ghi nợ mới</h3>
+              <form id="addCardForm">
+                
+                <div class="form-group">
+                  <label>Loại thẻ thanh toán</label>
+                  <div class="card-type-group">
+                    <label class="card-type-label">
+                      <input type="radio" name="card_type" value="Visa" checked />
+                      <span class="card-type-text">Visa</span>
+                    </label>
+                    <label class="card-type-label">
+                      <input type="radio" name="card_type" value="MasterCard" />
+                      <span class="card-type-text">MasterCard</span>
+                    </label>
+                    <label class="card-type-label">
+                      <input type="radio" name="card_type" value="Credit" />
+                      <span class="card-type-text">Credit</span>
+                    </label>
+                    <label class="card-type-label">
+                      <input type="radio" name="card_type" value="Debit" />
+                      <span class="card-type-text">Debit</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="cardNumber">Số thẻ ngân hàng</label>
+                  <input type="text" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx" maxlength="19" required />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="cardName">Tên in trên thẻ (Chữ in hoa không dấu)</label>
+                    <input type="text" id="cardName" placeholder="NGUYEN HOANG SON" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="cardExpiry">Ngày hết hạn</label>
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required />
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <button type="submit" class="btn primary">Lưu và liên kết thẻ</button>
+                </div>
+              </form>
+
+              <div class="saved-cards-title">💳 Thẻ ngân hàng đã liên kết của bạn</div>
+              <div id="savedCardsList"></div>
+            </div>
+
           </div>
         </section>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <div>© 2026 MiniShop. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="lienhe.html">Hỗ trợ</a>
-          <a href="taikhoan.html">Tài khoản</a>
-          <a href="thanhtoan.html">Thanh toán</a>
+    <div class="footer-bottom" style="border-top: 1px solid var(--border-color); margin-top: 30px; padding-top: 20px; text-align: center; color: var(--text-muted);">
+          <div style="margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">
+            © 2026 <span style="color: var(--primary-color); font-weight: 600;">MiniShop</span>. All rights reserved. Powered by HTML5 & CSS3.
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+            <img src="images/payment-methods.png" alt="Phương thức thanh toán" style="max-height: 24px; opacity: 0.6; filter: grayscale(100%);" onerror="this.style.display='none'">
+          </div>
         </div>
-      </div>
-    </footer>
 
-    <script src="js/common.js"></script>
     <script>
       function updateCartCount() {
         var cart = JSON.parse(localStorage.getItem("mini_cart") || "[]");
-        var count = cart.reduce(function (s, i) {
-          return s + (i.qty || 0);
-        }, 0);
-        var btn = document.querySelector(".cart-btn");
+        var count = cart.reduce(function (s, i) { return s + (i.qty || 0); }, 0);
+        var btn = document.getElementById("headerCartBtn");
         if (btn) btn.textContent = "Giỏ (" + count + ")";
       }
+
+      function showToast(message) {
+        var oldToast = document.querySelector(".toast-msg");
+        if (oldToast) oldToast.remove();
+        var toast = document.createElement("div");
+        toast.className = "toast-msg";
+        toast.innerHTML = '✓ ' + message;
+        document.body.appendChild(toast);
+        setTimeout(function () { toast.classList.add("show"); }, 50);
+        setTimeout(function () { toast.classList.remove("show"); }, 3000);
+      }
+
+      // --- BẢO VỆ TUYẾN ĐƯỜNG (KIỂM TRA ĐĂNG NHẬP) ---
+      var currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+      if (!currentUser) {
+        window.location.href = "dangnhap.html";
+      }
+
+      // --- ĐỒNG BỘ TRẠNG THÁI ĐĂNG NHẬP TRÊN HEADER ---
+      if (currentUser) {
+        var navLogin = document.getElementById("navLoginLink");
+        var navRegister = document.getElementById("navRegisterLink");
+        if (navLogin) { navLogin.textContent = currentUser.name; navLogin.href = "taikhoan.html"; }
+        if (navRegister) {
+          navRegister.textContent = "Đăng xuất"; navRegister.href = "#";
+          navRegister.addEventListener("click", handleLogout);
+        }
+      }
+
+      function handleLogout(e) {
+        if(e) e.preventDefault();
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("mini_profile");
+        window.location.href = "dangnhap.html";
+      }
+      document.getElementById("asideLogout").addEventListener("click", handleLogout);
+
+      // CHUYỂN ĐỔI TAB PHƯƠNG THỨC THANH TOÁN
+      var tabButtons = document.querySelectorAll(".tab-btn");
+      var tabContents = document.querySelectorAll(".tab-content");
+
+      tabButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          tabButtons.forEach(function (btn) { btn.classList.remove("active"); });
+          tabContents.forEach(function (content) { content.classList.remove("active"); });
+
+          this.classList.add("active");
+          var tabId = "content-" + this.getAttribute("data-tab");
+          document.getElementById(tabId).classList.add("active");
+        });
+      });
+
+      // LẤY VÀ HIỂN THỊ DANH SÁCH THẺ ĐÃ LƯU
+      function getSavedCards() {
+        return JSON.parse(localStorage.getItem("mini_saved_cards") || "[]");
+      }
+
+      function renderSavedCards() {
+        var listContainer = document.getElementById("savedCardsList");
+        var cards = getSavedCards();
+        listContainer.innerHTML = "";
+
+        if (cards.length === 0) {
+          listContainer.innerHTML = '<p style="color: var(--text-muted); font-size:0.85rem; font-style: italic;">Chưa có thẻ ngân hàng nào được liên kết.</p>';
+          return;
+        }
+
+        cards.forEach(function (card, index) {
+          var item = document.createElement("div");
+          item.className = "saved-card-item";
+          item.innerHTML = `
+            <div>
+              <span style="font-weight:600;">💳 Thẻ ${card.type}</span> 
+              <span style="color: var(--text-muted); margin-left:10px;">${card.number}</span>
+              <small style="margin-left: 10px; color:#95a5a6;">(${card.name})</small>
+            </div>
+            <button class="card-del-btn" onclick="deleteCard(${index})">Gỡ liên kết</button>
+          `;
+          listContainer.appendChild(item);
+        });
+      }
+
+      window.deleteCard = function(index) {
+        var cards = getSavedCards();
+        cards.splice(index, 1);
+        localStorage.setItem("mini_saved_cards", JSON.stringify(cards));
+        renderSavedCards();
+        showToast("Đã gỡ bỏ liên kết thẻ thành công!");
+      }
+
+      // Format số thẻ tự động tạo khoảng cách sau 4 ký tự
+      document.getElementById("cardNumber").addEventListener("input", function (e) {
+        var v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        var matches = v.match(/\d{4,16}/g);
+        var match = matches && matches[0] || '';
+        var parts = [];
+        for (var i=0, len=match.length; i<len; i+=4) { parts.push(match.substring(i, i+4)); }
+        if (parts.length > 0) { e.target.value = parts.join(' '); } else { e.target.value = v; }
+      });
+
+      // Format hạn dùng MM/YY
+      document.getElementById("cardExpiry").addEventListener("input", function (e) {
+        var v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        if (v.length >= 2) { e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4); } else { e.target.value = v; }
+      });
+
+      // Submit lưu liên kết thẻ mới kèm theo loại thẻ đã chọn
+      document.getElementById("addCardForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var num = document.getElementById("cardNumber").value;
+        var name = document.getElementById("cardName").value.toUpperCase();
+        var type = document.querySelector('input[name="card_type"]:checked').value;
+        
+        var cards = getSavedCards();
+        var hiddenNum = "•••• **** •••• " + num.substring(num.length - 4);
+
+        cards.push({ number: hiddenNum, name: name, type: type });
+        localStorage.setItem("mini_saved_cards", JSON.stringify(cards));
+        
+        this.reset();
+        document.querySelector('input[name="card_type"][value="Visa"]').checked = true;
+        
+        renderSavedCards();
+        showToast("Đã lưu và liên kết thẻ " + type + " thành công!");
+      });
+
       updateCartCount();
+      renderSavedCards();
     </script>
   </body>
 </html>
