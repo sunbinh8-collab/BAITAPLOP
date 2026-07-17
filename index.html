@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="vi">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>MiniShop — Trang chủ</title>
+	<link rel="stylesheet" href="CSS/caidat.css" />
+	<link rel="stylesheet" href="CSS/home.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container header-inner">
+			<a class="logo" href="index.html">MiniShop</a>
+			<nav class="main-nav">
+				<a class="active" href="index.html">Trang chủ</a>
+				<a href="HTML/danhmucsanpham.html">Danh mục</a>
+				<a href="HTML/taikhoan.html">Tài khoản</a>
+				<a href="HTML/lienhe.html">Liên hệ</a>
+			</nav>
+			<div class="header-actions">
+				<div class="search-wrap">
+					<input id="searchInput" type="search" placeholder="Tìm sản phẩm..." />
+				</div>
+				<button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
+					🛒 <span id="cart-count">0</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="container hero-inner">
+				<h1>Chào mừng đến với MiniShop</h1>
+				<p class="subtitle">Thời trang nam & nữ — phong cách mỗi ngày</p>
+				<a class="cta" href="HTML/danhmucsanpham.html">Mua ngay</a>
+			</div>
+		</section>
+
+		<section class="features container">
+			<div class="feature"> 
+				<h3>Miễn phí giao hàng</h3>
+				<p>Giao nhanh toàn quốc cho đơn hàng từ 500.000₫.</p>
+			</div>
+			<div class="feature"> 
+				<h3>Hoàn tiền 100%</h3>
+				<p>Đổi trả trong 7 ngày nếu không hài lòng.</p>
+			</div>
+			<div class="feature"> 
+				<h3>Thanh toán an toàn</h3>
+				<p>Bảo mật mọi giao dịch với nhiều phương thức.</p>
+			</div>
+		</section>
+
+		<section class="products container">
+			<h2>Sản phẩm nổi bật</h2>
+			<div id="products" class="product-grid"></div>
+		</section>
+
+		<section class="newsletter container">
+			<h3>Nhận khuyến mãi</h3>
+			<form id="newsletterForm">
+				<input type="email" placeholder="Nhập email của bạn" required />
+				<button type="submit">Đăng ký</button>
+			</form>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container footer-inner">
+			<div>© MiniShop — Thiết kế bởi bạn</div>
+			<div>
+				<a href="HTML/taikhoan.html">Tài khoản</a> • <a href="HTML/lienhe.html">Liên hệ</a>
+			</div>
+		</div>
+	</footer>
+
+	<div id="cartModal" class="cart-modal" aria-hidden="true">
+		<div class="cart-panel">
+			<button id="closeCart" class="close">✕</button>
+			<h3>Giỏ hàng</h3>
+			<div id="cartItems" class="cart-items"></div>
+			<div class="cart-summary">
+				<div>Tổng: <strong id="cartTotal">0₫</strong></div>
+				<div class="cart-actions">
+					<button id="clearCart">Xóa hết</button>
+					<button id="checkoutBtn">Thanh toán</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="JS/product-data.js" defer></script>
+	<script src="JS/home.js" defer></script>
+</body>
+</html>
