@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quản lý khách hàng</title>
+    <link rel="stylesheet" href="../../css/minishop.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+    <script>
+      (function () {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser") || "null");
+          if (!user || user.role !== "admin") {
+            window.location.replace("../../html/dangnhap.html");
+          }
+        } catch (e) {
+          window.location.replace("../../html/dangnhap.html");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../../html/trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="./quanly.html">Dashboard</a>
+          <a href="../../html/trangchu.html">Trang chủ</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <h1>Quản lý khách hàng</h1>
+      <button class="btn-add" onclick="openAddModal()">
+        + Thêm khách hàng
+      </button>
+      <br /><br />
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>SĐT</th>
+            <th>Email</th>
+            <th>Số tiền đã chi</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="customerTableBody">
+          <tr>
+            <td>KH001</td>
+            <td>Nguyễn A</td>
+            <td>0912345678</td>
+            <td>nguyen@example.com</td>
+            <td>2.500.000₫</td>
+            <td>
+              <button
+                class="btn-edit"
+                onclick="
+                  editCustomer(
+                    'KH001',
+                    'Nguyễn A',
+                    '0912345678',
+                    'nguyen@example.com',
+                  )
+                "
+              >
+                Chỉnh sửa
+              </button>
+              <button class="btn-delete" onclick="deleteCustomer('KH001')">
+                Xóa
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>KH002</td>
+            <td>Trần B</td>
+            <td>0987654321</td>
+            <td>tran@example.com</td>
+            <td>1.800.000₫</td>
+            <td>
+              <button
+                class="btn-edit"
+                onclick="
+                  editCustomer(
+                    'KH002',
+                    'Trần B',
+                    '0987654321',
+                    'tran@example.com',
+                  )
+                "
+              >
+                Chỉnh sửa
+              </button>
+              <button class="btn-delete" onclick="deleteCustomer('KH002')">
+                Xóa
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>KH003</td>
+            <td>Lê C</td>
+            <td>0923456789</td>
+            <td>le@example.com</td>
+            <td>3.200.000₫</td>
+            <td>
+              <button
+                class="btn-edit"
+                onclick="
+                  editCustomer('KH003', 'Lê C', '0923456789', 'le@example.com')
+                "
+              >
+                Chỉnh sửa
+              </button>
+              <button class="btn-delete" onclick="deleteCustomer('KH003')">
+                Xóa
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>KH004</td>
+            <td>Phạm D</td>
+            <td>0934567890</td>
+            <td>pham@example.com</td>
+            <td>950.000₫</td>
+            <td>
+              <button
+                class="btn-edit"
+                onclick="
+                  editCustomer(
+                    'KH004',
+                    'Phạm D',
+                    '0934567890',
+                    'pham@example.com',
+                  )
+                "
+              >
+                Chỉnh sửa
+              </button>
+              <button class="btn-delete" onclick="deleteCustomer('KH004')">
+                Xóa
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Modal chỉnh sửa khách hàng -->
+      <div id="editModal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('editModal')">&times;</span>
+          <h2>Chỉnh sửa khách hàng</h2>
+          <form id="editForm" onsubmit="saveCustomer(event)">
+            <div class="form-group">
+              <label>ID khách hàng:</label>
+              <input type="text" id="customerId" readonly />
+            </div>
+            <div class="form-group">
+              <label>Tên:</label>
+              <input type="text" id="customerName" required />
+            </div>
+            <div class="form-group">
+              <label>Số điện thoại:</label>
+              <input type="text" id="customerPhone" required />
+            </div>
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" id="customerEmail" required />
+            </div>
+            <button type="submit" class="btn-save">Lưu</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeModal('editModal')"
+            >
+              Hủy
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal thêm khách hàng -->
+      <div id="addModal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('addModal')">&times;</span>
+          <h2>Thêm khách hàng mới</h2>
+          <form id="addForm" onsubmit="addCustomer(event)">
+            <div class="form-group">
+              <label>ID khách hàng:</label>
+              <input
+                type="text"
+                id="newCustomerId"
+                placeholder="VD: KH005"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Tên:</label>
+              <input
+                type="text"
+                id="newCustomerName"
+                placeholder="Nhập tên khách hàng"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Số điện thoại:</label>
+              <input
+                type="text"
+                id="newCustomerPhone"
+                placeholder="VD: 0912345678"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Email:</label>
+              <input
+                type="email"
+                id="newCustomerEmail"
+                placeholder="VD: email@example.com"
+                required
+              />
+            </div>
+            <button type="submit" class="btn-save">Thêm</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeModal('addModal')"
+            >
+              Hủy
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <style>
+        .modal {
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+          background-color: #fefefe;
+          margin: 10% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 400px;
+          border-radius: 5px;
+        }
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+        .close:hover {
+          color: #000;
+        }
+        .form-group {
+          margin-bottom: 15px;
+        }
+        .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+        .form-group input {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        .btn-edit {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 6px 12px;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .btn-edit:hover {
+          background-color: #0056b3;
+        }
+        .btn-delete {
+          background-color: #dc3545;
+          color: white;
+          border: none;
+          padding: 6px 12px;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-left: 5px;
+        }
+        .btn-delete:hover {
+          background-color: #c82333;
+        }
+        .btn-add {
+          background-color: #28a745;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+        .btn-add:hover {
+          background-color: #218838;
+        }
+        .btn-save {
+          background-color: #28a745;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+        .btn-save:hover {
+          background-color: #218838;
+        }
+        .btn-cancel {
+          background-color: #6c757d;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .btn-cancel:hover {
+          background-color: #5a6268;
+        }
+      </style>
+
+      <script src="../js/quanly_khachhang.js"></script>
+    </main>
+  </body>
+</html>

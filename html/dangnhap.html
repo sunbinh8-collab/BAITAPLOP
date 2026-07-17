@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập - MiniShop</title>
+    <link rel="stylesheet" href="../css/minishop.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="form-card">
+        <h2>Đăng nhập</h2>
+        <form id="loginForm">
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="form-field">
+            <label for="password">Mật khẩu</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              minlength="6"
+            />
+          </div>
+          <div class="form-actions">
+            <button class="btn primary" type="submit">Đăng nhập</button>
+            <a class="small-link" href="dangky.html">Tạo tài khoản</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="../js/common.js"></script>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          var email = document.getElementById("email").value.trim();
+          var password = document.getElementById("password").value;
+          var isAdmin =
+            email === "admin@minishop.com" && password === "admin123";
+          var user = {
+            name: isAdmin ? "Quản trị viên" : "Người dùng",
+            email: email,
+            role: isAdmin ? "admin" : "user",
+          };
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          showToast(
+            isAdmin ? "Đăng nhập admin thành công" : "Đăng nhập thành công",
+            "success",
+          );
+          window.location.href = "taikhoan.html";
+        });
+    </script>
+  </body>
+</html>

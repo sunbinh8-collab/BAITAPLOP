@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Danh mục - MiniShop</title>
+    <link rel="stylesheet" href="../css/minishop.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a class="active" href="danhmucsanpham.html">Danh mục</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html" aria-label="Giỏ hàng (0)">
+          <span class="cart-icon" aria-hidden="true"
+            ><svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              aria-hidden="true"
+            >
+              <path
+                d="M7 4h-2l-1 2h2l1-2zm0 0h10l1.2 6H8.8L7 4zm12 8h-9v2h9v-2zm-9 4h9v2h-9v-2z"
+              /></svg
+          ></span>
+          <span class="cart-count">0</span>
+          <span class="sr-only">Giỏ hàng</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div>
+          <h1>Danh mục sản phẩm</h1>
+          <p>Khám phá bộ sưu tập thời trang mới với nhiều lựa chọn cho bạn.</p>
+        </div>
+      </section>
+
+      <section class="products">
+        <div class="filter-row">
+          <div class="filter-info">
+            <h2>Tất cả sản phẩm</h2>
+            <p>Hiển thị những sản phẩm phổ biến nhất.</p>
+            <span id="productCount">0 sản phẩm</span>
+          </div>
+          <div class="filter-controls">
+            <input
+              id="searchInput"
+              class="search-input"
+              type="search"
+              placeholder="Tìm kiếm sản phẩm"
+            />
+            <select id="sortSelect" class="sort-select">
+              <option value="default">Sắp xếp</option>
+              <option value="priceAsc">Giá tăng dần</option>
+              <option value="priceDesc">Giá giảm dần</option>
+              <option value="nameAsc">A → Z</option>
+              <option value="nameDesc">Z → A</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid" id="productGrid"></div>
+      </section>
+    </main>
+
+    <script src="../js/common.js"></script>
+    <script>
+      var baseProducts = [
+        {
+          id: 1,
+          title: "Áo thun basic",
+          price: 199000,
+          img: "../images/products/aothunden.jpg",
+        },
+        {
+          id: 2,
+          title: "Quần jean",
+          price: 299000,
+          img: "../images/products/quanjean.jpg",
+        },
+        {
+          id: 3,
+          title: "Váy nữ",
+          price: 349000,
+          img: "../images/products/bonuday.jpeg",
+        },
+        {
+          id: 4,
+          title: "Áo sơ mi",
+          price: 249000,
+          img: "../images/products/somi.jpg",
+        },
+        {
+          id: 5,
+          title: "Mũ thời trang",
+          price: 89000,
+          img: "../images/products/images.jpg",
+        },
+        {
+          id: 6,
+          title: "Áo khoác",
+          price: 499000,
+          img: "../images/products/quanaobongchuyen.jpg",
+        },
+        {
+          id: 7,
+          title: "Giày thể thao",
+          price: 599000,
+          img: "../images/products/images.jpg",
+        },
+        {
+          id: 8,
+          title: "Túi xách",
+          price: 259000,
+          img: "../images/products/bonuday.jpeg",
+        },
+        {
+          id: 9,
+          title: "Đồng hồ",
+          price: 1290000,
+          img: "../images/products/quanjean.jpg",
+        },
+        {
+          id: 10,
+          title: "Áo hoodie",
+          price: 399000,
+          img: "../images/products/somi.jpg",
+        },
+        {
+          id: 11,
+          title: "Sandal nữ",
+          price: 189000,
+          img: "../images/products/images.jpg",
+        },
+        {
+          id: 12,
+          title: "Ví da nam",
+          price: 229000,
+          img: "../images/products/quanaobongchuyen.jpg",
+        },
+      ];
+
+      function getAdminProducts() {
+        try {
+          var stored = JSON.parse(
+            localStorage.getItem("admin_products_v1") || "[]",
+          );
+          return Array.isArray(stored) ? stored : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function getCatalogProducts() {
+        var adminProducts = getAdminProducts();
+        var normalizedAdminProducts = adminProducts.map(function (item) {
+          var numericId = Number(String(item.id || "").replace(/\D/g, ""));
+          return {
+            id: numericId || Date.now() + Math.floor(Math.random() * 1000),
+            title: item.name || "Sản phẩm",
+            price: Number(item.price) || 0,
+            img: item.image || "images/products/images.jpg",
+            category: item.category || "Khác",
+          };
+        });
+
+        return baseProducts.concat(normalizedAdminProducts);
+      }
+
+      var products = [];
+
+      function refreshProducts() {
+        products = getCatalogProducts();
+        applyFilters();
+      }
+
+      function formatVND(n) {
+        return "₫" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function render(items) {
+        items = items || products;
+        var grid = document.getElementById("productGrid");
+        var fragment = document.createDocumentFragment();
+
+        if (!items.length) {
+          grid.innerHTML =
+            '<div class="empty-state">Không tìm thấy sản phẩm phù hợp. Vui lòng thử lại với từ khóa khác.</div>';
+          updateProductCount(0);
+          return;
+        }
+
+        items.forEach(function (p) {
+          var el = document.createElement("article");
+          el.className = "product";
+          el.innerHTML =
+            '<button class="heart-btn" data-product="' +
+            p.title +
+            '" title="Yêu thích">♡</button>' +
+            '<span class="product-badge">Mới</span>' +
+            '<a class="product-link" href="chitietsanpham.html?id=' +
+            p.id +
+            '"><img src="' +
+            p.img +
+            '" alt="' +
+            p.title +
+            '" loading="lazy" decoding="async" width="400" height="400"></a>' +
+            '<h3><a class="product-link" href="chitietsanpham.html?id=' +
+            p.id +
+            '">' +
+            p.title +
+            "</a></h3>" +
+            '<p class="price">' +
+            formatVND(p.price) +
+            "</p>" +
+            '<div class="actions">' +
+            '<div class="product-opts">' +
+            '<select class="size-select"><option value="M">Size M</option><option value="L">Size L</option><option value="XL">Size XL</option></select>' +
+            '<select class="color-select"><option value="Đen">Đen</option><option value="Trắng">Trắng</option><option value="Xanh">Xanh</option></select>' +
+            '<input class="qty-input" type="number" value="1" min="1" aria-label="Số lượng" />' +
+            "</div>" +
+            '<button class="btn add-to-cart" data-id="' +
+            p.id +
+            '">Thêm vào giỏ</button></div>';
+          fragment.appendChild(el);
+        });
+
+        grid.innerHTML = "";
+        grid.appendChild(fragment);
+        updateProductCount(items.length);
+        attachCartButtons();
+        attachHeartButtons();
+      }
+
+      function attachCartButtons() {
+        document
+          .querySelectorAll(".product .add-to-cart")
+          .forEach(function (b) {
+            if (b.dataset.addCartAttached) return;
+            b.dataset.addCartAttached = "1";
+            b.addEventListener("click", function () {
+              var id = parseInt(this.getAttribute("data-id"));
+              var p = products.find(function (x) {
+                return x.id === id;
+              });
+              if (!p) return;
+              var card = this.closest(".product");
+              var size = card.querySelector(".size-select").value;
+              var color = card.querySelector(".color-select").value;
+              var qty =
+                parseInt(card.querySelector(".qty-input").value, 10) || 1;
+              if (qty < 1) qty = 1;
+              window.addToCart({
+                id: p.id,
+                title: p.title,
+                price: p.price,
+                qty: qty,
+                size: size,
+                color: color,
+              });
+            });
+          });
+      }
+
+      function attachHeartButtons() {
+        var favorites = JSON.parse(
+          localStorage.getItem("mini_favorites") || "[]",
+        );
+        document.querySelectorAll(".heart-btn").forEach(function (btn) {
+          var productName = btn.getAttribute("data-product");
+          if (favorites.includes(productName)) {
+            btn.classList.add("liked");
+          }
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var favorites = JSON.parse(
+              localStorage.getItem("mini_favorites") || "[]",
+            );
+            var index = favorites.indexOf(productName);
+            if (index > -1) {
+              favorites.splice(index, 1);
+              btn.classList.remove("liked");
+              showToast('Đã bỏ yêu thích "' + productName + '"');
+            } else {
+              favorites.push(productName);
+              btn.classList.add("liked");
+              showToast('Đã thêm "' + productName + '" vào yêu thích');
+            }
+            localStorage.setItem("mini_favorites", JSON.stringify(favorites));
+          });
+        });
+      }
+
+      function updateProductCount(count) {
+        var label = document.getElementById("productCount");
+        if (label) {
+          label.textContent = count + " sản phẩm";
+        }
+      }
+
+      function applyFilters() {
+        var query = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+        var sortValue = document.getElementById("sortSelect").value;
+        var filtered = products.filter(function (p) {
+          return p.title.toLowerCase().indexOf(query) !== -1;
+        });
+
+        if (sortValue === "priceAsc") {
+          filtered.sort(function (a, b) {
+            return a.price - b.price;
+          });
+        } else if (sortValue === "priceDesc") {
+          filtered.sort(function (a, b) {
+            return b.price - a.price;
+          });
+        } else if (sortValue === "nameAsc") {
+          filtered.sort(function (a, b) {
+            return a.title.localeCompare(b.title, "vi");
+          });
+        } else if (sortValue === "nameDesc") {
+          filtered.sort(function (a, b) {
+            return b.title.localeCompare(a.title, "vi");
+          });
+        }
+
+        render(filtered);
+      }
+
+      document
+        .getElementById("sortSelect")
+        .addEventListener("change", function () {
+          applyFilters();
+        });
+
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          applyFilters();
+        });
+
+      // Use global updateCartCount from `js/common.js`
+      function refreshCartCount() {
+        if (window.updateCartCount) return window.updateCartCount();
+      }
+
+      refreshProducts();
+      refreshCartCount();
+
+      window.addEventListener("storage", function () {
+        refreshProducts();
+      });
+    </script>
+  </body>
+</html>
