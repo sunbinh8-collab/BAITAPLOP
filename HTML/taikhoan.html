@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trang tài khoản</title>
+    <link rel="stylesheet" href="../CSS/caidat.css" />
+    <link rel="stylesheet" href="../CSS/home.css" />
+    <link rel="stylesheet" href="../CSS/taikhoan.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../index.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="../index.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a class="active" href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+      </div>
+    </header>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Tài khoản</h1>
+        <p class="subtitle">
+          Quản lý thông tin cá nhân, đơn hàng và cài đặt tài khoản của bạn
+        </p>
+      </div>
+    </section>
+
+    <main class="container" style="padding: 40px 0">
+      <div class="account-grid">
+        <aside class="account-sidebar">
+          <div class="profile-sm">
+            <div>
+              <div class="avatar" id="avatarDisplay">AB</div>
+              <input
+                id="avatarInput"
+                type="file"
+                accept="image/*"
+                style="display: none"
+              />
+            </div>
+            <div>
+              <div class="name" id="userNameSmall">Khách</div>
+              <div class="email muted" id="userEmailSmall">
+                guest@example.com
+              </div>
+            </div>
+          </div>
+          <nav class="account-nav">
+            <button data-tab="profile" class="active">Thông tin cá nhân</button>
+            <button data-tab="orders">Đơn hàng</button>
+            <button data-tab="addresses">Địa chỉ</button>
+            <button data-tab="favorites">Yêu thích</button>
+            <a href="caidat.html" class="nav-link">Cài đặt</a>
+            <button data-tab="logout" class="danger">Đăng xuất</button>
+          </nav>
+        </aside>
+
+        <section class="account-main">
+          <div id="tab-profile" class="tab-content">
+            <h2>Thông tin tài khoản</h2>
+            <form id="profileForm" class="profile-form">
+              <label>Tên đầy đủ</label>
+              <input id="fullName" type="text" placeholder="Họ và tên" />
+
+              <label>Email</label>
+              <input id="email" type="email" placeholder="email@vd.com" />
+
+              <label>Số điện thoại</label>
+              <input id="phone" type="tel" placeholder="0123 456 789" />
+
+              <label>Ghi chú / Địa chỉ</label>
+              <textarea
+                id="address"
+                rows="3"
+                placeholder="Địa chỉ giao hàng"
+              ></textarea>
+
+              <div
+                style="
+                  margin-top: 12px;
+                  display: flex;
+                  gap: 12px;
+                  align-items: center;
+                "
+              >
+                <button class="btn save" type="submit">Lưu thay đổi</button>
+                <div class="muted">Dữ liệu lưu cục bộ (demo)</div>
+              </div>
+            </form>
+
+            <!-- password moved to Cài đặt tab -->
+          </div>
+
+          <div id="tab-orders" class="tab-content" style="display: none">
+            <h2>Đơn hàng của bạn</h2>
+            <div id="ordersList" class="orders-list"></div>
+            <div style="margin-top: 12px">
+              <button id="addSampleOrder" class="btn">Tạo đơn hàng mẫu</button>
+            </div>
+          </div>
+
+          <div id="tab-addresses" class="tab-content" style="display: none">
+            <h2>Địa chỉ</h2>
+            <div class="muted">Chưa có địa chỉ.</div>
+          </div>
+
+          <!-- Settings moved to separate page caidat.html -->
+
+          <div id="tab-favorites" class="tab-content" style="display: none">
+            <h2>Sản phẩm yêu thích</h2>
+            <div id="favoritesGrid" class="product-grid"></div>
+            <div id="favoritesEmpty" class="muted">
+              Danh sách yêu thích trống.
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© MiniShop</div>
+        <div class="muted">Liên hệ • Hỗ trợ</div>
+      </div>
+    </footer>
+
+    <script src="../JS/taikhoan.js" defer></script>
+  </body>
+</html>

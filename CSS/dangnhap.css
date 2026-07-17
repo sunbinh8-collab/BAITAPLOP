@@ -1,0 +1,66 @@
+/* Styles for login page */
+.auth {
+  padding: 60px 0 120px;
+}
+.auth-container {
+  display: flex;
+  justify-content: center;
+}
+.auth-card {
+  width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 34px;
+  box-shadow:
+    0 30px 60px rgba(11, 33, 53, 0.08),
+    0 8px 24px rgba(11, 33, 53, 0.06);
+}
+.auth-card h2 {
+  margin: 0 0 18px 0;
+  font-size: 26px;
+  color: var(--text);
+}
+.auth-card label {
+  display: block;
+  margin: 12px 0 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e6edf6;
+  box-sizing: border-box;
+}
+.auth-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+.login-btn {
+  background: linear-gradient(180deg, var(--primary), #0060c6);
+  color: #fff;
+  border: 0;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(11, 63, 214, 0.16);
+}
+.small-link {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .auth-card {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .auth {
+    padding: 30px 0;
+  }
+}

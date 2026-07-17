@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="../CSS/caidat.css" />
+    <link rel="stylesheet" href="../CSS/home.css" />
+    <link rel="stylesheet" href="../CSS/dangnhap.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../index.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="../index.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <h1></h1>
+        </div>
+      </section>
+
+      <section class="auth container">
+        <div class="auth-container">
+          <div class="auth-card">
+            <h2>Đăng nhập</h2>
+            <form id="loginForm">
+              <label for="email">Email</label>
+              <input id="email" type="email" required />
+
+              <label for="password">Mật khẩu</label>
+              <input id="password" type="password" required />
+
+              <div class="auth-actions">
+                <button class="login-btn" type="submit">Đăng nhập</button>
+                <a class="small-link" href="dangky.html">Tạo tài khoản</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>
+          <a href="taikhoan.html">Tài khoản</a> •
+          <a href="lienhe.html">Liên hệ</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Đăng nhập (demo) — chức năng chưa kết nối.");
+        });
+    </script>
+  </body>
+</html>

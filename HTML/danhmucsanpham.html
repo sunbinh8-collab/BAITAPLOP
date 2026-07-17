@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Danh mục sản phẩm</title>
+    <link rel="stylesheet" href="../CSS/caidat.css" />
+    <link rel="stylesheet" href="../CSS/home.css" />
+    <link rel="stylesheet" href="../CSS/danhmucsanpham.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../index.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="../index.html">Trang chủ</a>
+          <a class="active" href="danhmucsanpham.html">Danh mục</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <div class="header-actions">
+          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
+            <span class="cart-label">Giỏ (<span id="cart-count">0</span>)</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Danh mục sản phẩm</h1>
+        <p class="lead">
+          Khám phá bộ sưu tập thời trang mới với nhiều lựa chọn cho bạn.
+        </p>
+      </div>
+    </section>
+
+    <section class="products container" style="padding-top: 20px">
+      <h2>Sản phẩm nổi bật</h2>
+      <div id="featuredList" class="product-grid"></div>
+    </section>
+
+    <main class="container" style="padding: 30px 20px">
+      <div
+        class="controls-row"
+        style="
+          margin-bottom: 22px;
+          display: flex;
+          align-items: flex-start;
+          gap: 18px;
+          flex-wrap: wrap;
+        "
+      >
+        <div class="left-info">
+          <h3>Tất cả sản phẩm</h3>
+          <p class="muted">Hiển thị những sản phẩm phổ biến nhất.</p>
+          <div id="productCount" class="count">12 sản phẩm</div>
+          <select id="categorySelect" style="display: none">
+            <option value="all">Tất cả</option>
+            <option value="nam">Nam</option>
+            <option value="nu">Nữ</option>
+            <option value="giay">Giày</option>
+          </select>
+        </div>
+
+        <div
+          style="
+            margin-left: auto;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+          "
+        >
+          <input
+            id="filterInput"
+            placeholder="Tìm kiếm sản phẩm"
+            class="search-input"
+          />
+          <select id="sortSelect" class="sort-select">
+            <option value="default">Sắp xếp</option>
+            <option value="price-asc">Giá: thấp → cao</option>
+            <option value="price-desc">Giá: cao → thấp</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="categoryProducts" class="product-grid"></div>
+    </main>
+
+    <script src="../JS/product-data.js" defer></script>
+    <script src="../JS/danhmucsanpham.js" defer></script>
+  </body>
+</html>
