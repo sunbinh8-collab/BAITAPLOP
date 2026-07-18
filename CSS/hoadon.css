@@ -1,0 +1,116 @@
+/* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+:root {
+  --primary-color: #ff4757;
+  --primary-hover: #ee3848;
+  --text-color: #2f3542;
+  --text-muted: #747d8c;
+  --border-color: #e4e7eb;
+  --bg-light: #f8f9fa;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --transition: all 0.25s ease;
+
+  /* Màu trạng thái đơn hàng */
+  --color-pending: #f6c23e;
+  --color-shipping: #36b9cc;
+  --color-completed: #2ed573;
+  --color-cancelled: #e74a3b;
+}
+
+body {
+  background-color: #f7f9fa;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* === SITE HEADER === */
+.site-header {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  padding: 15px 0;
+}
+.header-inner { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+.main-nav a {
+  color: var(--text-color); text-decoration: none; margin-right: 20px; font-weight: 500; transition: var(--transition);
+}
+.main-nav a:hover, .main-nav a.active { color: var(--primary-color); }
+.cart-btn {
+  background: var(--primary-color); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 20px; font-weight: 600;
+}
+
+/* Layout hai cột Tài khoản */
+.account-wrap {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  margin: 40px auto;
+}
+
+@media (max-width: 768px) {
+  .account-wrap { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* Menu bên trái */
+.account-aside .aside-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 10px;
+  border: 1px solid var(--border-color);
+}
+.account-aside nav { display: flex; flex-direction: column; gap: 4px; }
+.account-aside nav a {
+  display: block; padding: 12px 16px; color: var(--text-color); text-decoration: none; font-weight: 500; border-radius: 6px; transition: var(--transition); font-size: 0.95rem;
+}
+.account-aside nav a:hover, .account-aside nav a.active {
+  background-color: #ffe0e3; color: var(--primary-color);
+}
+
+/* Panel hiển thị đơn hàng bên phải */
+.account-panel {
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  border: 1px solid var(--border-color);
+}
+.account-panel h2 {
+  font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--border-color);
+}
+
+/* Khối Card Đơn Hàng Cao Cấp */
+.order-card {
+  background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); transition: var(--transition);
+}
+.order-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.order-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+.order-id { font-size: 1.05rem; font-weight: 700; color: var(--text-color); }
+.order-date { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+
+/* Badge Trạng Thái Đồng Bộ Hệ Thống */
+.badge-status { display: inline-block; padding: 5px 14px; font-size: 0.8rem; font-weight: 700; border-radius: 30px; text-align: center; }
+.status-pending { background-color: rgba(246, 194, 62, 0.1); color: var(--color-pending); }
+.status-shipping { background-color: rgba(54, 185, 204, 0.1); color: var(--color-shipping); }
+.status-completed { background-color: rgba(46, 213, 115, 0.1); color: var(--color-completed); }
+.status-cancelled { background-color: rgba(231, 74, 59, 0.1); color: var(--color-cancelled); }
+
+.order-body { padding: 15px 0; border-bottom: 1px solid var(--border-color); }
+.order-items-summary { font-weight: 600; color: var(--text-color); font-size: 0.95rem; margin-bottom: 12px; }
+.recipient-info { background-color: var(--bg-light); padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-color); line-height: 1.6; }
+.recipient-info div strong { color: #57606f; display: inline-block; width: 110px; }
+
+.order-footer { padding-top: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.92rem; }
+.payment-method { color: var(--text-muted); font-weight: 500; }
+.order-total-price { font-size: 1.2rem; font-weight: 700; color: var(--primary-color); }
+.empty-orders { padding: 40px; border: 2px dashed #ced6e0; border-radius: var(--radius-lg); text-align: center; color: var(--text-muted); font-weight: 500; background-color: #fff; }

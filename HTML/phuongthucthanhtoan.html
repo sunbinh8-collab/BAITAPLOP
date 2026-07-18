@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phương thức thanh toán - MiniShop</title>
+    <!-- Gọi link file CSS ngoài lùi 1 cấp ra thư mục css/ -->
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/phuongthucthanhtoan.css" />
+  </head>
+  <body>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a class="active" href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ (0)</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="account-wrap">
+        <aside class="account-aside">
+          <div class="aside-card">
+            <nav>
+              <a href="taikhoan.html" data-panel="profile">Hồ sơ</a>
+              <a href="hoadon.html" data-panel="orders">Đơn hàng</a>
+              <a href="diachi.html" data-panel="addresses">Địa chỉ</a>
+              <a href="phuongthucthanhtoan.html" class="active" data-panel="payments">Phương thức thanh toán</a>
+              <a href="yeuthich.html" data-panel="favorites">Yêu thích</a>
+              <a href="caidat.html" data-panel="settings">Cài đặt</a>
+              <a href="#" id="asideLogout">Đăng xuất</a>
+            </nav>
+          </div>
+        </aside>
+
+        <section class="account-main">
+          <div class="account-panel">
+            <h2>Phương thức thanh toán</h2>
+            
+            <!-- Khu vực danh sách ví/thẻ liên kết -->
+            <div id="paymentList" class="payment-list"></div>
+
+            <!-- Khu vực Form thêm mới -->
+            <div class="add-payment-section">
+              <h3>Thêm phương thức mới</h3>
+              <form id="paymentForm" class="payment-form">
+                <div class="form-group full-width">
+                  <label for="methodType">Loại phương thức</label>
+                  <select id="methodType" required>
+                    <option value="bank">Tài khoản Ngân hàng (Thẻ ATM/Nội địa)</option>
+                    <option value="momo">Ví điện tử MoMo</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="accountName">Tên gợi nhớ / Tên chủ tài khoản</label>
+                  <input type="text" id="accountName" placeholder="VD: Techcombank cá nhân" required />
+                </div>
+                <div class="form-group">
+                  <label for="accountNumber">Số tài khoản / Số điện thoại ví</label>
+                  <input type="text" id="accountNumber" placeholder="Nhập số tài khoản hoặc số ví" required />
+                </div>
+                <div class="form-group full-width">
+                  <button type="submit" class="btn primary" style="width: fit-content;">Xác nhận liên kết</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer-bottom" style="border-top: 1px solid var(--border-color); margin-top: 30px; padding-top: 20px; text-align: center; color: var(--text-muted);">
+      <div style="margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">
+        © 2026 <span style="color: var(--primary-color); font-weight: 600;">MiniShop</span>. All rights reserved. Powered by HTML5 & CSS3.
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+        <img src="../images/payment-methods.png" alt="Phương thức thanh toán" style="max-height: 24px; opacity: 0.6; filter: grayscale(100%);" onerror="this.style.display='none'">
+      </div>
+    </footer>
+    
+    <!-- Gọi link file điều hướng Javascript lùi 1 cấp ra thư mục js/ -->
+    <script src="../js/phuongthucthanhtoan.js"></script>
+  </body>
+</html>

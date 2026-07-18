@@ -1,0 +1,96 @@
+/* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+:root {
+  --primary-color: #ff4757;
+  --primary-hover: #ee3848;
+  --secondary-color: #2ed573;
+  --text-color: #2f3542;
+  --text-muted: #747d8c;
+  --bg-light: #f1f2f6;
+  --border-color: #e4e7eb;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 15px rgba(0,0,0,0.1);
+  --radius-lg: 12px;
+  --radius-md: 8px;
+}
+
+body {
+  background-color: #f7f9fa;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0; padding: 0;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+/* === SITE HEADER === */
+.site-header { background: #fff; box-shadow: var(--shadow-sm); padding: 15px 0; }
+.header-inner { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+.main-nav a { color: var(--text-color); text-decoration: none; margin-right: 20px; font-weight: 500; }
+.main-nav a.active { color: var(--primary-color); }
+.cart-btn { background: var(--primary-color); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; }
+
+/* === CART LAYOUT === */
+.cart-page { padding: 40px 0; }
+.cart-page h1 { font-size: 1.8rem; margin-bottom: 24px; }
+.cart-grid { display: grid; grid-template-columns: 1fr 380px; gap: 30px; align-items: start; }
+@media (max-width: 992px) { .cart-grid { grid-template-columns: 1fr; } }
+
+.cart-table-container { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 20px; border: 1px solid var(--border-color); }
+.cart-table { width: 100%; border-collapse: collapse; }
+.cart-table th { text-align: left; padding-bottom: 15px; border-bottom: 2px solid var(--bg-light); color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.cart-table td { padding: 20px 0; border-bottom: 1px solid var(--bg-light); vertical-align: middle; }
+.product-info-cell { display: flex; gap: 16px; align-items: center; }
+.product-info-cell img { border-radius: var(--radius-md); object-fit: cover; border: 1px solid var(--bg-light); }
+.product-title { font-weight: 600; font-size: 1rem; color: var(--text-color); }
+.product-meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+
+/* Bộ tăng giảm số lượng */
+.quantity-group { display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; width: 100px; background: #fff; }
+.qty-btn { background: none; border: none; width: 32px; height: 32px; cursor: pointer; font-size: 1.1rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.qty-btn:hover { background: var(--bg-light); color: var(--text-color); }
+.qty-input-v2 { width: 36px; height: 32px; text-align: center; border: none; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); font-size: 0.9rem; font-weight: 600; outline: none; }
+.qty-input-v2::-webkit-outer-spin-button, .qty-input-v2::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.cell-price, .cell-subtotal { font-weight: 600; font-size: 1rem; }
+.cell-subtotal { color: var(--primary-color); position: relative; }
+.btn-remove { background: none; border: none; color: #a4b0be; cursor: pointer; padding: 5px; margin-left: 10px; transition: color 0.2s; font-size: 1.1rem; }
+.btn-remove:hover { color: var(--primary-color); }
+
+.cart-actions { display: flex; justify-content: space-between; margin-top: 20px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 20px; font-size: 0.9rem; font-weight: 600; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fff; color: var(--text-color); cursor: pointer; text-decoration: none; transition: all 0.2s; }
+.btn:hover { background: var(--bg-light); }
+.btn.primary { background: var(--text-color); color: #fff; border: none; }
+.btn.primary:hover { background: #1e222b; }
+.btn.danger-outline { color: var(--primary-color); border-color: var(--primary-color); }
+.btn.danger-outline:hover { background: #ffe0e3; }
+
+/* Sidebar hóa đơn */
+.cart-summary { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 24px; border: 1px solid var(--border-color); }
+.cart-summary h3 { font-size: 1.2rem; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--bg-light); }
+.summary-row { display: flex; justify-content: space-between; margin: 12px 0; font-size: 0.95rem; }
+.summary-row.total { font-size: 1.15rem; font-weight: 700; color: var(--primary-color); border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 15px; }
+.summary-row.total strong { font-size: 1.25rem; }
+.coupon-box { display: flex; gap: 8px; margin-top: 20px; padding: 15px 0; border-top: 1px solid var(--bg-light); }
+.coupon-input { flex: 1; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 0.9rem; text-transform: uppercase; }
+.coupon-input:focus { border-color: var(--primary-color); }
+#couponMessage { font-size: 0.8rem; margin-top: -10px; margin-bottom: 15px; font-weight: 500; }
+
+/* Hộp thông báo giỏ hàng trống xịn */
+.empty-cart-state { text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed #ced6e0; display: none; }
+.empty-cart-state div { font-size: 4rem; margin-bottom: 16px; }
+.empty-cart-state p { color: var(--text-muted); margin-bottom: 24px; font-size: 1.05rem; }
+
+/* Modal */
+.confirm-modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 1100; }
+.confirm-modal-overlay.active { display: flex; }
+.confirm-modal { width: min(420px, 100%); background: #fff; border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-md); }
+.confirm-modal h3 { margin: 0 0 8px; color: var(--text-color); }
+.confirm-modal p { margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+.confirm-modal .confirm-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+/* Toast */
+.toast-msg { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(47, 53, 66, 0.95); color: #fff; padding: 12px 24px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 9999; font-weight: 500; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; opacity: 0; }
+.toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast-icon { background: var(--secondary-color); width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; }

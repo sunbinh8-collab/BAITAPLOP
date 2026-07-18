@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đơn hàng của tôi - MiniShop</title>
+    <!-- Gọi link file CSS ngoài lùi 1 cấp ra thư mục css/ -->
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/hoadon.css" />
+  </head>
+  <body>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a class="active" href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ hàng (0)</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="account-wrap">
+        <aside class="account-aside">
+          <div class="aside-card">
+            <nav>
+              <a href="taikhoan.html" data-panel="profile">Hồ sơ cá nhân</a>
+              <a href="hoadon.html" class="active" data-panel="orders">Đơn hàng của tôi</a>
+              <a href="diachi.html" data-panel="addresses">Địa chỉ</a>
+              <a href="phuongthucthanhtoan.html" data-panel="payments">Phương thức thanh toán</a>
+              <a href="yeuthich.html" data-panel="favorites">Danh sách yêu thích</a>
+              <a href="#" id="asideLogout" style="color: var(--primary-color);">Đăng xuất</a>
+            </nav>
+          </div>
+        </aside>
+
+        <section class="account-main">
+          <div class="account-panel">
+            <h2>Quản lý đơn hàng</h2>
+            <div id="ordersList" style="display: grid; gap: 16px;"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer-bottom" style="border-top: 1px solid var(--border-color); margin-top: 30px; padding-top: 20px; text-align: center; color: var(--text-muted);">
+      <div style="margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">
+        © 2026 <span style="color: var(--primary-color); font-weight: 600;">MiniShop</span>. All rights reserved. Powered by HTML5 & CSS3.
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+        <img src="../images/payment-methods.png" alt="Phương thức thanh toán" style="max-height: 24px; opacity: 0.6; filter: grayscale(100%);" onerror="this.style.display='none'">
+      </div>
+    </footer>
+
+    <!-- Gọi link file điều hướng Javascript lùi 1 cấp ra thư mục js/ -->
+    <script src="../js/hoadon.js"></script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Giỏ hàng - MiniShop</title>
+    <!-- Gọi link file CSS ngoài lùi 1 cấp ra thư mục css/ -->
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/giohang.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a class="active" href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ hàng (0)</a>
+      </div>
+    </header>
+
+    <div id="clearCartModal" class="confirm-modal-overlay" aria-hidden="true">
+      <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="clearCartTitle">
+        <h3 id="clearCartTitle">Xóa toàn bộ giỏ hàng?</h3>
+        <p>Bạn có chắc muốn xóa tất cả sản phẩm khỏi giỏ hàng? Hành động này không thể hoàn tác.</p>
+        <div class="confirm-actions">
+          <button id="cancelClearCart" class="btn">Hủy</button>
+          <button id="confirmClearCart" class="btn primary" style="background-color: var(--primary-color);">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="container cart-page">
+      <h1>Giỏ hàng của bạn</h1>
+
+      <div class="empty-cart-state" id="emptyCartBlock">
+        <div>🛒</div>
+        <p>Giỏ hàng của bạn chưa có sản phẩm nào.</p>
+        <a class="btn primary" href="danhmucsanpham.html">Mua sắm ngay</a>
+      </div>
+
+      <div class="cart-grid" id="mainCartGrid">
+        <div class="cart-table-container">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th style="text-align: center;">Số lượng</th>
+                <th style="text-align: right;">Giá</th>
+                <th style="text-align: right; padding-right: 10px;">Tạm tính</th>
+              </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+          </table>
+
+          <div class="cart-actions">
+            <button id="clearCart" class="btn danger-outline">Xoá hết giỏ hàng</button>
+            <a class="btn" href="danhmucsanpham.html">Tiếp tục mua sắm</a>
+          </div>
+        </div>
+
+        <aside>
+          <div class="cart-summary">
+            <h3>Tóm tắt đơn hàng</h3>
+            <div class="summary-row">
+              <span>Tạm tính</span><strong id="subTotal">₫0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Mã giảm giá</span><strong id="discountText" style="color: var(--primary-color);">-₫0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Phí vận chuyển</span><strong id="shipping">₫0</strong>
+            </div>
+            <div class="summary-row total">
+              <span>Thành tiền</span><strong id="grandTotal">₫0</strong>
+            </div>
+            
+            <div class="coupon-box">
+              <input id="coupon" class="coupon-input" placeholder="Mã (MINI50, MINI100, FREESHIP)..." />
+              <button id="applyCoupon" class="btn primary">Áp dụng</button>
+            </div>
+            <div id="couponMessage"></div>
+
+            <div style="margin-top: 12px">
+              <a class="btn primary" href="thanhtoan.html" style="width: 100%; padding: 13px; box-sizing: border-box; text-align: center;">Tiến hành thanh toán</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Gọi link file điều hướng Javascript lùi 1 cấp ra thư mục js/ -->
+    <script src="../js/giohang.js"></script>
+  </body>
+</html>

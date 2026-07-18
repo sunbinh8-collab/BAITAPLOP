@@ -1,0 +1,237 @@
+/* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+:root {
+  --primary-color: #ff4757;
+  --primary-hover: #ee3848;
+  --text-color: #2f3542;
+  --text-muted: #747d8c;
+  --border-color: #e4e7eb;
+  --bg-light: #f8f9fa;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --transition: all 0.25s ease;
+}
+
+body {
+  background-color: #f7f9fa;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* === SITE HEADER === */
+.site-header {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  padding: 15px 0;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+.main-nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.main-nav a:hover, .main-nav a.active { color: var(--primary-color); }
+
+.cart-btn {
+  background: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* === BỐ CỤC CHUNG TRANG KHÁCH HÀNG === */
+.account-wrap {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  margin: 40px 0;
+  align-items: start;
+}
+@media (max-width: 992px) {
+  .account-wrap { grid-template-columns: 1fr; }
+}
+
+/* === MENU SIDEBAR (BÊN TRÁI) === */
+.account-aside {
+  position: sticky;
+  top: 20px;
+}
+.aside-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  padding: 15px 0;
+}
+.aside-card nav {
+  display: flex;
+  flex-direction: column;
+}
+.aside-card nav a {
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-left: 4px solid transparent;
+  transition: var(--transition);
+}
+.aside-card nav a:hover {
+  background: var(--bg-light);
+  color: var(--primary-color);
+}
+.aside-card nav a.active {
+  background: rgba(255, 71, 87, 0.05);
+  color: var(--primary-color);
+  border-left-color: var(--primary-color);
+}
+
+/* === PANEL CHÍNH (BÊN PHẢI) === */
+.account-main {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  padding: 40px;
+}
+@media (max-width: 576px) {
+  .account-main { padding: 20px; }
+}
+.account-panel h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+}
+
+/* === LƯỚI SẢN PHẨM YÊU THÍCH === */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* CARD SẢN PHẨM MỚI */
+.product-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.product-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.product-info h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+.product-info .price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 16px 0;
+}
+.product-info .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+/* === HỆ THỐNG NÚT BẤM === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.btn.primary {
+  background: var(--text-color);
+  color: #fff;
+  border: none;
+}
+.btn.primary:hover {
+  background: #1e222b;
+}
+.btn.danger-outline {
+  background: #fff;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn.danger-outline:hover {
+  background: #ffe0e3;
+}
+
+/* === TOAST === */
+.toast-msg { 
+  position: fixed; 
+  bottom: 24px; 
+  left: 50%; 
+  transform: translateX(-50%) translateY(100px); 
+  background: rgba(47, 53, 66, 0.95); 
+  color: #fff; 
+  padding: 12px 24px; 
+  border-radius: 30px; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+  z-index: 9999; 
+  font-weight: 500; 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; 
+  opacity: 0; 
+}
+.toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }

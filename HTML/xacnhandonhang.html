@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xác nhận đơn hàng - MiniShop</title>
+    <!-- Gọi link file CSS ngoài lùi 1 cấp ra thư mục css/ -->
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/xacnhandonhang.css" />
+  </head>
+  <body>
+
+    <header class="site-header">
+      <div class="container header-inner" style="max-width: 1200px;">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="timkiem.html">Tìm kiếm</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ (0)</a>
+      </div>
+    </header>
+
+    <main class="container">
+      
+      <section class="success-hero">
+        <span class="success-icon">🎉</span>
+        <h1>Đặt đơn hàng thành công!</h1>
+        <p id="orderMessage">Cảm ơn bạn đã tin dùng sản phẩm của MiniShop. Đơn hàng của bạn đã được ghi nhận và chuyển qua bộ phận kho đóng gói.</p>
+      </section>
+
+      <section class="invoice-card">
+        <h2>Mã định danh đơn hàng</h2>
+        <div class="order-code-display">MSH-<span id="orderCode">000000</span></div>
+        
+        <div class="info-grid">
+          <div class="info-block">
+            <p><strong>Trạng thái:</strong> <span style="color:#2ed573; font-weight:700;" id="orderStatus">Đang xử lý</span></p>
+            <p><strong>Thanh toán:</strong> <span id="orderPaymentMethod">Chưa cập nhật</span></p>
+            <p><strong>Tổng tiền chi trả:</strong> <span id="orderAmount" style="font-weight:700; color:var(--primary-color);">₫0</span></p>
+          </div>
+          <div class="info-block">
+            <p><strong>Người nhận hàng:</strong> <span id="customerName">Khách hàng MiniShop</span></p>
+            <p><strong>Số điện thoại:</strong> <span id="customerPhone">Chưa cập nhật</span></p>
+            <p><strong>Địa chỉ giao tới:</strong> <span id="customerAddress" style="color: var(--text-muted);">Chưa cập nhật</span></p>
+          </div>
+        </div>
+
+        <div class="purchased-products-list">
+          <h3>Sản phẩm trong đơn hàng</h3>
+          <div id="purchasedItemsContainer"></div>
+        </div>
+
+        <div class="timeline-section">
+          <h3>Tiến trình xử lý đơn hàng</h3>
+          <div class="modern-timeline">
+            <div class="timeline-step active">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <strong>Đặt hàng thành công</strong>
+                <div class="desc">Hệ thống đã nhận thông tin và trừ sản phẩm trong kho của hệ thống.</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <strong>Đóng gói & Chuẩn bị hàng</strong>
+                <div class="desc">Nhân viên kho kiểm tra lỗi bề mặt vải và bọc chống sốc hộp hàng.</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <strong>Đang vận chuyển tin cậy</strong>
+                <div class="desc">Kiện hàng sẽ được giao tới tay bạn trong vòng 24–48 giờ tới.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <a class="btn primary" href="trangchu.html">Tiếp tục mua sắm</a>
+          <a class="btn secondary" href="taikhoan.html">Quản lý lịch sử đơn hàng</a>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Gọi link file điều hướng Javascript lùi 1 cấp ra thư mục js/ -->
+    <script src="../js/xacnhandonhang.js"></script>
+  </body>
+</html>

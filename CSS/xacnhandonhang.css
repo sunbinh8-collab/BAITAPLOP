@@ -1,0 +1,244 @@
+/* --- HỆ THỐNG DESIGN SYSTEM ĐỒNG BỘ --- */
+:root {
+  --primary-color: #ff4757;
+  --primary-hover: #ee3848;
+  --secondary-color: #2ed573;
+  --text-color: #2f3542;
+  --text-muted: #747d8c;
+  --border-color: #e4e7eb;
+  --bg-light: #f8f9fa;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --transition: all 0.25s ease;
+}
+
+body {
+  background-color: #f7f9fa;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* === SITE HEADER === */
+.site-header {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  padding: 15px 0;
+  margin-bottom: 30px;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+.main-nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.main-nav a:hover { color: var(--primary-color); }
+
+.cart-btn {
+  background: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* === THÀNH CÔNG HERO === */
+.success-hero {
+  text-align: center;
+  padding: 20px 0 40px 0;
+}
+.success-icon {
+  font-size: 4rem;
+  color: #2ed573;
+  margin-bottom: 15px;
+  display: block;
+}
+.success-hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+.success-hero p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin: 0 auto;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* === HÓA ĐƠN CARD === */
+.invoice-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  padding: 35px;
+  margin-bottom: 50px;
+}
+
+.invoice-card h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 6px 0;
+  letter-spacing: 0.5px;
+}
+
+.order-code-display {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 0 0 24px 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 1px dashed var(--border-color);
+  border-bottom: 1px dashed var(--border-color);
+  margin-bottom: 24px;
+}
+@media (max-width: 576px) {
+  .info-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+.info-block p {
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.info-block p:last-child { margin-bottom: 0; }
+.info-block strong { color: var(--text-color); }
+
+/* Danh sách sản phẩm đã mua */
+.purchased-products-list {
+  margin: 24px 0;
+}
+.purchased-products-list h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+}
+.purchased-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg-light);
+  font-size: 0.95rem;
+}
+.purchased-item:last-child { border-bottom: none; }
+.item-name-qty { font-weight: 600; }
+.item-name-qty span { color: var(--text-muted); font-weight: 500; font-size: 0.9rem; }
+.item-price-total { font-weight: 700; }
+
+/* TIMELINE TIẾN TRÌNH */
+.timeline-section {
+  margin-top: 35px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+.timeline-section h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+.modern-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  padding-left: 20px;
+}
+.modern-timeline::before {
+  content: '';
+  position: absolute;
+  left: 4px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: var(--border-color);
+}
+.timeline-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+.timeline-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  position: absolute;
+  left: -19px; top: 6px;
+  box-shadow: 0 0 0 4px #fff;
+  transition: var(--transition);
+}
+.timeline-step.active .timeline-dot {
+  background: #2ed573;
+  box-shadow: 0 0 0 4px #fff, 0 0 8px rgba(46, 213, 115, 0.4);
+}
+.timeline-content strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+.timeline-content .desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* === BUTTONS === */
+.action-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 35px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.btn.primary {
+  background: var(--text-color);
+  color: #fff;
+  border: none;
+}
+.btn.primary:hover { background: #1e222b; }
+.btn.secondary {
+  background: var(--bg-light);
+  color: var(--text-color);
+}
+.btn.secondary:hover { background: var(--border-color); }

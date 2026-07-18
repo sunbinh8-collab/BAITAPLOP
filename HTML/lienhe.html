@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liên hệ với chúng tôi - MiniShop</title>
+    <!-- Gọi link file CSS ngoài lùi 1 cấp ra thư mục css/ -->
+    <link rel="stylesheet" href="../css/minishop.css" />
+    <link rel="stylesheet" href="../css/lienhe.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="trangchu.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="trangchu.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="giohang.html">Giỏ hàng</a>
+          <a href="dangnhap.html" id="navLoginLink">Đăng nhập</a>
+          <a href="dangky.html" id="navRegisterLink">Đăng ký</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a class="active" href="lienhe.html">Liên hệ</a>
+        </nav>
+        <a class="cart-btn" href="giohang.html" id="headerCartBtn">Giỏ hàng (0)</a>
+      </div>
+    </header>
+
+    <section class="contact-hero">
+      <div class="container">
+        <h1>Liên hệ MiniShop</h1>
+        <p>Chúng tôi luôn lắng nghe và sẵn sàng hỗ trợ bạn 24/7</p>
+      </div>
+    </section>
+
+    <main class="container">
+      <div class="contact-grid">
+        <div class="form-card">
+          <h2>Gửi tin nhắn cho chúng tôi</h2>
+          <form id="contactForm">
+            <div class="form-field">
+              <label for="name">Họ và tên của bạn</label>
+              <input id="name" name="name" type="text" placeholder="Nhập họ và tên..." required />
+            </div>
+            <div class="form-field">
+              <label for="email">Địa chỉ Email</label>
+              <input id="email" name="email" type="email" placeholder="Nhập địa chỉ email..." required />
+            </div>
+            <div class="form-field">
+              <label for="message">Nội dung tin nhắn</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Lời nhắn của bạn đến MiniShop..."
+                required
+                style="resize: vertical;"
+              ></textarea>
+            </div>
+            <button class="btn primary" type="submit">Gửi liên hệ ngay</button>
+          </form>
+        </div>
+
+        <div class="right-info-column">
+          <div class="info-card">
+            <h2>Thông tin cửa hàng</h2>
+            <div class="info-item"><strong>Địa chỉ:</strong> 102 Đường Trần Phú, Phường Hà Đông, TP. Hà Nội</div>
+            <div class="info-item"><strong>Hotline:</strong> 1900 1508</div>
+            <div class="info-item"><strong>Email:</strong> minishop@gmail.com</div>
+          </div>
+          
+          <div class="info-card">
+            <h2>Giờ làm việc</h2>
+            <div class="info-item"><strong>Thứ 2 - 7:</strong> 08:00 - 20:00</div>
+            <div class="info-item"><strong>Chủ nhật:</strong> 09:00 - 18:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <h3>Vị trí của MiniShop trên bản đồ</h3>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.3367110385284!2d105.78299957529417!3d20.97913578948112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135accd87093531%3A0xb5cbec08367c0d7d!2zMTAyIMSQLiBUcuG6p24gUGjDuiwgSMOgIMSQw7RuZywgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1784217795566!5m2!1svi!2s" 
+          width="100%" 
+          height="450" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>      
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>MiniShop</h4>
+            <p>Chúng tôi tự hào là thương hiệu thời trang chất lượng hàng đầu Việt Nam, mang đến sự trẻ trung và phong cách sống hiện đại.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Chính Sách</h4>
+            <ul class="footer-links-list">
+              <li><a href="#">Chính sách đổi trả hàng</a></li>
+              <li><a href="#">Chính sách vận chuyển</a></li>
+              <li><a href="#">Bảo mật thông tin</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Hỗ Trợ</h4>
+            <ul class="footer-links-list">
+              <li><a href="lienhe.html">Liên hệ chúng tôi</a></li>
+              <li><a href="giohang.html">Xem giỏ hàng</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Gọi link file điều hướng Javascript lùi 1 cấp ra thư mục js/ -->
+    <script src="../js/lienhe.js"></script>
+  </body>
+</html>
