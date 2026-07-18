@@ -19,7 +19,7 @@ function renderProducts(list = PRODUCTS) {
     const el = document.createElement("div");
     el.className = "product";
     el.innerHTML = `
-      <div class="media"><img src="${p.image}" alt="${p.name}"/></div>
+      <div class="media"><img src="${window.resolveProductImage(p.image)}" alt="${p.name}"/></div>
       <h4>${p.name}</h4>
       <div class="price">${currency(p.price)}</div>
       <div class="actions">
@@ -56,7 +56,7 @@ function renderCart() {
     total += it.price * it.qty;
     const row = document.createElement("div");
     row.className = "cart-item";
-    row.innerHTML = `<img src="${it.image}" alt="${it.name}"/>
+    row.innerHTML = `<img src="${window.resolveProductImage(it.image)}" alt="${it.name}"/>
       <div style="flex:1">
         <div>${it.name}</div>
         <div style="color:var(--muted)">${currency(it.price)} × ${it.qty}</div>

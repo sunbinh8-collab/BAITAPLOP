@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tìm kiếm sản phẩm</title>
+    <link rel="stylesheet" href="../CSS/caidat.css" />
+    <link rel="stylesheet" href="../CSS/home.css" />
+    <link rel="stylesheet" href="../CSS/timkiem.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../index.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="../index.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a class="active" href="timkiem.html">Tìm kiếm</a>
+          <a href="taikhoan.html">Tài khoản</a>
+        </nav>
+        <div class="header-actions">
+          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
+            <span class="cart-label">Giỏ (<span id="cart-count">0</span>)</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Tìm kiếm sản phẩm</h1>
+        <p class="subtitle">
+          Nhập tên sản phẩm hoặc chọn danh mục để tìm nhanh món đồ bạn cần.
+        </p>
+      </div>
+    </section>
+
+    <main class="container search-page">
+      <form id="searchForm" class="search-toolbar">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Nhập tên sản phẩm..."
+        />
+        <select id="searchCategory">
+          <option value="all">Tất cả</option>
+          <option value="nam">Nam</option>
+          <option value="nu">Nữ</option>
+          <option value="giay">Giày</option>
+        </select>
+        <button type="submit" class="btn search-btn">Tìm kiếm</button>
+      </form>
+
+      <div class="result-meta">
+        <h2>Kết quả tìm kiếm</h2>
+        <p id="resultSummary" class="muted">Đang chờ tìm kiếm...</p>
+      </div>
+
+      <div id="searchResults" class="product-grid"></div>
+    </main>
+
+    <script src="../JS/product-data.js" defer></script>
+    <script src="../JS/timkiem.js" defer></script>
+  </body>
+</html>

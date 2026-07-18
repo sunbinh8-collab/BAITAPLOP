@@ -6,6 +6,7 @@
     <title>Chi tiết sản phẩm</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
+    <link rel="stylesheet" href="../CSS/chitietsanpham.css" />
   </head>
   <body>
     <header class="site-header">
@@ -13,17 +14,55 @@
         <a class="logo" href="../index.html">MiniShop</a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
-          <a href="danhmucsanpham.html">Danh mục</a>
+          <a class="active" href="danhmucsanpham.html">Danh mục</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
         </nav>
         <div class="header-actions">
-          <button onclick="location.href = '../index.html'">Quay lại</button>
+          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
+            <span class="cart-label">Giỏ (<span id="cart-count">0</span>)</span>
+          </button>
         </div>
       </div>
     </header>
 
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Chi tiết sản phẩm</h1>
+        <p class="subtitle">
+          Xem thông tin chi tiết, mô tả và đánh giá về sản phẩm.
+        </p>
+      </div>
+    </section>
+
     <main class="container" style="padding: 30px 20px">
       <div id="productDetail"></div>
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>
+          <a href="taikhoan.html">Tài khoản</a> •
+          <a href="lienhe.html">Liên hệ</a>
+        </div>
+      </div>
+    </footer>
+
+    <div id="cartModal" class="cart-modal" aria-hidden="true">
+      <div class="cart-panel">
+        <button id="closeCart" class="close">✕</button>
+        <h3>Giỏ hàng</h3>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+          <div>Tổng: <strong id="cartTotal">0₫</strong></div>
+          <div class="cart-actions">
+            <button id="clearCart">Xóa hết</button>
+            <button id="checkoutBtn">Thanh toán</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="../JS/product-data.js" defer></script>
     <script src="../JS/chitietsanpham.js" defer></script>

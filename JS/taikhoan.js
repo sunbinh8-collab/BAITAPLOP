@@ -18,7 +18,9 @@
       localStorage.removeItem("minishop_profile");
       localStorage.removeItem("minishop_current");
       alert("Đã đăng xuất (demo)");
-      window.location.href = "../HTML/dangnhap.html".replace('../HTML/','') ? 'HTML/dangnhap.html' : 'dangnhap.html';
+      window.location.href = "../HTML/dangnhap.html".replace("../HTML/", "")
+        ? "HTML/dangnhap.html"
+        : "dangnhap.html";
       return;
     }
     showTab(tab);
@@ -165,7 +167,7 @@
         const el = document.createElement("div");
         el.className = "product";
         el.innerHTML = `
-        <div class="media"><img src="${p.image}" alt="${p.name}"/></div>
+        <div class="media"><img src="${window.resolveProductImage(p.image)}" alt="${p.name}"/></div>
         <h4>${p.name}</h4>
         <div class="price">${new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.price)}</div>
         <div class="actions">
@@ -205,20 +207,22 @@
 
   // init — require login: if no current session, show prompt to login/register
   document.addEventListener("DOMContentLoaded", () => {
-    const users = JSON.parse(localStorage.getItem('minishop_users') || '[]');
-    const cur = localStorage.getItem('minishop_current');
+    const users = JSON.parse(localStorage.getItem("minishop_users") || "[]");
+    const cur = localStorage.getItem("minishop_current");
     if (!cur) {
-      const main = document.querySelector('main.container') || document.querySelector('main');
+      const main =
+        document.querySelector("main.container") ||
+        document.querySelector("main");
       if (main) {
         const needsRegister = !users.length;
         main.innerHTML = `
           <div style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:48px 16px">
             <div style="background:#fff;padding:28px;border-radius:10px;max-width:560px;box-shadow:0 8px 24px rgba(2,6,23,0.06);text-align:center">
-              <h2 style="margin-top:0">${needsRegister ? 'Bạn chưa có tài khoản' : 'Yêu cầu đăng nhập'}</h2>
-              <p class="muted">${needsRegister ? 'Vui lòng tạo tài khoản để tiếp tục.' : 'Bạn cần đăng nhập để truy cập trang tài khoản.'}</p>
+              <h2 style="margin-top:0">${needsRegister ? "Bạn chưa có tài khoản" : "Yêu cầu đăng nhập"}</h2>
+              <p class="muted">${needsRegister ? "Vui lòng tạo tài khoản để tiếp tục." : "Bạn cần đăng nhập để truy cập trang tài khoản."}</p>
               <div style="margin-top:18px;display:flex;gap:12px;justify-content:center">
                 <a href="dangnhap.html" class="btn primary">Đăng nhập</a>
-                <a href="dangky.html" class="btn">${needsRegister ? 'Tạo tài khoản' : 'Đăng ký'}</a>
+                <a href="dangky.html" class="btn">${needsRegister ? "Tạo tài khoản" : "Đăng ký"}</a>
               </div>
             </div>
           </div>`;

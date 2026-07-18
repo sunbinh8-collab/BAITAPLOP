@@ -4,7 +4,7 @@ window.PRODUCTS = [
     name: "Áo thun Basic Trắng",
     price: 129000,
     category: "nam",
-    image: "https://via.placeholder.com/800x800?text=Ao+thun+1",
+    image: "images/giaythoitrang.jpg",
     desc: "Áo thun cotton mềm mại, thoáng mát, phù hợp đi chơi và đi làm.",
   },
   {
@@ -12,7 +12,7 @@ window.PRODUCTS = [
     name: "Quần jean ôm",
     price: 299000,
     category: "nam",
-    image: "https://via.placeholder.com/800x800?text=Quan+jean",
+    image: "images/giaythethao.jpg",
     desc: "Quần jean co giãn, may tỉ mỉ, form ôm vừa phải.",
   },
   {
@@ -20,7 +20,7 @@ window.PRODUCTS = [
     name: "Váy maxi hoa",
     price: 349000,
     category: "nu",
-    image: "https://via.placeholder.com/800x800?text=Vay+maxi",
+    image: "images/vayhoa.jpg",
     desc: "Váy maxi nữ tính, họa tiết hoa nhẹ nhàng.",
   },
   {
@@ -28,7 +28,7 @@ window.PRODUCTS = [
     name: "Áo khoác denim",
     price: 499000,
     category: "nam",
-    image: "https://via.placeholder.com/800x800?text=Ao+khoac",
+    image: "images/vayxoe.jpg",
     desc: "Áo khoác denim phong cách, bền màu.",
   },
   {
@@ -36,7 +36,7 @@ window.PRODUCTS = [
     name: "Áo sơ mi caro",
     price: 189000,
     category: "nam",
-    image: "https://via.placeholder.com/800x800?text=Ao+so+mi",
+    image: "images/vay2day.jpg",
     desc: "Áo sơ mi cắt may chuẩn, phù hợp công sở.",
   },
   {
@@ -44,7 +44,12 @@ window.PRODUCTS = [
     name: "Giày sneaker trắng",
     price: 599000,
     category: "giay",
-    image: "https://via.placeholder.com/800x800?text=Sneaker",
+    image: "images/giaynikethethao.jpg",
     desc: "Giày sneaker thời trang, đế êm, dễ phối đồ.",
   },
 ];
+
+window.resolveProductImage = function (src) {
+  if (!src) return src;
+  return location.pathname.includes("/HTML/") ? "../" + src : src;
+};

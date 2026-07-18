@@ -17,7 +17,7 @@ function renderCategoryProducts(list) {
     const el = document.createElement("div");
     el.className = "product";
     el.innerHTML = `
-      <div class="media"><img src="${p.image}" alt="${p.name}"/></div>
+      <div class="media"><img src="${window.resolveProductImage(p.image)}" alt="${p.name}"/></div>
       <h4>${p.name}</h4>
       <div class="price">${currency(p.price)}</div>
       <div class="actions">
@@ -47,7 +47,7 @@ function renderFeatured(list, count = 3) {
     const el = document.createElement("div");
     el.className = "product";
     el.innerHTML = `
-      <div class="media"><img src="${p.image}" alt="${p.name}"/></div>
+      <div class="media"><img src="${window.resolveProductImage(p.image)}" alt="${p.name}"/></div>
       <h4>${p.name}</h4>
       <div class="price">${currency(p.price)}</div>
       <div class="actions">
