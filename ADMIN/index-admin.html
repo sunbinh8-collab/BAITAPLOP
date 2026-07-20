@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trang chủ Admin</title>
+    <link rel="stylesheet" href="css-qly/index-admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand">MiniShop Admin</div>
+        <nav>
+          <a href="index-admin.html" class="active">Trang chủ</a>
+          <a href="html-qly/quanlysanpham.html">Quản lý sản phẩm</a>
+          <a href="html-qly/quanlydonhang.html">Quản lý đơn hàng</a>
+          <a href="html-qly/quanlykhachhang.html">Quản lý khách hàng</a>
+          <a href="html-qly/quanlynhanvien.html">Quản lý nhân viên</a>
+          <a href="html-qly/quanlydoanhthu.html">Quản lý doanh thu</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h1>Chào mừng trở lại</h1>
+            <p>Tổng quan hệ thống bán hàng hôm nay</p>
+          </div>
+          <div class="topbar-actions">
+            <span class="badge">Online</span>
+            <a class="logout" href="../HTML/dangnhap.html">Đăng xuất</a>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <div class="stat-card">
+            <div class="label">Doanh thu</div>
+            <div class="value">125.6 triệu</div>
+            <div class="trend">▲ 8.2% so với tuần trước</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Đơn hàng</div>
+            <div class="value">328</div>
+            <div class="trend">▲ 12 đơn mới</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Khách hàng</div>
+            <div class="value">2,184</div>
+            <div class="trend">+ 54 khách mới</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Sản phẩm</div>
+            <div class="value">186</div>
+            <div class="trend">4 sản phẩm sắp hết</div>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Hoạt động gần đây</h2>
+              <a href="#">Xem tất cả</a>
+            </div>
+            <ul class="activity-list">
+              <li>
+                <span class="dot"></span>
+                <div>
+                  <strong>Đơn hàng #10012</strong><br />Khách hàng mới đặt hàng
+                  thành công.
+                </div>
+              </li>
+              <li>
+                <span class="dot"></span>
+                <div>
+                  <strong>Nhập kho</strong><br />Đã thêm 20 sản phẩm vào kho.
+                </div>
+              </li>
+              <li>
+                <span class="dot"></span>
+                <div>
+                  <strong>Khách hàng phản hồi</strong><br />Một đánh giá mới
+                  được đăng tải.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Thao tác nhanh</h2>
+            </div>
+            <div class="action-buttons">
+              <a class="action-btn primary" href="html-qly/quanlysanpham.html"
+                >Quản lý sản phẩm</a
+              >
+              <a class="action-btn" href="html-qly/quanlydonhang.html"
+                >Xem đơn hàng</a
+              >
+              <a class="action-btn" href="html-qly/quanlydoanhthu.html"
+                >Xem doanh thu</a
+              >
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

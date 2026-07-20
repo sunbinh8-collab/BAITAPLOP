@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý đơn hàng</title>
+    <link rel="stylesheet" href="../css-qly/quanlydonhang.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand">MiniShop Admin</div>
+        <nav>
+          <a href="../index-admin.html">Trang chủ</a>
+          <a href="quanlysanpham.html">Quản lý sản phẩm</a>
+          <a href="quanlydonhang.html" class="active">Quản lý đơn hàng</a>
+          <a href="quanlykhachhang.html">Quản lý khách hàng</a>
+          <a href="quanlynhanvien.html">Quản lý nhân viên</a>
+          <a href="quanlydoanhthu.html">Quản lý doanh thu</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h1>Quản lý đơn hàng</h1>
+            <p>Theo dõi và xử lý đơn hàng của cửa hàng</p>
+          </div>
+        </header>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Bộ lọc</h2>
+          </div>
+          <div class="filters">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Tìm theo mã đơn hoặc khách hàng"
+            />
+            <select id="statusSelect">
+              <option value="all">Tất cả trạng thái</option>
+              <option value="pending">Chờ xử lý</option>
+              <option value="shipping">Đang giao</option>
+              <option value="done">Hoàn tất</option>
+            </select>
+            <button type="button">Cập nhật</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Danh sách đơn hàng</h2>
+          </div>
+          <div class="orders-list">
+            <div class="order-card" data-status="pending">
+              <div class="order-meta">
+                <strong>Đơn hàng #10012</strong>
+                <span>Khách hàng: Nguyễn An • 2 sản phẩm</span>
+                <span>Địa chỉ: 123 Nguyễn Huệ, TP.HCM</span>
+              </div>
+              <div class="order-meta">
+                <span>2.450.000₫</span>
+                <span class="status pending">Chờ xử lý</span>
+              </div>
+            </div>
+
+            <div class="order-card" data-status="shipping">
+              <div class="order-meta">
+                <strong>Đơn hàng #10011</strong>
+                <span>Khách hàng: Trần Bình • 1 sản phẩm</span>
+                <span>Địa chỉ: 88 Lê Lợi, Hà Nội</span>
+              </div>
+              <div class="order-meta">
+                <span>1.980.000₫</span>
+                <span class="status shipping">Đang giao</span>
+              </div>
+            </div>
+
+            <div class="order-card" data-status="done">
+              <div class="order-meta">
+                <strong>Đơn hàng #10010</strong>
+                <span>Khách hàng: Lê Hương • 3 sản phẩm</span>
+                <span>Địa chỉ: 45 Võ Văn Tần, Đà Nẵng</span>
+              </div>
+              <div class="order-meta">
+                <span>3.120.000₫</span>
+                <span class="status done">Hoàn tất</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js-qly/quanlydonhang.js"></script>
+  </body>
+</html>

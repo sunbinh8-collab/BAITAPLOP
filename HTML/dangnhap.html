@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
-    <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/dangnhap.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header class="site-header">
@@ -18,18 +21,24 @@
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
+        <div class="header-actions"></div>
       </div>
     </header>
 
     <main>
-      <section class="hero">
+      <section class="hero hero-compact">
         <div class="container hero-inner">
-          <h1></h1>
+          <p class="eyebrow">Thành viên MiniShop</p>
+          <h1>Đăng nhập để theo dõi đơn hàng và nhận ưu đãi riêng</h1>
+          <p class="subtitle">
+            Mua sắm nhanh hơn với lịch sử đơn hàng, sản phẩm yêu thích và trải
+            nghiệm thanh toán được lưu sẵn.
+          </p>
         </div>
       </section>
 
       <section class="auth container">
-        <div class="auth-container">
+        <div class="auth-shell">
           <div class="auth-card">
             <h2>Đăng nhập</h2>
             <form id="loginForm">
@@ -39,12 +48,31 @@
               <label for="password">Mật khẩu</label>
               <input id="password" type="password" required />
 
+              <div
+                id="loginMessage"
+                class="auth-message"
+                style="display: none; margin-bottom: 12px"
+              ></div>
+
               <div class="auth-actions">
                 <button class="login-btn" type="submit">Đăng nhập</button>
                 <a class="small-link" href="dangky.html">Tạo tài khoản</a>
               </div>
             </form>
           </div>
+
+          <aside class="auth-side">
+            <h3>Vì sao chọn MiniShop?</h3>
+            <ul class="feature-list">
+              <li>Giao hàng nhanh toàn quốc</li>
+              <li>Đổi trả trong vòng 7 ngày</li>
+              <li>Ưu đãi thành viên mỗi tuần</li>
+            </ul>
+            <div class="tip-card">
+              <strong>Chưa có tài khoản?</strong>
+              <p>Đăng ký ngay để nhận mã giảm giá đầu tiên.</p>
+            </div>
+          </aside>
         </div>
       </section>
     </main>
@@ -59,13 +87,6 @@
       </div>
     </footer>
 
-    <script>
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          alert("Đăng nhập (demo) — chức năng chưa kết nối.");
-        });
-    </script>
+    <script src="../JS/dangnhap.js"></script>
   </body>
 </html>

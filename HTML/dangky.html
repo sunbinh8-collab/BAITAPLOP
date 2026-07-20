@@ -4,52 +4,100 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Đăng ký — ShopQuanao</title>
+    <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/dangky.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <main class="auth-page">
-      <div class="auth-card">
-        <h2>Đăng ký</h2>
-        <form id="registerForm" novalidate>
-          <label class="field">
-            <span>Họ và tên</span>
-            <input type="text" id="name" name="name" required />
-            <small class="error" data-for="name"></small>
-          </label>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="../index.html">MiniShop</a>
+        <nav class="main-nav">
+          <a href="../index.html">Trang chủ</a>
+          <a href="danhmucsanpham.html">Danh mục</a>
+          <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
+        </nav>
+        <div class="header-actions"></div>
+      </div>
+    </header>
 
-          <label class="field">
-            <span>Email</span>
-            <input type="email" id="email" name="email" required />
-            <small class="error" data-for="email"></small>
-          </label>
+    <main>
+      <div class="auth-shell">
+        <div class="auth-card">
+          <p class="eyebrow">Tạo tài khoản</p>
+          <h2>Đăng ký và bắt đầu mua sắm</h2>
+          <p class="auth-intro">
+            Tạo tài khoản để lưu thông tin vận chuyển, theo dõi đơn hàng và nhận
+            ưu đãi đặc biệt.
+          </p>
+          <form id="registerForm" novalidate>
+            <label class="field">
+              <span>Họ và tên</span>
+              <input type="text" id="name" name="name" required />
+              <small class="error" data-for="name"></small>
+            </label>
 
-          <label class="field">
-            <span>Mật khẩu</span>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              minlength="6"
-              required
-            />
-            <small class="error" data-for="password"></small>
-          </label>
+            <label class="field">
+              <span>Email</span>
+              <input type="email" id="email" name="email" required />
+              <small class="error" data-for="email"></small>
+            </label>
 
-          <label class="field">
-            <span>Xác nhận mật khẩu</span>
-            <input type="password" id="password2" name="password2" required />
-            <small class="error" data-for="password2"></small>
-          </label>
+            <label class="field">
+              <span>Mật khẩu</span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                minlength="6"
+                required
+              />
+              <small class="error" data-for="password"></small>
+            </label>
 
-          <div class="actions">
-            <button class="btn primary" type="submit">Tạo tài khoản</button>
-            <div class="alt">
-              Đã có tài khoản? <a href="dangnhap.html">Đăng nhập</a>
+            <label class="field">
+              <span>Xác nhận mật khẩu</span>
+              <input type="password" id="password2" name="password2" required />
+              <small class="error" data-for="password2"></small>
+            </label>
+
+            <div class="actions">
+              <button class="btn primary" type="submit">Tạo tài khoản</button>
+              <div class="alt">
+                Đã có tài khoản? <a href="dangnhap.html">Đăng nhập</a>
+              </div>
             </div>
+          </form>
+        </div>
+
+        <aside class="auth-side">
+          <h3>Đăng ký ngay hôm nay</h3>
+          <ul class="feature-list">
+            <li>Nhận mã giảm giá cho lần đầu</li>
+            <li>Theo dõi đơn hàng mọi lúc</li>
+            <li>Lưu nhiều địa chỉ giao hàng</li>
+          </ul>
+          <div class="tip-card">
+            <strong>Hỗ trợ 24/7</strong>
+            <p>Đội ngũ MiniShop luôn sẵn sàng hỗ trợ các câu hỏi của bạn.</p>
           </div>
-        </form>
+        </aside>
       </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>
+          <a href="taikhoan.html">Tài khoản</a> •
+          <a href="lienhe.html">Liên hệ</a>
+        </div>
+      </div>
+    </footer>
 
     <script src="../JS/dangky.js"></script>
   </body>

@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: data.name,
       email: data.email,
       password: data.password,
+      orders: [],
     };
     users.push(user);
     localStorage.setItem("minishop_users", JSON.stringify(users));

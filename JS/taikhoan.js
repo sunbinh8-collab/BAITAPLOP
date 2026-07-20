@@ -10,20 +10,47 @@
     );
   }
 
+  const logoutModal = document.getElementById("logoutModal");
+  const logoutCancel = document.getElementById("logoutCancel");
+  const logoutConfirm = document.getElementById("logoutConfirm");
+
+  function openLogoutModal() {
+    logoutModal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeLogoutModal() {
+    logoutModal.setAttribute("aria-hidden", "true");
+  }
+
+  function performLogout() {
+    localStorage.removeItem("minishop_profile");
+    localStorage.removeItem("minishop_current");
+    localStorage.removeItem("minishop_avatar");
+    localStorage.setItem(
+      "minishop_logout_message",
+      "Bạn đã đăng xuất khỏi tài khoản thành công!",
+    );
+    window.location.href = "dangnhap.html?logout=1";
+  }
+
   document.querySelector(".account-nav").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-tab]");
     if (!b) return;
     const tab = b.dataset.tab;
     if (tab === "logout") {
-      localStorage.removeItem("minishop_profile");
-      localStorage.removeItem("minishop_current");
-      alert("Đã đăng xuất (demo)");
-      window.location.href = "../HTML/dangnhap.html".replace("../HTML/", "")
-        ? "HTML/dangnhap.html"
-        : "dangnhap.html";
+      openLogoutModal();
       return;
     }
     showTab(tab);
+  });
+
+  logoutCancel.addEventListener("click", closeLogoutModal);
+  logoutConfirm.addEventListener("click", () => {
+    closeLogoutModal();
+    performLogout();
+  });
+  logoutModal.addEventListener("click", (e) => {
+    if (e.target === logoutModal) closeLogoutModal();
   });
 
   // profile form
@@ -109,8 +136,45 @@
   }
 
   // Orders: render and add sample
+  function getCurrentUserEmail() {
+    return localStorage.getItem("minishop_current") || "";
+  }
+
+  function getCurrentUserOrders() {
+    const email = getCurrentUserEmail();
+    if (!email) return [];
+    const users = JSON.parse(localStorage.getItem("minishop_users") || "[]");
+    const user = users.find((u) => u.email === email);
+    return user?.orders || [];
+  }
+
+  function saveCurrentUserOrders(orders) {
+    const email = getCurrentUserEmail();
+    if (!email) return false;
+    const users = JSON.parse(localStorage.getItem("minishop_users") || "[]");
+    const index = users.findIndex((u) => u.email === email);
+    if (index === -1) return false;
+    users[index].orders = orders;
+    localStorage.setItem("minishop_users", JSON.stringify(users));
+    return true;
+  }
+
+  function migrateLegacyOrders() {
+    const email = getCurrentUserEmail();
+    if (!email) return;
+    const users = JSON.parse(localStorage.getItem("minishop_users") || "[]");
+    const user = users.find((u) => u.email === email);
+    const legacy = JSON.parse(localStorage.getItem("minishop_orders") || "[]");
+    if (user && legacy.length && (!user.orders || !user.orders.length)) {
+      user.orders = legacy;
+      localStorage.setItem("minishop_users", JSON.stringify(users));
+      localStorage.removeItem("minishop_orders");
+    }
+  }
+
   function loadOrders() {
-    const list = JSON.parse(localStorage.getItem("minishop_orders") || "[]");
+    migrateLegacyOrders();
+    const list = getCurrentUserOrders();
     const root = document.getElementById("ordersList");
     root.innerHTML = "";
     if (!list.length)
@@ -119,13 +183,26 @@
       const el = document.createElement("div");
       el.className = "order-item";
       el.innerHTML = `<div><strong>Đơn #${o.id}</strong></div>
-        <div class="meta">${o.date} — ${o.items.length} sản phẩm — Tổng: ${o.total}</div>`;
+        <div class="meta">${o.date} — ${o.items?.length || 0} sản phẩm — Tổng: ${o.total}</div>`;
       root.appendChild(el);
     });
   }
 
+  window.minishopAddOrder = function (order) {
+    const orders = getCurrentUserOrders();
+    const normalized = {
+      id: order?.id || Date.now(),
+      date: order?.date || new Date().toLocaleString(),
+      items: order?.items || [],
+      total: order?.total || "0₫",
+    };
+    orders.push(normalized);
+    saveCurrentUserOrders(orders);
+    loadOrders();
+  };
+
   document.getElementById("addSampleOrder").addEventListener("click", () => {
-    const orders = JSON.parse(localStorage.getItem("minishop_orders") || "[]");
+    const orders = getCurrentUserOrders();
     const id = orders.length ? orders[orders.length - 1].id + 1 : 1001;
     const sample = {
       id,
@@ -134,9 +211,9 @@
       total: "129.000₫",
     };
     orders.push(sample);
-    localStorage.setItem("minishop_orders", JSON.stringify(orders));
+    saveCurrentUserOrders(orders);
     loadOrders();
-    alert("Tạo đơn hàng mẫu (demo)");
+    alert("Đã lưu lịch sử mua hàng");
   });
 
   // Favorites: store array of ids in localStorage 'minishop_favs'

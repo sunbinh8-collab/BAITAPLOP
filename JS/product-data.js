@@ -1,4 +1,4 @@
-window.PRODUCTS = [
+const DEFAULT_PRODUCTS = [
   {
     id: 1,
     name: "Áo thun Basic Trắng",
@@ -49,7 +49,37 @@ window.PRODUCTS = [
   },
 ];
 
+const PRODUCT_STORAGE_KEY = "minishop_products";
+
+function readStoredProducts() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PRODUCT_STORAGE_KEY) || "[]");
+    if (Array.isArray(saved) && saved.length) return saved;
+  } catch (error) {
+    console.warn("Không thể đọc dữ liệu sản phẩm từ localStorage", error);
+  }
+  return DEFAULT_PRODUCTS;
+}
+
+window.getProductsData = function () {
+  window.PRODUCTS = readStoredProducts();
+  return window.PRODUCTS;
+};
+
+window.saveProductsData = function (products) {
+  const list = Array.isArray(products) ? products : [];
+  window.PRODUCTS = list;
+  localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(list));
+  return window.PRODUCTS;
+};
+
 window.resolveProductImage = function (src) {
   if (!src) return src;
-  return location.pathname.includes("/HTML/") ? "../" + src : src;
+  if (/^data:|^https?:\/\//i.test(src) || src.startsWith("blob:")) return src;
+  const needsParent =
+    location.pathname.includes("/HTML/") ||
+    location.pathname.includes("/html-qly/");
+  return needsParent ? "../" + src : src;
 };
+
+window.PRODUCTS = window.getProductsData();

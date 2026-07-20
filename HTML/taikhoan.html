@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/taikhoan.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header class="site-header">
@@ -18,6 +22,7 @@
           <a class="active" href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
+        <div class="header-actions"></div>
       </div>
     </header>
     <section class="hero">
@@ -29,9 +34,10 @@
       </div>
     </section>
 
-    <main class="container" style="padding: 40px 0">
-      <div class="account-grid">
-        <aside class="account-sidebar">
+    <main>
+      <div class="container" style="padding: 40px 0">
+        <div class="account-grid">
+          <aside class="account-sidebar">
           <div class="profile-sm">
             <div>
               <div class="avatar" id="avatarDisplay">AB</div>
@@ -91,8 +97,6 @@
                 <div class="muted">Dữ liệu lưu cục bộ (demo)</div>
               </div>
             </form>
-
-            <!-- password moved to Cài đặt tab -->
           </div>
 
           <div id="tab-orders" class="tab-content" style="display: none">
@@ -108,8 +112,6 @@
             <div class="muted">Chưa có địa chỉ.</div>
           </div>
 
-          <!-- Settings moved to separate page caidat.html -->
-
           <div id="tab-favorites" class="tab-content" style="display: none">
             <h2>Sản phẩm yêu thích</h2>
             <div id="favoritesGrid" class="product-grid"></div>
@@ -123,10 +125,24 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop</div>
-        <div class="muted">Liên hệ • Hỗ trợ</div>
+        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>
+          <a href="taikhoan.html">Tài khoản</a> •
+          <a href="lienhe.html">Liên hệ</a>
+        </div>
       </div>
     </footer>
+
+    <div id="logoutModal" class="confirm-modal" aria-hidden="true">
+      <div class="confirm-box">
+        <h3>Xác nhận đăng xuất</h3>
+        <p>Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?</p>
+        <div class="confirm-actions">
+          <button id="logoutCancel" class="btn cancel">Hủy</button>
+          <button id="logoutConfirm" class="btn danger">Đăng xuất</button>
+        </div>
+      </div>
+    </div>
 
     <script src="../JS/taikhoan.js" defer></script>
   </body>

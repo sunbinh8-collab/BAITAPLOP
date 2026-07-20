@@ -1,54 +1,95 @@
 :root {
-  --search-border: #dfe9f6;
+  --primary: #0b63d6;
+  --primary-2: #2563eb;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
 .search-page {
-  padding: 24px 20px 48px;
+  padding: 24px 0 48px;
 }
 
 .search-toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  background: #fff;
+  background: var(--card);
+  border: 1px solid var(--border);
   padding: 16px;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(11, 33, 53, 0.06);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 24px;
 }
 
 .search-toolbar input,
 .search-toolbar select {
-  padding: 10px 12px;
-  border: 1px solid var(--search-border);
+  padding: 11px 13px;
+  border: 1px solid var(--border);
   border-radius: 10px;
   min-width: 220px;
   font-size: 15px;
+  background: var(--card);
+  font-family: inherit;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.search-toolbar input:focus,
+.search-toolbar select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(11, 99, 214, 0.1);
 }
 
 .search-btn {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
   color: #fff;
-  padding: 10px 16px;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(11, 99, 214, 0.12);
+  transition: all 0.2s ease;
+}
+
+.search-btn:hover {
+  transform: translateY(-1px);
 }
 
 .result-meta {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .result-meta h2 {
-  margin-bottom: 6px;
+  margin: 0 0 6px;
+  font-size: 22px;
+  color: var(--text);
 }
 
-.empty-state {
-  padding: 24px;
-  background: #fff;
-  border-radius: 14px;
-  text-align: center;
+.result-meta .muted {
   color: var(--muted);
 }
 
+.empty-state {
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+
 @media (max-width: 700px) {
+  .search-toolbar {
+    flex-direction: column;
+  }
+
   .search-toolbar input,
   .search-toolbar select,
   .search-btn {

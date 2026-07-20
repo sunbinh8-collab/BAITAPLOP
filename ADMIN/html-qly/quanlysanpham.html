@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="../css-qly/quanlysanpham.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand">MiniShop Admin</div>
+        <nav>
+          <a href="../index-admin.html">Trang chủ</a>
+          <a href="quanlysanpham.html" class="active">Quản lý sản phẩm</a>
+          <a href="quanlydonhang.html">Quản lý đơn hàng</a>
+          <a href="quanlykhachhang.html">Quản lý khách hàng</a>
+          <a href="quanlynhanvien.html">Quản lý nhân viên</a>
+          <a href="quanlydoanhthu.html">Quản lý doanh thu</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h1>Quản lý sản phẩm</h1>
+            <p>Thêm, sửa và quản lý sản phẩm trong cửa hàng</p>
+          </div>
+          <div class="topbar-actions">
+            <a href="../../index.html">Xem cửa hàng</a>
+            <a href="../index-admin.html">Trang chủ Admin</a>
+          </div>
+        </header>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Thêm / sửa sản phẩm</h2>
+          </div>
+          <form id="productForm" class="product-form">
+            <input id="productId" type="hidden" />
+            <input id="name" type="text" placeholder="Tên sản phẩm" required />
+            <input id="price" type="number" placeholder="Giá" required />
+            <input id="category" type="text" placeholder="Danh mục" required />
+            <input id="stock" type="number" placeholder="Tồn kho" required />
+            <select id="status">
+              <option value="in-stock">Còn hàng</option>
+              <option value="out-of-stock">Hết hàng</option>
+            </select>
+            <input id="image" type="file" accept="image/*" />
+            <div id="imagePreview" class="image-preview"></div>
+            <button type="submit">Lưu sản phẩm</button>
+            <button type="button" id="cancelEdit" class="secondary">Hủy</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Bộ lọc</h2>
+          </div>
+          <div class="filters">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Tìm theo tên hoặc danh mục"
+            />
+            <select id="categoryFilter">
+              <option value="all">Tất cả danh mục</option>
+              <option value="Thời trang">Thời trang</option>
+              <option value="Phụ kiện">Phụ kiện</option>
+            </select>
+            <select id="statusFilter">
+              <option value="all">Tất cả trạng thái</option>
+              <option value="in-stock">Còn hàng</option>
+              <option value="out-of-stock">Hết hàng</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Danh sách sản phẩm</h2>
+          </div>
+          <div id="productList" class="product-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../../JS/product-data.js"></script>
+    <script src="../js-qly/quanlysanpham.js"></script>
+  </body>
+</html>

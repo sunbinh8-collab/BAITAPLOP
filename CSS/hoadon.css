@@ -1,0 +1,70 @@
+:root {
+  --bg: #f4f7fb;
+  --bg-soft: #f8fbff;
+  --primary: #0b63d6;
+  --primary-2: #2563eb;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.invoice-page {
+  padding: 24px 0 80px;
+}
+
+.invoice-card {
+  padding: 32px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.invoice-card h2 {
+  margin: 0 0 24px;
+  font-size: 24px;
+  color: var(--text);
+}
+
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.invoice-row span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.invoice-row strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.invoice-row:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 700px) {
+  .invoice-card {
+    padding: 24px;
+  }
+
+  .invoice-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+
+  .invoice-row strong {
+    margin-top: 4px;
+  }
+}

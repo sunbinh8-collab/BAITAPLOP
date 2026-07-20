@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quản lý khách hàng</title>
+    <link rel="stylesheet" href="../css-qly/quanlykhachhang.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand">MiniShop Admin</div>
+        <nav>
+          <a href="../index-admin.html">Trang chủ</a>
+          <a href="quanlysanpham.html">Quản lý sản phẩm</a>
+          <a href="quanlydonhang.html">Quản lý đơn hàng</a>
+          <a href="quanlykhachhang.html" class="active">Quản lý khách hàng</a>
+          <a href="quanlynhanvien.html">Quản lý nhân viên</a>
+          <a href="quanlydoanhthu.html">Quản lý doanh thu</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h1>Quản lý khách hàng</h1>
+            <p>Danh sách khách hàng và thông tin tài khoản đăng ký</p>
+          </div>
+        </header>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Bộ lọc</h2>
+          </div>
+          <div class="filters">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Tìm theo tên, email hoặc số điện thoại"
+            />
+            <button type="button">Lọc</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Danh sách khách hàng</h2>
+          </div>
+          <div id="customerList" class="customer-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js-qly/quanlykhachhang.js"></script>
+  </body>
+</html>
