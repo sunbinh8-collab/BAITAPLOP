@@ -3,61 +3,100 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tìm kiếm sản phẩm</title>
+    <title>Tìm kiếm sản phẩm — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/timkiem.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a class="active" href="timkiem.html">Tìm kiếm</a>
           <a href="taikhoan.html">Tài khoản</a>
+          <a href="lienhe.html">Liên hệ</a>
         </nav>
         <div class="header-actions">
-          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
-            <span class="cart-label">Giỏ (<span id="cart-count">0</span>)</span>
-          </button>
+          <a href="giohang.html" class="cart-btn" aria-label="Xem giỏ hàng">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-label">Giỏ hàng</span>
+            <span id="cart-count" class="cart-badge">0</span>
+          </a>
         </div>
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero hero-compact">
       <div class="container hero-inner">
+        <span class="hero-badge"><i class="fa-solid fa-magnifying-glass"></i> Tra cứu sản phẩm</span>
         <h1>Tìm kiếm sản phẩm</h1>
         <p class="subtitle">
-          Nhập tên sản phẩm hoặc chọn danh mục để tìm nhanh món đồ bạn cần.
+          Nhập tên sản phẩm hoặc lọc theo danh mục, mức giá để tìm nhanh món đồ bạn cần.
         </p>
       </div>
     </section>
 
     <main class="container search-page">
+      <!-- Thanh công cụ tìm kiếm & lọc -->
       <form id="searchForm" class="search-toolbar">
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Nhập tên sản phẩm..."
-        />
+        <div class="search-input-group">
+          <i class="fa-solid fa-magnifying-glass input-icon"></i>
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Nhập tên sản phẩm, quần áo..."
+          />
+        </div>
+
         <select id="searchCategory">
-          <option value="all">Tất cả</option>
-          <option value="nam">Nam</option>
-          <option value="nu">Nữ</option>
-          <option value="giay">Giày</option>
+          <option value="all">Tất cả danh mục</option>
+          <option value="nam">Thời trang Nam</option>
+          <option value="nu">Thời trang Nữ</option>
+          <option value="giay">Giày & Phụ kiện</option>
         </select>
-        <button type="submit" class="btn search-btn">Tìm kiếm</button>
+
+        <select id="sortPrice">
+          <option value="default">Sắp xếp: Mặc định</option>
+          <option value="asc">Giá: Thấp đến Cao</option>
+          <option value="desc">Giá: Cao đến Thấp</option>
+        </select>
+
+        <button type="submit" class="btn search-btn">
+          <i class="fa-solid fa-filter"></i> Lọc kết quả
+        </button>
       </form>
 
+      <!-- Tiêu đề kết quả -->
       <div class="result-meta">
         <h2>Kết quả tìm kiếm</h2>
-        <p id="resultSummary" class="muted">Đang chờ tìm kiếm...</p>
+        <p id="resultSummary" class="muted">Đang tìm kiếm sản phẩm...</p>
       </div>
 
+      <!-- Lưới sản phẩm -->
       <div id="searchResults" class="product-grid"></div>
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© MiniShop 2026</div>
+        <div>
+          <a href="taikhoan.html">Tài khoản</a> •
+          <a href="lienhe.html">Liên hệ</a>
+        </div>
+      </div>
+    </footer>
 
     <script src="../JS/product-data.js" defer></script>
     <script src="../JS/timkiem.js" defer></script>

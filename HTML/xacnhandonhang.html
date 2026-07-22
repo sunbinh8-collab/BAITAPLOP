@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Xác nhận đơn hàng</title>
+    <title>Xác nhận đơn hàng — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/xacnhandonhang.css" />
@@ -11,48 +11,120 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
       </div>
     </header>
 
     <section class="hero hero-compact">
       <div class="container hero-inner">
-        <p class="eyebrow">Xác nhận</p>
-        <h1>Đơn hàng của bạn đã sẵn sàng</h1>
+        <span class="hero-badge"><i class="fa-solid fa-clipboard-check"></i> Bước cuối cùng</span>
+        <h1>Xác nhận thông tin đơn hàng</h1>
       </div>
     </section>
 
     <main class="container confirm-page">
       <div class="confirm-card">
-        <h2>Thông tin đơn hàng</h2>
-        <div class="check-list">
-          <div>✔ Đã xác nhận thông tin giao hàng</div>
-          <div>✔ Đã chọn phương thức thanh toán</div>
-          <div>✔ Đang chờ xử lý bởi MiniShop</div>
+        <!-- Trạng thái các bước -->
+        <div class="step-checklist">
+          <div class="step-item done">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Thông tin giao hàng</span>
+          </div>
+          <div class="step-item done">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Phương thức thanh toán</span>
+          </div>
+          <div class="step-item active">
+            <i class="fa-solid fa-hourglass-half"></i>
+            <span>Xác nhận & Chốt đơn</span>
+          </div>
         </div>
-        <a class="btn primary" href="hoadon.html">Xem hóa đơn</a>
+
+        <hr class="confirm-divider" />
+
+        <!-- Tóm tắt Thông tin nhận hàng & Thanh toán -->
+        <div class="summary-grid">
+          <div class="info-block">
+            <h3><i class="fa-solid fa-location-dot"></i> Thông tin nhận hàng</h3>
+            <p><strong>Người nhận:</strong> <span id="confirmName">---</span></p>
+            <p><strong>Số điện thoại:</strong> <span id="confirmPhone">---</span></p>
+            <p><strong>Địa chỉ:</strong> <span id="confirmAddress">---</span></p>
+            <p><strong>Ghi chú:</strong> <span id="confirmNote">Khởi tạo...</span></p>
+          </div>
+
+          <div class="info-block">
+            <h3><i class="fa-solid fa-credit-card"></i> Thanh toán & Vận chuyển</h3>
+            <p><strong>Phương thức thanh toán:</strong> <span id="confirmPayment">COD</span></p>
+            <p><strong>Đơn vị vận chuyển:</strong> <span id="confirmShipping">Giao hàng tiêu chuẩn</span></p>
+          </div>
+        </div>
+
+        <hr class="confirm-divider" />
+
+        <!-- Danh sách sản phẩm mua -->
+        <div class="products-block">
+          <h3><i class="fa-solid fa-bag-shopping"></i> Danh sách sản phẩm</h3>
+          <div id="confirmProductsList" class="confirm-products-list">
+            <!-- Render động bằng JS -->
+          </div>
+        </div>
+
+        <hr class="confirm-divider" />
+
+        <!-- Tổng tiền -->
+        <div class="total-block">
+          <div class="total-row">
+            <span>Tạm tính:</span>
+            <strong id="confirmSubTotal">0₫</strong>
+          </div>
+          <div class="total-row">
+            <span>Phí vận chuyển:</span>
+            <strong id="confirmShippingFee">30.000₫</strong>
+          </div>
+          <div class="total-row grand-total">
+            <span>Tổng thanh toán:</span>
+            <strong id="confirmGrandTotal">0₫</strong>
+          </div>
+        </div>
+
+        <!-- Thao tác nút bấm -->
+        <div class="confirm-actions">
+          <a class="btn-back" href="phuongthucthanhtoan.html">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+          </a>
+          <button id="btnFinalPlaceOrder" class="btn primary">
+            Xác nhận đặt hàng <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>© MiniShop 2026</div>
         <div>
           <a href="taikhoan.html">Tài khoản</a> •
           <a href="lienhe.html">Liên hệ</a>
         </div>
       </div>
     </footer>
+
+    <script src="../JS/product-data.js" defer></script>
+    <script src="../JS/xacnhandonhang.js" defer></script>
   </body>
 </html>

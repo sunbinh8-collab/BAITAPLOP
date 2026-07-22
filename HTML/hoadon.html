@@ -3,65 +3,130 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hóa đơn</title>
+    <title>Hóa đơn mua hàng — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
-    <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/hoadon.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
       </div>
     </header>
 
-    <section class="hero hero-compact">
-      <div class="container hero-inner">
-        <p class="eyebrow">Hóa đơn</p>
-        <h1>Đơn hàng đã được ghi nhận</h1>
-      </div>
-    </section>
-
     <main class="container invoice-page">
-      <div class="invoice-card">
-        <h2>Hóa đơn #1001</h2>
-        <div class="invoice-row">
-          <span>Mã đơn hàng</span><strong>#1001</strong>
+      <div class="invoice-card" id="invoicePrintArea">
+        <!-- Thông báo thành công -->
+        <div class="success-banner">
+          <div class="check-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <h2>Đặt hàng thành công!</h2>
+          <p class="subtitle">Cảm ơn bạn đã mua sắm tại MiniShop. Đơn hàng của bạn đang được xử lý.</p>
         </div>
-        <div class="invoice-row">
-          <span>Khách hàng</span><strong>Nguyễn Văn A</strong>
+
+        <!-- Chi tiết hóa đơn -->
+        <div class="receipt-box">
+          <div class="receipt-header">
+            <div>
+              <span class="brand-title">MiniShop</span>
+              <p class="muted-sm">Hóa đơn bán lẻ trực tuyến</p>
+            </div>
+            <div class="order-id-badge">
+              <span>Mã đơn:</span> <strong id="invOrderId">#1001</strong>
+            </div>
+          </div>
+
+          <hr class="receipt-divider" />
+
+          <!-- Thông tin khách hàng & Giao hàng -->
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Khách hàng</span>
+              <strong id="invCustomerName">---</strong>
+            </div>
+            <div class="info-item">
+              <span class="label">Số điện thoại</span>
+              <strong id="invCustomerPhone">---</strong>
+            </div>
+            <div class="info-item">
+              <span class="label">Ngày đặt hàng</span>
+              <strong id="invOrderDate">---</strong>
+            </div>
+            <div class="info-item">
+              <span class="label">Phương thức thanh toán</span>
+              <strong id="invPaymentMethod">---</strong>
+            </div>
+            <div class="info-item full-width">
+              <span class="label">Địa chỉ nhận hàng</span>
+              <strong id="invCustomerAddress">---</strong>
+            </div>
+          </div>
+
+          <hr class="receipt-divider" />
+
+          <!-- Danh sách sản phẩm mua -->
+          <div class="items-table">
+            <h4>Chi tiết sản phẩm</h4>
+            <div id="invItemsList" class="items-list">
+              <!-- Render động bằng JS -->
+            </div>
+          </div>
+
+          <hr class="receipt-divider" />
+
+          <!-- Tóm tắt chi phí -->
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span>Tạm tính:</span>
+              <strong id="invSubTotal">0₫</strong>
+            </div>
+            <div class="summary-row">
+              <span>Phí vận chuyển:</span>
+              <strong id="invShippingFee">30.000₫</strong>
+            </div>
+            <div class="summary-row total-row">
+              <span>Tổng thanh toán:</span>
+              <strong id="invTotal">0₫</strong>
+            </div>
+          </div>
         </div>
-        <div class="invoice-row">
-          <span>Sản phẩm</span><strong>2 sản phẩm</strong>
-        </div>
-        <div class="invoice-row">
-          <span>Tổng tiền</span><strong>1.429.000₫</strong>
-        </div>
-        <div class="invoice-row">
-          <span>Phương thức</span><strong>Thanh toán khi nhận hàng</strong>
+
+        <!-- Nút thao tác -->
+        <div class="invoice-actions">
+          <button type="button" class="btn btn-print" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> In hóa đơn
+          </button>
+          <a href="../index.html" class="btn btn-home">
+            <i class="fa-solid fa-house"></i> Về trang chủ
+          </a>
         </div>
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>© MiniShop 2026</div>
         <div>
           <a href="taikhoan.html">Tài khoản</a> •
           <a href="lienhe.html">Liên hệ</a>
         </div>
       </div>
     </footer>
+
+    <script src="../JS/hoadon.js" defer></script>
   </body>
 </html>

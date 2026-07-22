@@ -1,107 +1,204 @@
 :root {
-  --bg: #f4f7fb;
-  --bg-soft: #f8fbff;
   --primary: #0b63d6;
-  --primary-2: #2563eb;
+  --primary-hover: #004eb8;
   --text: #0f172a;
   --muted: #64748b;
   --card: #ffffff;
   --border: #e2e8f0;
-  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
   --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
 .address-page {
-  padding: 24px 0 80px;
+  padding: 40px 16px 80px;
+  min-height: calc(100vh - 160px);
 }
 
+.address-card {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* CĂN CHỈNH TIÊU ĐỀ THẲNG HÀNG BẰNG NHAU */
 .address-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
   margin-bottom: 24px;
 }
 
 .address-header h2 {
-  margin: 0;
+  margin: 0 0 8px;
   font-size: 24px;
   color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.btn {
-  background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  color: #fff;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(11, 99, 214, 0.12);
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
+.address-header h2 i {
+  color: var(--primary);
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+.address-header .subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.address-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.address-card {
-  padding: 24px;
+/* NÚT CHUYỂN TẢI NHÀ RIÊNG / CÔNG TY */
+.address-type-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  background: #f8fafc;
+  padding: 6px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  background: var(--card);
-  box-shadow: var(--shadow-sm);
 }
 
-.address-card h3 {
-  margin: 0 0 12px;
-  font-size: 16px;
+.type-btn {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.type-btn:hover {
   color: var(--text);
 }
 
-.address-card p {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.address-card p:last-child {
-  margin-bottom: 12px;
-}
-
-.address-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.address-actions button {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--card);
+.type-btn.active {
+  background: #ffffff;
   color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* FORM VÀ ĐỊA CHỈ */
+.address-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.address-form label {
+  font-size: 13px;
   font-weight: 600;
+  color: #334155;
+}
+
+.address-form input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.address-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.address-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.address-input-group input {
+  flex: 1;
+}
+
+.btn-preview-map {
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #eff6ff;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 13px;
   cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   transition: all 0.2s ease;
 }
 
-.address-actions button:hover {
-  border-color: var(--primary);
-  background: rgba(11, 99, 214, 0.05);
+.btn-preview-map:hover {
+  background: var(--primary);
+  color: #fff;
 }
 
-@media (max-width: 700px) {
-  .address-grid {
-    grid-template-columns: 1fr;
-  }
+/* KHUNG BẢN ĐỒ */
+.map-preview-card {
+  margin: 12px 0 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.map-header {
+  padding: 10px 14px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.map-header i { color: #ef4444; }
+
+.map-wrapper {
+  width: 100%;
+  height: 240px;
+}
+
+.address-form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.address-form-actions .btn {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.address-form-actions .btn.primary { background: var(--primary); color: #fff; }
+.address-form-actions .btn.secondary { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
+
+@media (max-width: 600px) {
+  .field-row { grid-template-columns: 1fr; }
+  .address-input-group { flex-direction: column; }
 }

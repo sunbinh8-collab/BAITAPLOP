@@ -3,78 +3,153 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Giỏ hàng</title>
+    <title>Giỏ hàng — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/giohang.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
+    <!-- HEADER -->
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <!-- LOGO NỔI BẬT CHỮ MINI MÀU ĐỎ -->
+        <a class="logo" href="../index.html">
+          Mini<span style="color: #0f172a;">Shop</span><span class="dot">.</span>
+        </a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
+        <div class="header-actions">
+          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-label">Giỏ hàng</span>
+            <span id="cart-count" class="cart-badge">0</span>
+          </button>
+        </div>
       </div>
     </header>
 
+    <!-- HERO BANNER CĂN GIỮA ĐỒNG BỘ -->
     <section class="hero hero-compact">
       <div class="container hero-inner">
-        <p class="eyebrow">Giỏ hàng</p>
-        <h1>Kiểm tra sản phẩm trước khi thanh toán</h1>
+        <h1>Giỏ hàng của bạn</h1>
+        <p class="hero-subtitle">
+          Kiểm tra các sản phẩm đã chọn, chọn voucher ưu đãi và tiến hành thanh toán đơn hàng.
+        </p>
       </div>
     </section>
 
+    <!-- NỘI DUNG CHÍNH TRANG GIỎ HÀNG -->
     <main class="container checkout-page">
       <div class="checkout-grid">
+        <!-- CỘT BÊN TRÁI: DANH SÁCH SẢN PHẨM -->
         <div class="checkout-card">
-          <h2>Sản phẩm đã chọn</h2>
-          <div class="cart-item-row">
-            <span>Áo khoác denim</span><strong>799.000₫</strong>
+          <div class="card-title-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 20px; font-weight: 800; color: #0f172a;">
+              <i class="fa-solid fa-list-check" style="color: #2563eb;"></i> Sản phẩm đã chọn
+            </h2>
+            <button id="clearAllCartBtn" class="btn-clear-all" style="display: none;">
+              <i class="fa-regular fa-trash-can"></i> Xóa tất cả
+            </button>
           </div>
-          <div class="cart-item-row">
-            <span>Giày sneaker</span><strong>650.000₫</strong>
-          </div>
+
+          <!-- Dữ liệu sản phẩm render động qua JS -->
+          <div id="cartListContainer"></div>
         </div>
+
+        <!-- CỘT BÊN PHẢI: TÓM TẮT ĐƠN HÀNG -->
         <div class="checkout-card">
-          <h2>Tóm tắt đơn hàng</h2>
-          <div class="summary-box">
-            <div class="summary-line">
-              <span>Tạm tính</span><strong>1.449.000₫</strong>
+          <h2 style="margin: 0 0 20px; font-size: 20px; font-weight: 800; color: #0f172a;">
+            <i class="fa-solid fa-receipt" style="color: #2563eb;"></i> Tóm tắt đơn hàng
+          </h2>
+          
+          <!-- Nhập mã giảm giá thủ công -->
+          <div class="coupon-box">
+            <input type="text" id="couponCode" placeholder="Nhập mã giảm giá..." />
+            <button id="applyCouponBtn" type="button">Áp dụng</button>
+          </div>
+
+          <!-- DANH SÁCH VOUCHER DÀNH CHO KHÁCH HÀNG CHỌN -->
+          <div class="voucher-list-section" style="margin-top: 18px;">
+            <div class="voucher-title" style="font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 8px;">
+              <i class="fa-solid fa-ticket" style="color: #f59e0b;"></i> Voucher khả dụng:
             </div>
-            <div class="summary-line">
-              <span>Phí vận chuyển</span><strong>30.000₫</strong>
-            </div>
-            <div class="summary-line">
-              <span>Giảm giá</span><strong>-50.000₫</strong>
-            </div>
-            <div class="summary-line">
-              <span>Tổng</span><strong>1.429.000₫</strong>
+            <div id="voucherContainer" class="voucher-container">
+              <!-- Render danh sách voucher qua JS -->
             </div>
           </div>
-          <a class="btn primary" href="thanhtoan.html" style="margin-top: 16px"
-            >Tiến hành thanh toán</a
-          >
+
+          <!-- BẢNG TÍNH TIỀN -->
+          <div class="summary-box" style="margin-top: 20px;">
+            <div class="summary-line">
+              <span>Tạm tính</span><strong id="subTotal">0₫</strong>
+            </div>
+            <div class="summary-line highlight-discount">
+              <span>Giảm giá</span><strong id="discountVal" style="color: #10b981;">-0₫</strong>
+            </div>
+            <div class="summary-line">
+              <span>Phí vận chuyển</span><strong id="shippingFee">30.000₫</strong>
+            </div>
+            <hr class="summary-divider" style="margin: 14px 0; border: none; border-top: 1px dashed #e2e8f0;" />
+            <div class="summary-line total-line" style="font-size: 18px; font-weight: 800; color: #2563eb;">
+              <span>Tổng cộng</span><strong id="finalTotal">0₫</strong>
+            </div>
+          </div>
+
+          <!-- NÚT CHUYỂN TRANG -->
+          <a class="btn primary" id="proceedCheckoutBtn" href="thanhtoan.html" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; background: #2563eb; color: #ffffff; padding: 14px; border-radius: 12px; font-weight: 800; text-decoration: none; text-align: center;">
+            Tiến hành thanh toán <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a class="btn-secondary-link" href="danhmucsanpham.html" style="margin-top: 12px; display: block; text-align: center; color: #64748b; font-size: 14px; font-weight: 700; text-decoration: none;">
+            <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
+          </a>
         </div>
       </div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>© MiniShop 2026 — Bài tập lớn Lập trình Web</div>
         <div>
           <a href="taikhoan.html">Tài khoản</a> •
           <a href="lienhe.html">Liên hệ</a>
         </div>
       </div>
     </footer>
+
+    <!-- POPUP GIỎ HÀNG XEM NHANH (BÊN PHẢI) -->
+    <div id="cartModal" class="cart-modal" aria-hidden="true">
+      <div class="cart-panel">
+        <div class="cart-header">
+          <h3><i class="fa-solid fa-bag-shopping"></i> Giỏ hàng xem nhanh</h3>
+          <button id="closeCart" class="close">✕</button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+          <div class="total-row"><span>Tổng tiền:</span> <strong id="cartTotal">0₫</strong></div>
+          <div class="cart-actions">
+            <button id="clearCart" class="btn-clear">Xóa hết</button>
+            <a href="thanhtoan.html" id="checkoutBtn" class="btn-checkout">Thanh toán</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS DỰ ÁN -->
+    <script src="../JS/product-data.js" defer></script>
+    <script src="../JS/giohang.js" defer></script>
   </body>
 </html>

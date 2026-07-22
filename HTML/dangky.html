@@ -2,100 +2,128 @@
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Đăng ký — ShopQuanao</title>
-    <link rel="stylesheet" href="../CSS/caidat.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng ký tài khoản — MiniShop</title>
     <link rel="stylesheet" href="../CSS/dangky.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
       </div>
     </header>
 
-    <main>
+    <main class="auth-page">
       <div class="auth-shell">
         <div class="auth-card">
-          <p class="eyebrow">Tạo tài khoản</p>
-          <h2>Đăng ký và bắt đầu mua sắm</h2>
-          <p class="auth-intro">
-            Tạo tài khoản để lưu thông tin vận chuyển, theo dõi đơn hàng và nhận
-            ưu đãi đặc biệt.
-          </p>
+          <p class="eyebrow">Tạo tài khoản mới</p>
+          <h2>Đăng ký thành viên</h2>
+          <p class="auth-intro">Đăng ký để nhận ưu đãi riêng và theo dõi đơn hàng dễ dàng.</p>
+
+          <div class="social-login">
+            <button type="button" class="btn-social google" id="btnGoogleRegister">
+              <i class="fa-brands fa-google"></i> Đăng ký bằng Google
+            </button>
+            <button type="button" class="btn-social facebook" id="btnFBRegister">
+              <i class="fa-brands fa-facebook-f"></i> Facebook
+            </button>
+          </div>
+
+          <div class="divider"><span>Hoặc bằng số điện thoại</span></div>
+
           <form id="registerForm" novalidate>
-            <label class="field">
-              <span>Họ và tên</span>
-              <input type="text" id="name" name="name" required />
+            <div class="field">
+              <label for="name">Họ và tên</label>
+              <div class="input-wrapper">
+                <i class="fa-regular fa-user field-icon"></i>
+                <input type="text" id="name" placeholder="Nguyễn Văn A" required />
+              </div>
               <small class="error" data-for="name"></small>
-            </label>
+            </div>
 
-            <label class="field">
-              <span>Email</span>
-              <input type="email" id="email" name="email" required />
-              <small class="error" data-for="email"></small>
-            </label>
+            <div class="field">
+              <label for="phone">Số điện thoại</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-phone field-icon"></i>
+                <input type="tel" id="phone" placeholder="0901234567" required />
+              </div>
+              <small class="error" data-for="phone"></small>
+            </div>
 
-            <label class="field">
-              <span>Mật khẩu</span>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                minlength="6"
-                required
-              />
+            <div class="field">
+              <label for="password">Mật khẩu</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock field-icon"></i>
+                <input type="password" id="password" placeholder="Tối thiểu 6 ký tự" required />
+                <button type="button" class="toggle-password" data-target="password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
               <small class="error" data-for="password"></small>
-            </label>
+            </div>
 
-            <label class="field">
-              <span>Xác nhận mật khẩu</span>
-              <input type="password" id="password2" name="password2" required />
-              <small class="error" data-for="password2"></small>
-            </label>
+            <div class="field">
+              <label for="confirmPassword">Xác nhận mật khẩu</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-shield-halved field-icon"></i>
+                <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required />
+                <button type="button" class="toggle-password" data-target="confirmPassword">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+              <small class="error" data-for="confirmPassword"></small>
+            </div>
 
             <div class="actions">
               <button class="btn primary" type="submit">Tạo tài khoản</button>
-              <div class="alt">
-                Đã có tài khoản? <a href="dangnhap.html">Đăng nhập</a>
-              </div>
+              <div class="alt">Đã có tài khoản? <a href="dangnhap.html">Đăng nhập</a></div>
             </div>
           </form>
         </div>
 
         <aside class="auth-side">
-          <h3>Đăng ký ngay hôm nay</h3>
+          <h3>Quyền lợi thành viên</h3>
           <ul class="feature-list">
-            <li>Nhận mã giảm giá cho lần đầu</li>
-            <li>Theo dõi đơn hàng mọi lúc</li>
-            <li>Lưu nhiều địa chỉ giao hàng</li>
+            <li><i class="fa-solid fa-circle-check"></i> Mã giảm giá 15% mừng bạn mới</li>
+            <li><i class="fa-solid fa-circle-check"></i> Lưu lịch sử mua hàng và địa chỉ</li>
+            <li><i class="fa-solid fa-circle-check"></i> Hỗ trợ đổi trả trong 7 ngày</li>
           </ul>
-          <div class="tip-card">
-            <strong>Hỗ trợ 24/7</strong>
-            <p>Đội ngũ MiniShop luôn sẵn sàng hỗ trợ các câu hỏi của bạn.</p>
-          </div>
         </aside>
       </div>
     </main>
 
+    <!-- POPUP XÁC THỰC GOOGLE / FACEBOOK GIẢ LẬP -->
+    <div id="socialAuthModalReg" class="social-auth-overlay" style="display: none;">
+      <div class="social-auth-box">
+        <button type="button" class="close-auth-modal" id="btnCloseAuthModalReg">✕</button>
+        <div class="auth-header-icon" id="authProviderIconReg"></div>
+        <h3 id="authModalTitleReg">Đăng ký bằng Google</h3>
+        <p class="auth-modal-sub">Chọn tài khoản để tạo nhanh hồ sơ trên <strong>MiniShop</strong></p>
+
+        <div class="account-select-item" id="btnConfirmSocialAuthReg">
+          <div class="acc-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="acc-info">
+            <strong id="authAccNameReg">Nguyễn Văn A</strong>
+            <span id="authAccEmailReg">nguyenvana@gmail.com</span>
+          </div>
+          <i class="fa-solid fa-chevron-right arrow"></i>
+        </div>
+
+        <p class="auth-footer-note">Bằng cách tiếp tục, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của MiniShop.</p>
+      </div>
+    </div>
+
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
-        <div>
-          <a href="taikhoan.html">Tài khoản</a> •
-          <a href="lienhe.html">Liên hệ</a>
-        </div>
+        <div>© MiniShop 2026</div>
       </div>
     </footer>
 

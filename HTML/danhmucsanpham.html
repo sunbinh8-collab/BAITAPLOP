@@ -3,88 +3,100 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Danh mục sản phẩm</title>
+    <title>Danh mục sản phẩm — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/danhmucsanpham.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a class="active" href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions">
-          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
-            <span class="cart-label">Giỏ (<span id="cart-count">0</span>)</span>
-          </button>
-        </div>
+
+     <div class="header-actions">
+        <a href="HTML/giohang.html" class="cart-btn" aria-label="Xem giỏ hàng">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-label">Giỏ hàng</span>
+          <span id="cart-count" class="cart-badge">0</span>
+       </a>
+     </div>
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero hero-compact">
       <div class="container hero-inner">
+        <span class="hero-badge"><i class="fa-solid fa-layer-group"></i> Sản phẩm MiniShop</span>
         <h1>Danh mục sản phẩm</h1>
-        <p class="lead">
-          Khám phá bộ sưu tập thời trang mới với nhiều lựa chọn cho bạn.
+        <p class="subtitle">
+          Khám phá bộ sưu tập thời trang phong phú, cập nhật xu hướng mới nhất.
         </p>
       </div>
     </section>
 
+    <!-- Featured Section -->
     <section class="products container" style="padding-top: 20px">
-      <h2>Sản phẩm nổi bật</h2>
+      <div class="section-header">
+        <h2><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Sản phẩm nổi bật</h2>
+      </div>
       <div id="featuredList" class="product-grid"></div>
     </section>
 
-    <main class="container" style="padding: 30px 20px">
-      <div
-        class="controls-row"
-        style="
-          margin-bottom: 22px;
-          display: flex;
-          align-items: flex-start;
-          gap: 18px;
-          flex-wrap: wrap;
-        "
-      >
+    <!-- Main Categories Section -->
+    <main class="container" style="padding: 30px 16px">
+      <div class="controls-row">
         <div class="left-info">
           <h3>Tất cả sản phẩm</h3>
-          <p class="muted">Hiển thị những sản phẩm phổ biến nhất.</p>
-          <div id="productCount" class="count">12 sản phẩm</div>
-          <select id="categorySelect" style="display: none">
-            <option value="all">Tất cả</option>
-            <option value="nam">Nam</option>
-            <option value="nu">Nữ</option>
-            <option value="giay">Giày</option>
-          </select>
+          <p class="muted">Lọc và sắp xếp theo nhu cầu của bạn</p>
+          <div id="productCount" class="count">0 sản phẩm</div>
         </div>
 
-        <div
-          style="
-            margin-left: auto;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-          "
-        >
-          <input
-            id="filterInput"
-            placeholder="Tìm kiếm sản phẩm"
-            class="search-input"
-          />
-          <select id="sortSelect" class="sort-select">
-            <option value="default">Sắp xếp</option>
-            <option value="price-asc">Giá: thấp → cao</option>
-            <option value="price-desc">Giá: cao → thấp</option>
-          </select>
+        <div class="filter-controls">
+          <!-- Category Selector -->
+          <div class="select-wrapper">
+            <i class="fa-solid fa-filter icon-left"></i>
+            <select id="categorySelect" class="styled-select">
+              <option value="all">Tất cả danh mục</option>
+              <option value="nam">Thời trang Nam</option>
+              <option value="nu">Thời trang Nữ</option>
+              <option value="giay">Giày dép</option>
+              <option value="phukien">Phụ kiện</option>
+            </select>
+          </div>
+
+          <!-- Search Input -->
+          <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass icon-left"></i>
+            <input
+              id="filterInput"
+              placeholder="Tìm kiếm sản phẩm..."
+              class="search-input"
+            />
+          </div>
+
+          <!-- Sort Selector -->
+          <div class="select-wrapper">
+            <i class="fa-solid fa-arrow-down-short-wide icon-left"></i>
+            <select id="sortSelect" class="sort-select styled-select">
+              <option value="default">Sắp xếp mặc định</option>
+              <option value="price-asc">Giá: Thấp → Cao</option>
+              <option value="price-desc">Giá: Cao → Thấp</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -100,6 +112,24 @@
         </div>
       </div>
     </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal" aria-hidden="true">
+      <div class="cart-panel">
+        <div class="cart-header">
+          <h3><i class="fa-solid fa-bag-shopping"></i> Giỏ hàng</h3>
+          <button id="closeCart" class="close">✕</button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+          <div class="total-row"><span>Tổng tiền:</span> <strong id="cartTotal">0₫</strong></div>
+          <div class="cart-actions">
+            <button id="clearCart" class="btn-clear">Xóa hết</button>
+            <button id="checkoutBtn" class="btn-checkout">Thanh toán</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="../JS/product-data.js" defer></script>
     <script src="../JS/danhmucsanpham.js" defer></script>

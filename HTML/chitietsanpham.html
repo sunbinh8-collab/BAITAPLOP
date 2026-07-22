@@ -3,19 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chi tiết sản phẩm</title>
+    <title>Chi tiết sản phẩm — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/chitietsanpham.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
+    <!-- HEADER -->
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a class="active" href="danhmucsanpham.html">Danh mục</a>
@@ -23,29 +29,42 @@
           <a href="lienhe.html">Liên hệ</a>
         </nav>
         <div class="header-actions">
-          <button id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
-            <span class="cart-label">Giỏ (<span id="cart-count">0</span>)</span>
-          </button>
+          <a href="giohang.html" id="cartBtn" class="cart-btn" aria-label="Xem giỏ hàng">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-label">Giỏ hàng</span>
+            <span id="cart-count" class="cart-badge">0</span>
+          </a>
         </div>
       </div>
     </header>
 
-    <section class="hero">
+    <!-- BANNER HERO -->
+    <section class="hero hero-compact">
       <div class="container hero-inner">
+        <span class="hero-badge"><i class="fa-solid fa-circle-info"></i> Thông tin sản phẩm</span>
         <h1>Chi tiết sản phẩm</h1>
-        <p class="subtitle">
-          Xem thông tin chi tiết, mô tả và đánh giá về sản phẩm.
-        </p>
+        <p class="subtitle">Xem thông tin chi tiết, chọn kích cỡ và đọc đánh giá từ người mua.</p>
       </div>
     </section>
 
-    <main class="container" style="padding: 30px 20px">
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="container" style="padding: 36px 16px">
+      <!-- Khung hiển thị chi tiết sản phẩm + Khối Đánh giá (Render qua JS) -->
       <div id="productDetail"></div>
+
+      <!-- Section sản phẩm tương tự -->
+      <section class="related-section" style="margin-top: 48px;">
+        <h3 class="section-title" style="font-size: 20px; font-weight: 800; margin-bottom: 20px;">
+          <i class="fa-solid fa-fire" style="color: #2563eb;"></i> Sản phẩm tương tự
+        </h3>
+        <div id="relatedProducts" class="product-grid"></div>
+      </section>
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>© MiniShop Team — Bài tập lớn Lập trình Web</div>
         <div>
           <a href="taikhoan.html">Tài khoản</a> •
           <a href="lienhe.html">Liên hệ</a>
@@ -53,21 +72,7 @@
       </div>
     </footer>
 
-    <div id="cartModal" class="cart-modal" aria-hidden="true">
-      <div class="cart-panel">
-        <button id="closeCart" class="close">✕</button>
-        <h3>Giỏ hàng</h3>
-        <div id="cartItems" class="cart-items"></div>
-        <div class="cart-summary">
-          <div>Tổng: <strong id="cartTotal">0₫</strong></div>
-          <div class="cart-actions">
-            <button id="clearCart">Xóa hết</button>
-            <button id="checkoutBtn">Thanh toán</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- JS DỰ ÁN -->
     <script src="../JS/product-data.js" defer></script>
     <script src="../JS/chitietsanpham.js" defer></script>
   </body>

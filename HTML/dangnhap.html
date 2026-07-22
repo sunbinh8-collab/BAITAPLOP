@@ -3,87 +3,98 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Đăng nhập</title>
-    <link rel="stylesheet" href="../CSS/caidat.css" />
+    <title>Đăng nhập — MiniShop</title>
     <link rel="stylesheet" href="../CSS/dangnhap.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
       </div>
     </header>
 
-    <main>
-      <section class="hero hero-compact">
-        <div class="container hero-inner">
-          <p class="eyebrow">Thành viên MiniShop</p>
-          <h1>Đăng nhập để theo dõi đơn hàng và nhận ưu đãi riêng</h1>
-          <p class="subtitle">
-            Mua sắm nhanh hơn với lịch sử đơn hàng, sản phẩm yêu thích và trải
-            nghiệm thanh toán được lưu sẵn.
-          </p>
+    <main class="auth-page">
+      <div class="auth-card">
+        <p class="eyebrow">Chào mừng trở lại</p>
+        <h2>Đăng nhập tài khoản</h2>
+        <p class="auth-intro">Nhập số điện thoại và mật khẩu để quản lý đơn hàng của bạn.</p>
+
+        <div id="loginAlert" class="alert-msg" style="display: none;"></div>
+
+        <!-- Nút Đăng nhập nhanh Google / Facebook -->
+        <div class="social-login">
+          <button type="button" class="btn-social google" id="btnGoogleLogin">
+            <i class="fa-brands fa-google"></i> Google
+          </button>
+          <button type="button" class="btn-social facebook" id="btnFBLogin">
+            <i class="fa-brands fa-facebook-f"></i> Facebook
+          </button>
         </div>
-      </section>
 
-      <section class="auth container">
-        <div class="auth-shell">
-          <div class="auth-card">
-            <h2>Đăng nhập</h2>
-            <form id="loginForm">
-              <label for="email">Email</label>
-              <input id="email" type="email" required />
+        <div class="divider"><span>Hoặc bằng số điện thoại</span></div>
 
-              <label for="password">Mật khẩu</label>
-              <input id="password" type="password" required />
-
-              <div
-                id="loginMessage"
-                class="auth-message"
-                style="display: none; margin-bottom: 12px"
-              ></div>
-
-              <div class="auth-actions">
-                <button class="login-btn" type="submit">Đăng nhập</button>
-                <a class="small-link" href="dangky.html">Tạo tài khoản</a>
-              </div>
-            </form>
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="loginPhone">Số điện thoại</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-phone field-icon"></i>
+              <input type="tel" id="loginPhone" placeholder="0901234567" required />
+            </div>
           </div>
 
-          <aside class="auth-side">
-            <h3>Vì sao chọn MiniShop?</h3>
-            <ul class="feature-list">
-              <li>Giao hàng nhanh toàn quốc</li>
-              <li>Đổi trả trong vòng 7 ngày</li>
-              <li>Ưu đãi thành viên mỗi tuần</li>
-            </ul>
-            <div class="tip-card">
-              <strong>Chưa có tài khoản?</strong>
-              <p>Đăng ký ngay để nhận mã giảm giá đầu tiên.</p>
+          <div class="field">
+            <div class="label-row">
+              <label for="loginPassword">Mật khẩu</label>
+              <a href="#" class="forgot-link">Quên mật khẩu?</a>
             </div>
-          </aside>
-        </div>
-      </section>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock field-icon"></i>
+              <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required />
+              <button type="button" class="toggle-password" data-target="loginPassword"><i class="fa-regular fa-eye"></i></button>
+            </div>
+          </div>
+
+          <button class="btn primary btn-block" type="submit">Đăng nhập ngay</button>
+
+          <div class="alt text-center" style="margin-top: 20px;">
+            Chưa có tài khoản? <a href="dangky.html">Đăng ký ngay</a>
+          </div>
+        </form>
+      </div>
     </main>
+
+    <!-- POPUP XÁC THỰC GOOGLE / FACEBOOK GIẢ LẬP -->
+    <div id="socialAuthModal" class="social-auth-overlay" style="display: none;">
+      <div class="social-auth-box">
+        <button type="button" class="close-auth-modal" id="btnCloseAuthModal">✕</button>
+        <div class="auth-header-icon" id="authProviderIcon"></div>
+        <h3 id="authModalTitle">Đăng nhập bằng Google</h3>
+        <p class="auth-modal-sub">Chọn tài khoản để tiếp tục tới <strong>MiniShop</strong></p>
+
+        <div class="account-select-item" id="btnConfirmSocialAuth">
+          <div class="acc-avatar" id="authAvatar"><i class="fa-solid fa-user"></i></div>
+          <div class="acc-info">
+            <strong id="authAccName">Nguyễn Văn A</strong>
+            <span id="authAccEmail">nguyenvana@gmail.com</span>
+          </div>
+          <i class="fa-solid fa-chevron-right arrow"></i>
+        </div>
+
+        <p class="auth-footer-note">Để tiếp tục, Google sẽ chia sẻ tên, địa chỉ email và ảnh hồ sơ của bạn với MiniShop.</p>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
-        <div>
-          <a href="taikhoan.html">Tài khoản</a> •
-          <a href="lienhe.html">Liên hệ</a>
-        </div>
+        <div>© MiniShop 2026</div>
       </div>
     </footer>
 

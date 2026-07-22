@@ -3,15 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cài đặt</title>
+    <title>Cài đặt tài khoản — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
-    <link rel="stylesheet" href="../CSS/taikhoan.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
@@ -21,25 +29,96 @@
       </div>
     </header>
 
-    <main class="container" style="padding: 40px 20px 80px">
-      <div class="account-grid">
-        <section style="grid-column: 1/-1">
-          <div class="tab-content">
-            <h2>Cài đặt</h2>
-            <h3>Đổi mật khẩu</h3>
-            <form id="passwordForm">
-              <label>Mật khẩu hiện tại</label>
-              <input id="curPassword" type="password" />
-              <label>Mật khẩu mới</label>
-              <input id="newPassword" type="password" />
-              <label>Nhập lại mật khẩu mới</label>
-              <input id="confirmPassword" type="password" />
-              <div style="margin-top: 12px">
-                <button class="btn save" type="submit">
-                  Cập nhật mật khẩu
+    <main class="container" style="padding: 40px 16px 80px">
+      <div class="settings-shell">
+        <aside class="settings-sidebar">
+          <div class="user-brief">
+            <div class="avatar-circle"><i class="fa-solid fa-user-gear"></i></div>
+            <div class="brief-info">
+              <h4 id="userDisplayName">Thành viên</h4>
+              <p id="userDisplayEmail">user@example.com</p>
+            </div>
+          </div>
+          <nav class="settings-nav">
+            <a href="#passwordSection" class="active"><i class="fa-solid fa-lock"></i> Đổi mật khẩu</a>
+            <a href="#notificationSection"><i class="fa-regular fa-bell"></i> Thông báo</a>
+            <a href="#privacySection"><i class="fa-solid fa-shield-halved"></i> Bảo mật & Quyền riêng tư</a>
+          </nav>
+        </aside>
+
+        <section class="settings-content">
+          <!-- Đổi Mật Khẩu -->
+          <div class="settings-card" id="passwordSection">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-key"></i> Đổi mật khẩu</h3>
+              <p class="muted">Quản lý mật khẩu để bảo vệ tài khoản của bạn.</p>
+            </div>
+
+            <div id="settingsAlert" class="alert-box" style="display: none;"></div>
+
+            <form id="passwordForm" novalidate>
+              <div class="field">
+                <label for="curPassword">Mật khẩu hiện tại</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-lock field-icon"></i>
+                  <input id="curPassword" type="password" placeholder="Nhập mật khẩu cũ" required />
+                  <button type="button" class="toggle-password" data-target="curPassword"><i class="fa-regular fa-eye"></i></button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="newPassword">Mật khẩu mới</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-key field-icon"></i>
+                  <input id="newPassword" type="password" placeholder="Tối thiểu 6 ký tự" required />
+                  <button type="button" class="toggle-password" data-target="newPassword"><i class="fa-regular fa-eye"></i></button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="confirmPassword">Nhập lại mật khẩu mới</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-shield-check field-icon"></i>
+                  <input id="confirmPassword" type="password" placeholder="Xác nhận lại mật khẩu mới" required />
+                  <button type="button" class="toggle-password" data-target="confirmPassword"><i class="fa-regular fa-eye"></i></button>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">
+                  <i class="fa-solid fa-floppy-disk"></i> Cập nhật mật khẩu
                 </button>
               </div>
             </form>
+          </div>
+
+          <!-- Tùy Chọn Thông Báo -->
+          <div class="settings-card" id="notificationSection" style="margin-top: 24px;">
+            <div class="card-header">
+              <h3><i class="fa-regular fa-bell"></i> Cài đặt thông báo</h3>
+            </div>
+            <div class="toggle-list">
+              <div class="toggle-item">
+                <div>
+                  <strong>Thông báo đơn hàng</strong>
+                  <p class="muted">Cập nhật trạng thái vận chuyển qua Email</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="toggle-item">
+                <div>
+                  <strong>Tin khuyến mãi & Ưu đãi</strong>
+                  <p class="muted">Nhận mã giảm giá và thông tin Siêu Sale hàng tuần</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -47,8 +126,10 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop</div>
-        <div class="muted">Liên hệ • Hỗ trợ</div>
+        <div>© MiniShop 2026</div>
+        <div class="muted">
+          <a href="lienhe.html">Liên hệ</a> • <a href="#">Hỗ trợ</a>
+        </div>
       </div>
     </footer>
 

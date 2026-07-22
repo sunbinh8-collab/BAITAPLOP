@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Phương thức thanh toán</title>
+    <title>Phương thức thanh toán — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/phuongthucthanhtoan.css" />
@@ -11,54 +11,110 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">MiniShop<span>.</span></a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
       </div>
     </header>
 
     <section class="hero hero-compact">
       <div class="container hero-inner">
-        <p class="eyebrow">Thanh toán</p>
-        <h1>Chọn phương thức thanh toán</h1>
+        <span class="hero-badge"><i class="fa-solid fa-wallet"></i> Thanh toán</span>
+        <h1>Chọn phương thức thanh toán phù hợp</h1>
       </div>
     </section>
 
-    <main class="container checkout-page">
-      <div class="checkout-card">
-        <div class="payment-option">
-          <strong>Thanh toán khi nhận hàng</strong>
-          <div class="muted">Thanh toán trực tiếp cho shipper.</div>
+    <main class="container payment-page">
+      <div class="payment-grid">
+        <div class="payment-card">
+          <h2><i class="fa-solid fa-credit-card"></i> Phương thức thanh toán</h2>
+
+          <form id="paymentForm">
+            <!-- Option 1: COD -->
+            <label class="payment-method active">
+              <input type="radio" name="paymentOption" value="COD" checked />
+              <div class="method-info">
+                <div class="method-title">
+                  <i class="fa-solid fa-hand-holding-dollar icon-cod"></i>
+                  <strong>Thanh toán khi nhận hàng (COD)</strong>
+                </div>
+                <div class="muted">Thanh toán trực tiếp bằng tiền mặt cho shipper khi nhận được hàng.</div>
+              </div>
+            </label>
+
+            <!-- Option 2: Bank Transfer -->
+            <label class="payment-method">
+              <input type="radio" name="paymentOption" value="BANK" />
+              <div class="method-info">
+                <div class="method-title">
+                  <i class="fa-solid fa-building-columns icon-bank"></i>
+                  <strong>Chuyển khoản Ngân hàng (VietQR)</strong>
+                </div>
+                <div class="muted">Quét mã QR Chuyển khoản nhanh qua Internet Banking.</div>
+              </div>
+              
+              <!-- Chi tiết ngân hàng ẩn/hiện -->
+              <div class="bank-details" id="bankDetails" style="display: none;">
+                <div class="qr-placeholder">
+                  <i class="fa-solid fa-qrcode"></i>
+                  <p>Mã QR chuyển khoản sẽ xuất hiện sau khi tạo đơn hàng</p>
+                </div>
+                <div class="bank-info-rows">
+                  <p><strong>Ngân hàng:</strong> MBBank (Ngân hàng Quân Đội)</p>
+                  <p><strong>Số tài khoản:</strong> 0987654321</p>
+                  <p><strong>Chủ tài khoản:</strong> MINISHOP STORE</p>
+                </div>
+              </div>
+            </label>
+
+            <!-- Option 3: E-Wallet -->
+            <label class="payment-method">
+              <input type="radio" name="paymentOption" value="MOMO" />
+              <div class="method-info">
+                <div class="method-title">
+                  <i class="fa-solid fa-mobile-screen-button icon-momo"></i>
+                  <strong>Ví điện tử MoMo / ZaloPay</strong>
+                </div>
+                <div class="muted">Thanh toán siêu tốc thông qua ứng dụng MoMo hoặc ZaloPay.</div>
+              </div>
+            </label>
+
+            <div class="payment-actions">
+              <a class="btn-back" href="thanhtoan.html">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại
+              </a>
+              <button class="btn primary" type="submit">
+                Hoàn tất đơn hàng <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
         </div>
-        <div class="payment-option">
-          <strong>Chuyển khoản ngân hàng</strong>
-          <div class="muted">Hỗ trợ chuyển khoản trước khi giao hàng.</div>
-        </div>
-        <div class="payment-option">
-          <strong>Ví điện tử</strong>
-          <div class="muted">Momo hoặc ZaloPay.</div>
-        </div>
-        <a class="btn primary" href="xacnhandonhang.html">Xác nhận đơn hàng</a>
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>© MiniShop 2026</div>
         <div>
           <a href="taikhoan.html">Tài khoản</a> •
           <a href="lienhe.html">Liên hệ</a>
         </div>
       </div>
     </footer>
+
+    <script src="../JS/phuongthucthanhtoan.js" defer></script>
   </body>
 </html>

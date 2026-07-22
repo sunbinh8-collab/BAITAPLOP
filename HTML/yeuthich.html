@@ -3,69 +3,77 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sản phẩm yêu thích</title>
+    <title>Sản phẩm yêu thích — MiniShop</title>
     <link rel="stylesheet" href="../CSS/caidat.css" />
     <link rel="stylesheet" href="../CSS/home.css" />
     <link rel="stylesheet" href="../CSS/yeuthich.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
-  </head>
-    </style>
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="../index.html">MiniShop</a>
+        <a class="logo" href="../index.html">
+          Mini<span style="color: #0f172a;">Shop</span><span>.</span>
+        </a>
         <nav class="main-nav">
           <a href="../index.html">Trang chủ</a>
           <a href="danhmucsanpham.html">Danh mục</a>
           <a href="taikhoan.html">Tài khoản</a>
           <a href="lienhe.html">Liên hệ</a>
         </nav>
-        <div class="header-actions"></div>
+        <div class="header-actions">
+          <a href="giohang.html" class="cart-btn" aria-label="Xem giỏ hàng">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-label">Giỏ hàng</span>
+            <span id="cart-count" class="cart-badge">0</span>
+          </a>
+        </div>
       </div>
     </header>
 
+    <!-- HERO BANNER -->
     <section class="hero hero-compact">
       <div class="container hero-inner">
-        <p class="eyebrow">Yêu thích</p>
-        <h1>Danh sách sản phẩm bạn thích</h1>
+        <h1>Danh sách sản phẩm bạn đã lưu</h1>
         <p class="subtitle">
-          Ghi lại các món đồ bạn đang ưa chuộng để xem lại sau.
+          Ghi lại các món đồ bạn đang ưa chuộng để dễ dàng xem lại và mua sắm bất cứ lúc nào.
         </p>
       </div>
     </section>
 
-    <main class="container favorite-page">
-      <div class="favorite-card">
-        <h2>Sản phẩm yêu thích</h2>
-        <div class="favorite-grid">
-          <div class="favorite-item">
-            <strong>Áo blazer</strong>
-            <div class="muted">Giá: 890.000₫</div>
-          </div>
-          <div class="favorite-item">
-            <strong>Túi xách</strong>
-            <div class="muted">Giá: 650.000₫</div>
-          </div>
-          <div class="favorite-item">
-            <strong>Giày thể thao</strong>
-            <div class="muted">Giá: 750.000₫</div>
-          </div>
-        </div>
+    <main class="container favorites-page">
+      <div class="favorites-header">
+        <h2>Sản phẩm đã thích (<span id="wishlistCount">0</span>)</h2>
+        <button id="btnClearAllWishlist" class="btn-clear-all" style="display: none;">
+          <i class="fa-regular fa-trash-can"></i> Xóa tất cả
+        </button>
+      </div>
+
+      <!-- Danh sách sản phẩm hiển thị bằng JS -->
+      <div id="wishlistGrid" class="product-grid">
+        <!-- Render động qua JS -->
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div>© MiniShop — Thiết kế bởi bạn</div>
+        <div>© MiniShop 2026</div>
         <div>
           <a href="taikhoan.html">Tài khoản</a> •
           <a href="lienhe.html">Liên hệ</a>
         </div>
       </div>
     </footer>
+
+    <script src="../JS/product-data.js" defer></script>
+    <script src="../JS/yeuthich.js" defer></script>
   </body>
 </html>

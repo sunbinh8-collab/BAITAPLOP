@@ -1,70 +1,247 @@
 :root {
-  --bg: #f4f7fb;
-  --bg-soft: #f8fbff;
   --primary: #0b63d6;
   --primary-2: #2563eb;
   --text: #0f172a;
   --muted: #64748b;
   --card: #ffffff;
   --border: #e2e8f0;
-  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
   --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --success: #10b981;
 }
 
 .invoice-page {
-  padding: 24px 0 80px;
+  padding: 40px 16px 80px;
 }
 
 .invoice-card {
-  padding: 32px;
-  border-radius: 18px;
+  padding: 36px;
+  border-radius: 24px;
   background: var(--card);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  max-width: 760px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  max-width: 680px;
   margin: 0 auto;
 }
 
-.invoice-card h2 {
-  margin: 0 0 24px;
-  font-size: 24px;
-  color: var(--text);
+/* Success Banner */
+.success-banner {
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-.invoice-row {
+.check-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: var(--success);
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.success-banner h2 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.success-banner .subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Receipt Box */
+.receipt-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.receipt-header {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
   align-items: center;
 }
 
-.invoice-row span {
+.brand-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.muted-sm {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.order-id-badge {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.receipt-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 20px 0;
+}
+
+/* Grid Thông tin */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.info-item .label {
+  font-size: 12px;
   color: var(--muted);
   font-weight: 600;
 }
 
-.invoice-row strong {
+.info-item strong {
+  font-size: 14px;
   color: var(--text);
+}
+
+/* Items List Table */
+.items-table h4 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.items-list {
+  display: grid;
+  gap: 10px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  padding: 6px 0;
+}
+
+.item-row .item-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.item-row .item-qty {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.item-row .item-price {
   font-weight: 700;
+  color: var(--text);
 }
 
-.invoice-row:last-child {
-  border-bottom: none;
+/* Summary */
+.summary-rows {
+  display: grid;
+  gap: 8px;
 }
 
-@media (max-width: 700px) {
-  .invoice-card {
-    padding: 24px;
-  }
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--muted);
+}
 
-  .invoice-row {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0;
-  }
+.summary-row.total-row {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
 
-  .invoice-row strong {
-    margin-top: 4px;
+.summary-row.total-row strong {
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Actions */
+.invoice-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-print {
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-print:hover { background: #e2e8f0; }
+
+.btn-home {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-home:hover { background: var(--primary-2); }
+
+/* Khi bấm in trang web (Print CSS) */
+@media print {
+  body * { visibility: hidden; }
+  #invoicePrintArea, #invoicePrintArea * { visibility: visible; }
+  #invoicePrintArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none;
+    box-shadow: none;
   }
+  .invoice-actions, .site-header, .site-footer { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .invoice-card { padding: 20px; }
+  .invoice-actions { flex-direction: column; }
 }
